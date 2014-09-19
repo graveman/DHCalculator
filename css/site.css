@@ -13,6 +13,7 @@ input {
 }
 
 .form-control {
+    padding: 0px 2px;
     font-size: 11px;
     border-radius: 0px !important;
 }
@@ -27,10 +28,21 @@ input {
 
 .input-sm {
     font-size: 11px !important;
+    height: 27px !important;
 }
 
 .control-label {
     text-align: left !important;
+}
+
+.checkbox {
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+}
+
+hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .selected-row {
@@ -41,6 +53,10 @@ input {
 .padding0 {
     padding-left: 0px;
     padding-right: 0px;
+}
+
+.padding-top0 {
+    top: 0px;
 }
 
 .check {
@@ -56,4 +72,16 @@ input {
 
 .d3-label:hover {
     text-decoration: none;
+}
+
+.red {
+    color: red;
+}
+
+.blue {
+    color: blue;
+}
+
+.green {
+    color: green;
 }

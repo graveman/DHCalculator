@@ -63,7 +63,7 @@
 
 <!-- Page Content -->
 <div class="container">
-    <form class="form-horizontal">
+    <form class="form-horizontal" id="DPSCalculator">
         <fieldset class="col-xs-4">
             <legend>General Damage Stats</legend>
             <div class="col-xs-12">
@@ -156,6 +156,13 @@
                     <label class="col-xs-6 control-label">Lightning Damage %</label>
                     <div class="col-xs-6">
                         <input data-bind="value: LightningDamage, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-6 control-label">Number of Targets</label>
+                    <div class="col-xs-6">
+                        <input data-bind="value: NumberofTargets, valueUpdate: 'afterkeydown'"
                                type="text" class="form-control input-sm" />
                     </div>
                 </div>
@@ -382,7 +389,7 @@
                     <div class="col-xs-1 padding0">
                         <img style="height: 28px" src="images/unique_gloves_003_x1_demonhunter_male.png" />
                     </div>
-                    <a class="col-xs-6 control-label d3-label" href="http://us.battle.net/d3/en/item/tasker-and-theo" onclick="return false">Tasker and Theo</a>
+                    <a class="col-xs-6 control-label d3-label" href="http://eu.battle.net/d3/en/item/tasker-and-theo" onclick="return false">Tasker and Theo</a>
                     <div class="col-xs-5">
                         <input data-bind="value: TTBuff, valueUpdate: 'afterkeydown'"
                                type="text" class="form-control input-sm" />
@@ -392,11 +399,24 @@
                     <div class="col-xs-1 padding0">
                         <img style="height: 28px" src="images/unique_pants_101_x1_demonhunter_male.png" />
                     </div>
-                    <a class="col-xs-6 control-label d3-label" href="http://us.battle.net/d3/en/item/hexing-pants-of-mr-yan" onclick="return false">Hexing Pants of Mr. Yan</a>
+                    <a class="col-xs-6 control-label d3-label" href="http://eu.battle.net/d3/en/item/hexing-pants-of-mr-yan" onclick="return false">Hexing Pants of Mr. Yan</a>
                     <div class="col-xs-5">
                         <div class="checkbox">
                             <label>
                                 <input data-bind="checked: HexingPantsofMrYan" class="check" style="margin-left: 30px;" type="checkbox">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="images/unique_amulet_106_x1_demonhunter_male.png" />
+                    </div>
+                    <a class="col-xs-6 control-label d3-label" href="http://eu.battle.net/d3/en/item/overwhelming-desire-1I0LYo" onclick="return false">Overwhelming Desire</a>
+                    <div class="col-xs-5">
+                        <div class="checkbox">
+                            <label>
+                                <input data-bind="checked: OverwhelmingDesire" class="check" style="margin-left: 30px;" type="checkbox">
                             </label>
                         </div>
                     </div>
@@ -538,7 +558,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-xs-4 control-label">Weapon AS</label>
+                            <label class="col-xs-4 control-label blue">Weapon AS</label>
                             <div class="col-xs-8">
                                 <input data-bind="value: Weapon1AS, valueUpdate: 'afterkeydown'" type="text" min="0" max="7"  class="form-control input-sm text-center">
                             </div>
@@ -562,7 +582,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-xs-4 control-label">Base APS</label>
+                            <label class="col-xs-4 control-label red">Base AS</label>
                             <div class="col-xs-8">
                                 <input data-bind="value: BaseAPS"   type="text"  class="form-control input-sm text-center">
                             </div>
@@ -608,7 +628,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-xs-4 control-label">T&amp;T APS</label>
+                            <label class="col-xs-4 control-label red">T&amp;T AS</label>
                             <div class="col-xs-8">
                                 <input data-bind="value: TTAPS"   type="text"  class="form-control input-sm text-center">
                             </div>
@@ -641,7 +661,7 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<script src="http://us.battle.net/d3/static/js/tooltips.js"></script>
+<script src="http://eu.battle.net/d3/static/js/tooltips.js"></script>
 <script>
     var b = Bnet.D3.Tooltips;
     b.registerDataOld = b.registerData;
@@ -659,7 +679,9 @@
 
     $(function () {
         gear = new Gear();
+        stats = new Stats();
         ko.applyBindings(gear, document.getElementById("ASCalculator"));
+        ko.applyBindings(stats, document.getElementById("DPSCalculator"));
     });
 </script>
 
