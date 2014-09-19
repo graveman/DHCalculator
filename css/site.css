@@ -56,7 +56,11 @@ hr {
 }
 
 .padding-top0 {
-    top: 0px;
+    padding-right: 0px;
+}
+
+.padding-right0 {
+    padding-right: 0px;
 }
 
 .check {
