@@ -96,8 +96,13 @@
                 <div class="form-group">
                     <label class="col-xs-6 control-label">Attack Speed</label>
                     <div class="col-xs-6">
-                        <input data-bind="value: AttackSpeed, valueUpdate: 'afterkeydown'"
-                               type="text" class="form-control input-sm" />
+                        <div class="input-group">
+                            <input data-bind="value: AttackSpeed, valueUpdate: 'afterkeydown'" type="text" class="form-control input-sm" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default btn-sm" type="button" onclick="showASCalculator(); return 0;">Calc</button>
+                            </span>
+                        </div>
+
                     </div>
                 </div>
                 <div class="form-group">
@@ -237,7 +242,7 @@
                     </div>
                     <a class="col-xs-6 control-label d3-label" href="http://eu.battle.net/d3/en/class/demon-hunter/active/marked-for-death" onclick="return false">Marked for Death</a>
                     <div class="col-xs-5">
-                        <div class="checkbox">
+                        <div class="checkbox padding-top0">
                             <label>
                                 <input data-bind="checked: MarkedforDeath" class="check" style="margin-left: 29px;" type="checkbox">
                             </label>
@@ -382,16 +387,6 @@
             </div>
             <legend>Legendary Items &amp; Gems</legend>
             <div class="col-xs-12">
-                <div class="form-group">
-                    <div class="col-xs-1 padding0">
-                        <img style="height: 28px" src="images/unique_gloves_003_x1_demonhunter_male.png" />
-                    </div>
-                    <a class="col-xs-6 control-label d3-label" href="http://eu.battle.net/d3/en/item/tasker-and-theo" onclick="return false">Tasker and Theo</a>
-                    <div class="col-xs-5">
-                        <input data-bind="value: TTBuff, valueUpdate: 'afterkeydown'"
-                               type="text" class="form-control input-sm" />
-                    </div>
-                </div>
                 <div class="form-group">
                     <div class="col-xs-1 padding0">
                         <img style="height: 28px" src="images/unique_pants_101_x1_demonhunter_male.png" />
