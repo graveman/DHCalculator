@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="598331bb-d12f-427f-bd5a-06d580bf30c7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/site.css" afterPath="$PROJECT_DIR$/css/site.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DHCalculator.iws" />
@@ -30,8 +29,8 @@
       <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2949002" vertical-offset="5554" max-vertical-offset="10305">
-              <caret line="388" column="35" selection-start-line="388" selection-start-column="35" selection-end-line="388" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.2849224" vertical-offset="9538" max-vertical-offset="10440">
+              <caret line="653" column="67" selection-start-line="653" selection-start-column="67" selection-end-line="653" selection-end-column="67" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#fieldset#1;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#div#0;n#div#1;n#div#0;n#fieldset#1;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -90,8 +89,8 @@
       <file leaf-file-name="ascalc.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/ascalc.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2730">
-              <caret line="7" column="22" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="2730">
+              <caret line="50" column="14" selection-start-line="50" selection-start-column="9" selection-end-line="50" selection-end-column="14" />
               <folding>
                 <element signature="n#!!doc;n#Gear#0" expanded="false" />
               </folding>
@@ -311,7 +310,11 @@
       <created>1411138681652</created>
       <updated>1411138681652</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="remove T&amp;T field">
+      <created>1411140301171</created>
+      <updated>1411140301171</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -359,22 +362,13 @@
     <MESSAGE value="Added knockoutjs library" />
     <MESSAGE value="dps calculator interface cleanup" />
     <MESSAGE value="additional cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="additional cleanup" />
+    <MESSAGE value="remove T&amp;T field" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove T&amp;T field" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/js/ascalc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2730">
-          <caret line="7" column="22" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="22" />
-          <folding>
-            <element signature="n#!!doc;n#Gear#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/bootstrap.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="31800">
@@ -429,10 +423,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/js/ascalc.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="2730">
+          <caret line="50" column="14" selection-start-line="50" selection-start-column="9" selection-end-line="50" selection-end-column="14" />
+          <folding>
+            <element signature="n#!!doc;n#Gear#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2949002" vertical-offset="5554" max-vertical-offset="10305">
-          <caret line="388" column="35" selection-start-line="388" selection-start-column="35" selection-end-line="388" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.2849224" vertical-offset="9538" max-vertical-offset="10440">
+          <caret line="653" column="67" selection-start-line="653" selection-start-column="67" selection-end-line="653" selection-end-column="67" />
           <folding>
             <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#fieldset#1;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#div#0;n#div#1;n#div#0;n#fieldset#1;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />

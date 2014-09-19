@@ -649,6 +649,10 @@
                     </table>
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" onclick="ApplyASToDpsCalc(); return 0;">Apply</button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+            </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -667,6 +671,11 @@
 <script>
     function showASCalculator() {
         $('#ASCalculator').modal('show');
+    }
+
+    function ApplyASToDpsCalc() {
+        stats.AttackSpeed(gear.TTAPS());
+        $('#ASCalculator').modal('toggle');
     }
 
     $(function () {
