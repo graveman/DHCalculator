@@ -46,3 +46,14 @@ input {
 .check {
     margin-top: 0px !important;
 }
+
+.d3-label {
+    text-align: left !important;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+}
+
+.d3-label:hover {
+    text-decoration: none;
+}
