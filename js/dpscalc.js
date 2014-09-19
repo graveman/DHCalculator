@@ -62,10 +62,6 @@ function Stats(data) {
     self.ActiveSkill3     = ko.observable(3, { persist: 'DC-ActiveSkill3' });
     self.ActiveSkill3Rune = ko.observable(1, { persist: 'DC-ActiveSkill3Rune' });
 
-    self.TotalAttackSpeed = ko.computed(function () {
-        return +(self.AttackSpeed() * (1 + self.TTBuff() / 100)).toFixed(4);
-    }, this);
-
     self.Weapons = ko.observableArray([
         { Value: 1, Text: "Crossbow" },
         { Value: 2, Text: "Bow" },
