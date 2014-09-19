@@ -1,5 +1,6 @@
 /**
  * Created by Nika on 19.09.2014.
+ * Edited by K on 20.09.2014.
  */
 var Skill = function (value, text) {
     var self = this;
