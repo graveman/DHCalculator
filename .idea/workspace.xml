@@ -29,8 +29,8 @@
       <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2849224" vertical-offset="9538" max-vertical-offset="10440">
-              <caret line="653" column="67" selection-start-line="653" selection-start-column="67" selection-end-line="653" selection-end-column="67" />
+            <state vertical-scroll-proportion="0.5676275" vertical-offset="8953" max-vertical-offset="10440">
+              <caret line="631" column="81" selection-start-line="631" selection-start-column="81" selection-end-line="631" selection-end-column="81" />
               <folding>
                 <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#fieldset#1;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#div#0;n#div#1;n#div#0;n#fieldset#1;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -69,6 +69,7 @@
                 <element signature="n#style#0;n#img#0;n#div#0;n#div#2;n#div#2;n#fieldset#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#div#0;n#div#3;n#div#2;n#fieldset#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#div#0;n#div#4;n#div#2;n#fieldset#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#table#0;n#div#2;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -314,7 +315,11 @@
       <created>1411140301171</created>
       <updated>1411140301171</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="added auto AS calc from dps calculator">
+      <created>1411141257456</created>
+      <updated>1411141257456</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -363,7 +368,8 @@
     <MESSAGE value="dps calculator interface cleanup" />
     <MESSAGE value="additional cleanup" />
     <MESSAGE value="remove T&amp;T field" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove T&amp;T field" />
+    <MESSAGE value="added auto AS calc from dps calculator" />
+    <option name="LAST_COMMIT_MESSAGE" value="added auto AS calc from dps calculator" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -435,8 +441,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2849224" vertical-offset="9538" max-vertical-offset="10440">
-          <caret line="653" column="67" selection-start-line="653" selection-start-column="67" selection-end-line="653" selection-end-column="67" />
+        <state vertical-scroll-proportion="0.5676275" vertical-offset="8953" max-vertical-offset="10440">
+          <caret line="631" column="81" selection-start-line="631" selection-start-column="81" selection-end-line="631" selection-end-column="81" />
           <folding>
             <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#fieldset#1;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#div#0;n#div#1;n#div#0;n#fieldset#1;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -475,6 +481,7 @@
             <element signature="n#style#0;n#img#0;n#div#0;n#div#2;n#div#2;n#fieldset#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#div#0;n#div#3;n#div#2;n#fieldset#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#div#0;n#div#4;n#div#2;n#fieldset#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#table#0;n#div#2;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
