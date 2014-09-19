@@ -2,17 +2,24 @@
  * Created by Nika on 19.09.2014.
  * Edited by K on 20.09.2014.
  */
+var Element = function (value,text) {
+    var self = this;
+    self.Value = ko.observable(value);
+    self.Text = ko.observable(text);    
+}
+
 var Skill = function (value, text) {
     var self = this;
     self.Value = ko.observable(value);
     self.Text  = ko.observable(text);
 };
 
-var Rune = function (value, text, skill) {
+var Rune = function (value, text, skill,element) {
     var self = this;
     self.Value = ko.observable(value);
     self.Text  = ko.observable(text);
     self.Skill = ko.observable(skill);
+    self.Element = ko.observable(element);
 };
 
 function Stats(data) {
@@ -70,27 +77,30 @@ function Stats(data) {
     ]);
 
     self.SentryRunes = ko.observableArray([
-        { Value: 1, Text: "Spitfire Turret" },
-        { Value: 2, Text: "Polar Station" }
+        { Value: 1, Text: "Spitfire Turret", Element: 2 },
+        { Value: 2, Text: "Polar Station", Element: 1 }
     ]);
 
     self.Runes = ko.observableArray([
-        new Rune(1, "Dazzling Arrow", 1),
-        new Rune(2, "Shooting Stars", 1),
-        new Rune(3, "Maelstrom", 1),
-        new Rune(4, "Cluster Bombs", 1),
-        new Rune(5, "Loaded for Bear", 1),
-        new Rune(1, "Ball Ligthning", 2),
-        new Rune(2, "Frost  Arrow", 2),
-        new Rune(3, "Immolation Arrow", 2),
-        new Rune(4, "Lightening Bolts", 2),
-        new Rune(1, "Burst Fire", 3),
-        new Rune(2, "Full Broadside", 3),
-        new Rune(3, "Arsenal", 3),
-        new Rune(4, "Fire at Will", 3),
-        new Rune(1, "Impact", 4),
-        new Rune(2, "Chemical Burn", 4),
-        new Rune(3, "Grevious Wounds", 4),
+        new Rune(1, "Dazzling Arrow", 1, 3),
+        new Rune(2, "Shooting Stars", 1, 4),
+        new Rune(3, "Maelstrom", 1, 1),
+        new Rune(4, "Cluster Bombs", 1, 2),
+        new Rune(5, "Loaded for Bear", 1, 2),
+        new Rune(1, "Ball Lightning", 2, 3),
+        new Rune(2, "Frost  Arrow", 2, 1),
+        new Rune(3, "Immolation Arrow", 2, 2),
+        new Rune(4, "Lightning Bolts", 2, 3),
+        new Rune(5, "Nether Tentacles", 2, 4),
+        new Rune(1, "Burst Fire", 3, 1),
+        new Rune(2, "Full Broadside", 3, 4),
+        new Rune(3, "Arsenal", 3, 2),
+        new Rune(4, "Fire at Will", 3, 3),
+        new Rune(1, "Impact", 4, 4),
+        new Rune(2, "Chemical Burn", 4, 2),
+        new Rune(3, "Grievous Wounds", 4, 4),
+        new Rune(4, "Overpenetration", 4, 1),
+        new Rune(5, "Ricochet", 4, 3),
         new Rune(1, "Twin Chakrams", 5)
     ]);
 
@@ -102,6 +112,12 @@ function Stats(data) {
         new Skill(5, "Chakram")
     ]);
 
+    self.Elements = ko.observableArray([
+        new Element(1, "Cold"),
+        new Element(2, "Fire"),
+        new Element(3, "Lightning"),
+        new Element(4, "Physical")
+    ]);
 
     self.ActiveSkill1Rune = ko.observable(1, { persist: 'DC-ActiveSkill1Rune' });
 
