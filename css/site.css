@@ -3,6 +3,11 @@ body {
     font-family: Tahoma, Arial, sans-serif !important;
     font-size: 11px !important;
 }
+
+input {
+    text-align: center !important;
+}
+
 .btn{
     border-radius: 0px !important;
 }
@@ -31,4 +36,13 @@ body {
 .selected-row {
     background-color: #EBEBEB !important;
     color: black;
+}
+
+.padding0 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.check {
+    margin-top: 0px !important;
 }

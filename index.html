@@ -63,9 +63,445 @@
 
 <!-- Page Content -->
 <div class="container">
+    <form class="form-horizontal">
+        <fieldset class="col-xs-4">
+            <legend>General Damage Stats</legend>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-xs-6 control-label">Weapon</label>
+                    <div class="col-xs-6">
+                        <select data-bind="options: Weapons, optionsText: 'Text', optionsValue: 'Value', value: Weapon"
+                                 class="form-control input-sm"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-6 control-label">Weapon Damage</label>
+                    <div class="col-xs-3">
+                        <input data-bind="value: WeaponDamage1, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                    <div class="col-xs-3">
+                        <input data-bind="value: WeaponDamage2, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-6 control-label">Extra Damage</label>
+                    <div class="col-xs-3">
+                        <input data-bind="value: ExtraDamage1, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                    <div class="col-xs-3">
+                        <input data-bind="value: ExtraDamage2, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-6 control-label">Attack Speed</label>
+                    <div class="col-xs-6">
+                        <input data-bind="value: AttackSpeed, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-6 control-label">Dexterity</label>
+                    <div class="col-xs-6">
+                        <input data-bind="value: Dexterity, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-6 control-label">Critical Hit Chance %</label>
+                    <div class="col-xs-6">
+                        <input data-bind="value: CHC, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-6 control-label">Critical Hit Damage %</label>
+                    <div class="col-xs-6">
+                        <input data-bind="value: CHD, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-6 control-label">Elite Damage %</label>
+                    <div class="col-xs-6">
+                        <input data-bind="value: EliteDamage, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-6 control-label">Cold Damage %</label>
+                    <div class="col-xs-6">
+                        <input data-bind="value: ColdDamage, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-6 control-label">Fire Damage %</label>
+                    <div class="col-xs-6">
+                        <input data-bind="value: FireDamage, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-6 control-label">Physical Damage %</label>
+                    <div class="col-xs-6">
+                        <input data-bind="value: PhysicalDamage, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-6 control-label">Lightning Damage %</label>
+                    <div class="col-xs-6">
+                        <input data-bind="value: LightningDamage, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="col-xs-4">
+            <legend>Active Skill Bonuses</legend>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="/Images/demonhunter_sentry.png" />
+                    </div>
+                    <a class="col-xs-6 control-label d3-label" href="http://eu.battle.net/d3/en/class/demon-hunter/active/sentry" onclick="return false">Sentry Damage %</a>
+                    <div class="col-xs-5">
+                        <input data-bind="value: SentryDamage, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="/Images/demonhunter_skill_1.png" />
+                    </div>
+                    <a class="col-xs-6 control-label d3-label" href="http://eu.battle.net/d3/en/class/demon-hunter/active/cluster-arrow" onclick="return false">CA Damage %</a>
+                    <div class="col-xs-5">
+                        <input data-bind="value: CADamage, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="/Images/demonhunter_skill_2.png" />
+                    </div>
+                    <a class="col-xs-6 control-label d3-label" href="http://eu.battle.net/d3/en/class/demon-hunter/active/elemental-arrow" onclick="return false">EA Damage %</a>
+                    <div class="col-xs-5">
+                        <input data-bind="value: EADamage, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="/Images/demonhunter_skill_3.png" />
+                    </div>
+                    <a class="col-xs-6 control-label d3-label" href="http://eu.battle.net/d3/en/class/demon-hunter/active/multishot" onclick="return false">Multishot Damage %</a>
+                    <div class="col-xs-5">
+                        <input data-bind="value: MultishotDamage, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="/Images/demonhunter_skill_4.png" />
+                    </div>
+                    <a class="col-xs-6 control-label d3-label" href="http://eu.battle.net/d3/en/class/demon-hunter/active/impale" onclick="return false">Impale Damage %</a>
+                    <div class="col-xs-5">
+                        <input data-bind="value: ImpaleDamage, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="/Images/x1_demonhunter_companion.png" />
+                    </div>
+                    <a class="col-xs-6 control-label d3-label" href="http://eu.battle.net/d3/en/class/demon-hunter/active/companion" onclick="return false">Wolf Companion</a>
+                    <div class="col-xs-5">
+                        <div class="checkbox">
+                            <label>
+                                <input data-bind="checked: WolfCompanion" class="check" style="margin-left: 29px;" type="checkbox">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="/Images/demonhunter_markedfordeath.png" />
+                    </div>
+                    <a class="col-xs-6 control-label d3-label" href="http://eu.battle.net/d3/en/class/demon-hunter/active/marked-for-death" onclick="return false">Marked for Death</a>
+                    <div class="col-xs-5">
+                        <div class="checkbox">
+                            <label>
+                                <input data-bind="checked: MarkedforDeath" class="check" style="margin-left: 29px;" type="checkbox">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <legend>Passive Skills</legend>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="/Images/demonhunter_passive_culltheweak.png" />
+                    </div>
+                    <a class="col-xs-5 control-label d3-label" href="http://eu.battle.net/d3/en/class/demon-hunter/passive/cull-the-weak" onclick="return false">Cull the Weak</a>
+                    <div class="col-xs-6">
+                        <div class="checkbox">
+                            <label>
+                                <input data-bind="checked: CulltheWeak" class="check" style="margin-left: 57px;" type="checkbox">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="/Images/demonhunter_passive_steadyaim.png" />
+                    </div>
+                    <a class="col-xs-5 control-label d3-label" href="http://eu.battle.net/d3/en/class/demon-hunter/passive/steady-aim" onclick="return false">Steady Aim</a>
+                    <div class="col-xs-6">
+                        <div class="checkbox">
+                            <label>
+                                <input data-bind="checked: SteadyAim" class="check" style="margin-left: 57px;" type="checkbox">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="/Images/demonhunter_passive_ballistics.png" />
+                    </div>
+                    <a class="col-xs-5 control-label d3-label" href="http://eu.battle.net/d3/en/class/demon-hunter/passive/ballistics" onclick="return false">Ballistics</a>
+                    <div class="col-xs-6">
+                        <div class="checkbox">
+                            <label>
+                                <input data-bind="checked: Ballistics" class="check" style="margin-left: 57px;" type="checkbox">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="/Images/demonhunter_passive_grenadier.png" />
+                    </div>
+                    <a class="col-xs-5 control-label d3-label" href="http://eu.battle.net/d3/en/class/demon-hunter/passive/grenadier" onclick="return false">Grenadier</a>
+                    <div class="col-xs-6">
+                        <div class="checkbox">
+                            <label>
+                                <input data-bind="checked: Grenadier" class="check" style="margin-left: 57px;" type="checkbox">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="/Images/x1_demonhunter_passive_ambush.png" />
+                    </div>
+                    <a class="col-xs-5 control-label d3-label" href="http://eu.battle.net/d3/en/class/demon-hunter/passive/ambush" onclick="return false">Ambush</a>
+                    <div class="col-xs-6">
+                        <div class="checkbox">
+                            <label>
+                                <input data-bind="checked: Ambush" class="check" style="margin-left: 57px;" type="checkbox">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="/Images/demonhunter_passive_archery.png" />
+                    </div>
+                    <a class="col-xs-5 control-label d3-label" href="http://eu.battle.net/d3/en/class/demon-hunter/passive/archery" onclick="return false">Archery</a>
+                    <div class="col-xs-6">
+                        <div class="checkbox">
+                            <label>
+                                <input data-bind="checked: Archery" class="check" style="margin-left: 57px;" type="checkbox">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="col-xs-4">
+            <legend>Active Skills</legend>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="/Images/demonhunter_sentry.png" />
+                    </div>
+                    <a class="col-xs-5 control-label d3-label" href="http://eu.battle.net/d3/en/class/demon-hunter/active/sentry" onclick="return false">Sentry</a>
+                    <div class="col-xs-6">
+                        <select data-bind="options: SentryRunes, optionsText: 'Text', optionsValue: 'Value', value: ActiveSentryRune"
+                                 class="form-control input-sm"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" data-bind="attr:{src: '/Images/demonhunter_skill_'+ActiveSkill1()+'.png'}" />
+                    </div>
+                    <div class="col-xs-5">
+                        <select data-bind="options: ActiveSkills, optionsText: 'Text', optionsValue: 'Value', value: ActiveSkill1"
+                                 class="form-control input-sm"></select>
+                    </div>
+                    <div class="col-xs-6">
+                        <select data-bind="options: ActiveSkill1Runes, optionsText: 'Text', optionsValue: 'Value', value: ActiveSkill1Rune"
+                                 class="form-control input-sm"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" data-bind="attr:{src: '/Images/demonhunter_skill_'+ActiveSkill2()+'.png'}" />
+                    </div>
+                    <div class="col-xs-5">
+                        <select data-bind="options: ActiveSkills, optionsText: 'Text', optionsValue: 'Value', value: ActiveSkill2"
+                                 class="form-control input-sm"></select>
+                    </div>
+                    <div class="col-xs-6">
+                        <select data-bind="options: ActiveSkill2Runes, optionsText: 'Text', optionsValue: 'Value', value: ActiveSkill2Rune"
+                                 class="form-control input-sm"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" data-bind="attr:{src: '/Images/demonhunter_skill_'+ActiveSkill3()+'.png'}" />
+                    </div>
+                    <div class="col-xs-5">
+                        <select data-bind="options: ActiveSkills, optionsText: 'Text', optionsValue: 'Value', value: ActiveSkill3"
+                                 class="form-control input-sm"></select>
+                    </div>
+                    <div class="col-xs-6">
+                        <select data-bind="options: ActiveSkill3Runes, optionsText: 'Text', optionsValue: 'Value', value: ActiveSkill3Rune"
+                                 class="form-control input-sm"></select>
+                    </div>
+                </div>
+            </div>
+            <legend>Legendary Items &amp; Gems</legend>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="/Images/unique_gloves_003_x1_demonhunter_male.png" />
+                    </div>
+                    <a class="col-xs-6 control-label d3-label" href="http://us.battle.net/d3/en/item/tasker-and-theo" onclick="return false">Tasker and Theo</a>
+                    <div class="col-xs-5">
+                        <input data-bind="value: TTBuff, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="/Images/unique_pants_101_x1_demonhunter_male.png" />
+                    </div>
+                    <a class="col-xs-6 control-label d3-label" href="http://us.battle.net/d3/en/item/hexing-pants-of-mr-yan" onclick="return false">Hexing Pants of Mr. Yan</a>
+                    <div class="col-xs-5">
+                        <div class="checkbox">
+                            <label>
+                                <input data-bind="checked: HexingPantsofMrYan" class="check" style="margin-left: 30px;" type="checkbox">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="/Images/unique_gem_001_x1_demonhunter_male.png" />
+                    </div>
+                    <a class="col-xs-6 control-label d3-label" href="http://eu.battle.net/d3/en/item/bane-of-the-powerful" onclick="return false">Bane of the Powerful</a>
+                    <div class="col-xs-5">
+                        <input data-bind="value: BaneofthePowerfulRank, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="/Images/unique_gem_010_x1_demonhunter_male.png" />
+                    </div>
+                    <a class="col-xs-6 control-label d3-label" href="http://eu.battle.net/d3/en/item/enforcer" onclick="return false">Enforcer</a>
+                    <div class="col-xs-5">
+                        <input data-bind="value: EnforcerRank, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="/Images/unique_gem_002_x1_demonhunter_male.png" />
+                    </div>
+                    <a class="col-xs-6 control-label d3-label" href="http://eu.battle.net/d3/en/item/bane-of-the-trapped" onclick="return false">Bane of the Trapped</a>
+                    <div class="col-xs-5">
+                        <input data-bind="value: BaneoftheTrappedRank, valueUpdate: 'afterkeydown'"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="/Images/unique_gem_012_x1_demonhunter_male.png" />
+                    </div>
+                    <a class="col-xs-6 control-label d3-label" href="http://eu.battle.net/d3/en/item/zeis-stone-of-vengeance" onclick="return false">Zei's Stone of Vengeance</a>
+                    <div class="col-xs-3" style="padding-right: 6px; margin-left: 15px; width: 59px;" >
+                        <input data-bind="value: ZeisStoneofVengeanceRank, valueupdate: 'afterkeydown' "
+                               type="text" class="form-control input-sm" />
+                    </div>
+                    <div class="col-xs-2" style="width: 67px;">
+                        <select class="form-control  input-sm">
+                            <option>10</option>
+                            <option>20</option>
+                            <option>30</option>
+                            <option>40</option>
+                            <option>50</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <legend>Calculations</legend>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label  class="col-xs-6 control-label">Attack Speed</label>
+                    <div class="col-xs-6">
+                        <input data-bind="value: TotalAttackSpeed" type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="/Images/demonhunter_sentry.png" />
+                    </div>
+                    <label  class="col-xs-5 control-label d3-label">Sentry</label>
+                    <div class="col-xs-6">
+                        <input data-bind="value: SentryTotalDamage" type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" data-bind="attr:{src: '/Images/demonhunter_skill_'+ActiveSkill1()+'.png'}" />
+                    </div>
+                    <label  class="col-xs-5 control-label d3-label" data-bind="text: ActiveSkill1Name"></label>
+                    <div class="col-xs-6">
+                        <input data-bind="value: ActiveSkill1Damage"
+                               type="text" class="form-control  input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" data-bind="attr:{src: '/Images/demonhunter_skill_'+ActiveSkill2()+'.png'}" />
+                    </div>
+                    <label  class="col-xs-5 control-label d3-label" data-bind="text: ActiveSkill2Name"></label>
+                    <div class="col-xs-6">
+                        <input data-bind="value: ActiveSkill2Damage"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" data-bind="attr:{src: '/Images/demonhunter_skill_'+ActiveSkill3()+'.png'}" />
+                    </div>
+                    <label  class="col-xs-5 control-label d3-label" data-bind="text: ActiveSkill3Name"></label>
+                    <div class="col-xs-6">
+                        <input data-bind="value: ActiveSkill3Damage"
+                               type="text" class="form-control input-sm" />
+                    </div>
+                </div>
+            </div>
+        </fieldset>
 
-
-
+    </form>
 </div>
 <!-- /.container -->
 
@@ -92,7 +528,7 @@
                             <label class="col-xs-4 control-label">Weapon</label>
                             <div class="col-xs-8">
                                 <select data-bind="options: Weapons, optionsText: 'Text', optionsValue: 'Value', value: Weapon1BaseAS"
-                                        class="form-control"></select>
+                                        class="form-control input-sm"></select>
                             </div>
                         </div>
                         <div class="form-group">
