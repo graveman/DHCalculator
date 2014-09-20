@@ -4,7 +4,6 @@
 
     ko.utils.arrayForEach(methods, function (method) {
         var saved = ko[method];
-
         ko[method] = function (initialValue, options) {
             options = options || {};
 

@@ -179,7 +179,7 @@ function Stats(data) {
         	self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
         	return singleCap * r[0].Single() + multiCap * r[0].Multi();
         }
-        
+        console.log(self.Ballistics());
         return 0;
     }, this);
 
