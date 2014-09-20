@@ -62,6 +62,7 @@ function Stats(data) {
     self.BaneoftheTrappedRank     = ko.observable(0, { persist: 'DC-BaneoftheTrappedRank' });
     self.ZeisStoneofVengeanceRank = ko.observable(0, { persist: 'DC-ZeisStoneofVengeanceRank' });
     self.HexingPantsofMrYan       = ko.observable(false, { persist: 'DC-HexingPantsofMrYan' });
+    self.StrongarmBracers         = ko.observable(0, { persist: 'DC-StrongarmBracers' });
     self.OverwhelmingDesire       = ko.observable(false, { persist: 'DC-OverwhelmingDesire' });
     self.WolfCompanion            = ko.observable(false, { persist: 'DC-WolfCompanion' });
     self.MarkedforDeath           = ko.observable(false, { persist: 'DC-MarkedforDeath' });
@@ -146,6 +147,11 @@ function Stats(data) {
         console.log('r' + r);    
         return r;
     }, this);
+    
+ /*   self.CriticalDamageModifier = ko.computed(function () {
+        var r = (parseInt(self.CHC()) * (parseInt(self.CHD()) + 100) / 10000) + (100 - parseInt(self.CHC())) / 100;      
+        return r;
+    }, this);*/    
 
     self.ActiveSkill1Runes = ko.computed(function () {
         return ko.utils.arrayFilter(this.Runes(), function (rune) {
@@ -205,6 +211,14 @@ function Stats(data) {
         });
         
         if (r.length > 0) {
+            var criticalModifier = 1;
+            if (r[0].Value() === 3 && r[0].Skill() === 4) {
+                criticalModifier = (parseFloat(self.CHC()) * (parseInt(self.CHD()) + 100 + 330) / 10000) + (100 - parseFloat(self.CHC())) / 100;
+            }
+            else {
+                criticalModifier = (parseFloat(self.CHC()) * (parseInt(self.CHD()) + 100) / 10000) + (100 - parseFloat(self.CHC())) / 100;
+            }            
+            
             var typeModifier = 1;
             if (self.Ballistics() === true && r[0].Type() === 1) { typeModifier = 2; }
             if (self.Grenadier() === true && r[0].Type() === 2) { typeModifier = 1.1; }
@@ -213,7 +227,8 @@ function Stats(data) {
             var singleCap,multiCap;
             self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
             self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
-            return singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier;
+
+           return (singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier) * criticalModifier * self.FixedDamageModifier();
         }
         return 0;     
     }, this);
@@ -224,6 +239,14 @@ function Stats(data) {
         });
         
         if (r.length > 0) {
+            var criticalModifier = 1;
+            if (r[0].Value() === 3 && r[0].Skill() === 4) {
+                criticalModifier = (parseFloat(self.CHC()) * (parseInt(self.CHD()) + 100 + 330) / 10000) + (100 - parseFloat(self.CHC())) / 100;
+            }
+            else {
+                criticalModifier = (parseFloat(self.CHC()) * (parseInt(self.CHD()) + 100) / 10000) + (100 - parseFloat(self.CHC())) / 100;
+            }            
+            
             var typeModifier = 1;
             if (self.Ballistics() === true && r[0].Type() === 1) { typeModifier = 2; }
             if (self.Grenadier() === true && r[0].Type() === 2) { typeModifier = 1.1; }
@@ -232,7 +255,8 @@ function Stats(data) {
             var singleCap,multiCap;
             self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
             self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
-            return singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier;
+
+           return (singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier) * criticalModifier * self.FixedDamageModifier();
         }
         return 0;    
     }, this);
@@ -243,6 +267,14 @@ function Stats(data) {
         });
         
         if (r.length > 0) {
+            var criticalModifier = 1;
+            if (r[0].Value() === 3 && r[0].Skill() === 4) {
+                criticalModifier = (parseFloat(self.CHC()) * (parseInt(self.CHD()) + 100 + 330) / 10000) + (100 - parseFloat(self.CHC())) / 100;
+            }
+            else {
+                criticalModifier = (parseFloat(self.CHC()) * (parseInt(self.CHD()) + 100) / 10000) + (100 - parseFloat(self.CHC())) / 100;
+            }            
+            
             var typeModifier = 1;
             if (self.Ballistics() === true && r[0].Type() === 1) { typeModifier = 2; }
             if (self.Grenadier() === true && r[0].Type() === 2) { typeModifier = 1.1; }
@@ -251,7 +283,8 @@ function Stats(data) {
             var singleCap,multiCap;
             self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
             self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
-            return singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier;
+
+           return (singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier) * criticalModifier * self.FixedDamageModifier();
         }
         return 0;     
     }, this);
@@ -262,6 +295,14 @@ function Stats(data) {
         });
         
         if (r.length > 0) {
+            var criticalModifier = 1;
+            if (r[0].Value() === 3 && r[0].Skill() === 4) {
+                criticalModifier = (parseFloat(self.CHC()) * (parseInt(self.CHD()) + 100 + 330) / 10000) + (100 - parseFloat(self.CHC())) / 100;
+            }
+            else {
+                criticalModifier = (parseFloat(self.CHC()) * (parseInt(self.CHD()) + 100) / 10000) + (100 - parseFloat(self.CHC())) / 100;
+            }            
+            
             var typeModifier = 1;
             if (self.Ballistics() === true && r[0].Type() === 1) { typeModifier = 2; }
             if (self.Grenadier() === true && r[0].Type() === 2) { typeModifier = 1.1; }
@@ -270,7 +311,8 @@ function Stats(data) {
             var singleCap,multiCap;
             self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
             self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
-            return singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier;
+
+           return (singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier) * criticalModifier * self.FixedDamageModifier();
         }
         return 0;     
     }, this);
