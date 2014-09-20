@@ -183,7 +183,7 @@ function Stats(data) {
 
     self.ActiveSkill2Damage = ko.computed(function () {
         var r = ko.utils.arrayFilter( this.Runes(), function (rune) {
-            return rune.Skill() === self.ActiveSkill1() && rune.Value() === self.ActiveSkill1Rune(); 
+            return rune.Skill() === self.ActiveSkill2() && rune.Value() === self.ActiveSkill2Rune(); 
         });
         var singleCap = 0
         var multiCap = 0;
@@ -194,7 +194,7 @@ function Stats(data) {
 
     self.ActiveSkill3Damage = ko.computed(function () {
         var r = ko.utils.arrayFilter( this.Runes(), function (rune) {
-            return rune.Skill() === self.ActiveSkill1() && rune.Value() === self.ActiveSkill1Rune(); 
+            return rune.Skill() === self.ActiveSkill3() && rune.Value() === self.ActiveSkill3Rune(); 
         });
         var singleCap = 0
         var multiCap = 0;
