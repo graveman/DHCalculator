@@ -84,7 +84,7 @@ function Stats(data) {
     self.SentryRunes = ko.observableArray([
         { Value: 1, Text: "Spitfire Turret", Element: 2 },
         { Value: 2, Text: "Polar Station", Element: 1 }
-    ]);1
+    ]);
 
     self.Runes = ko.observableArray([
         new Rune(1, "Dazzling Arrow",       1, 3, 5.5, 1, 8.8, 1, 2),
@@ -113,7 +113,7 @@ function Stats(data) {
         new Skill(1, "Cluster Arrow"),
         new Skill(2, "Elemental Arrow"),
         new Skill(3, "Multishot"),
-        new Skill(4, "Impale"),
+        new Skill(4, "Impale")
 //        new Skill(5, "Chakram")                                               // I'll wait until I figure out how to properly implement this
     ]);
 
@@ -174,7 +174,8 @@ function Stats(data) {
         var r = ko.utils.arrayFilter( this.Runes(), function (rune) {
             return rune.Skill() === self.ActiveSkill1() && rune.Value() === self.ActiveSkill1Rune(); 
         });
-        var singleCap, multiCap;
+        var singleCap = 0
+        var multiCap = 0;
         self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
         self.NumberofTargets() >= r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
         return singleCap * r[0].Single() + multiCap * r[0].Multi();
@@ -182,9 +183,10 @@ function Stats(data) {
 
     self.ActiveSkill2Damage = ko.computed(function () {
         var r = ko.utils.arrayFilter( this.Runes(), function (rune) {
-            return rune.Skill() === self.ActiveSkill2() && rune.Value() === self.ActiveSkill2Rune(); 
+            return rune.Skill() === self.ActiveSkill1() && rune.Value() === self.ActiveSkill1Rune(); 
         });
-        var singleCap, multiCap;
+        var singleCap = 0
+        var multiCap = 0;
         self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
         self.NumberofTargets() >= r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
         return singleCap * r[0].Single() + multiCap * r[0].Multi();
@@ -192,9 +194,10 @@ function Stats(data) {
 
     self.ActiveSkill3Damage = ko.computed(function () {
         var r = ko.utils.arrayFilter( this.Runes(), function (rune) {
-            return rune.Skill() === self.ActiveSkill3() && rune.Value() === self.ActiveSkill3Rune(); 
+            return rune.Skill() === self.ActiveSkill1() && rune.Value() === self.ActiveSkill1Rune(); 
         });
-        var singleCap, multiCap;
+        var singleCap = 0
+        var multiCap = 0;
         self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
         self.NumberofTargets() >= r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
         return singleCap * r[0].Single() + multiCap * r[0].Multi();
