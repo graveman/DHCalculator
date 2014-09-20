@@ -104,8 +104,8 @@ function Stats(data) {
         new Rune(3, "Grievous Wounds",      4, 4, 7.5, 1, 0, 0, 0),            
         new Rune(4, "Overpenetration",      4, 1, 7.5, 1, 0, 0, 0),
         new Rune(5, "Ricochet",             4, 3, 7.5, 3, 0, 0, 0),
-        new Rune(1, "Spitfire Turret",      6, 2, 2.8, 1, 1.2, 1, 1),
-        new Rune(2, "Polar Station",        6, 1, 2.8, 1, 0, 0, 1)
+        new Rune(1, "Spitfire Turret",      6, 2, 2.8, 1, 1.2, 1, 1),           // Bolts as primary, rockets as secondary
+        new Rune(2, "Polar Station",        6, 1, 2.8, 1, 0, 0, 1)              // Bolts as primary
  //       new Rune(1, "Twin Chakrams",        5, 2, 0, 0, 0, 0, 0)              // I'll wait until I figure out how to properly implement this
     ]);
 
@@ -134,19 +134,17 @@ function Stats(data) {
     }, this);
 
     self.FixedDamageModifier = ko.computed(function () {
-        var skillModifier = 100;
-        if (self.SteadyAim() === true) { skillModifier = skillModifier + 20; }
-        if (self.Archery() === true) { skillModifier = skillModifier + 8; }      
-        if (self.MarkedforDeath() === true) { skillModifier = skillModifier + 20; }
-        if (self.OverwhelmingDesire() === true) { skillModifier = skillModifier + 35; } 
-        if (self.WolfCompanion() === true) { skillModifier = skillModifier + 30; } 
-        if (self.HexingPantsofMrYan() === true) { skillModifier = skillModifier + 25; }
-        if (self.BaneofthePowerful() === true) { skillModifier = skillModifier + 25; }   
-        skillModifier = skillModifier / 100;       
-        
-        console.log('skillModifier' + skillModifier);
-    
-        return skillModifier;
+        var r = 100;
+        if (self.SteadyAim() === true) { r = r + 20; }
+        if (self.Archery() === true) { r = r + 8; }      
+        if (self.MarkedforDeath() === true) { r = r + 20; }
+        if (self.OverwhelmingDesire() === true) { r = r + 35; } 
+        if (self.WolfCompanion() === true) { r = r + 30; } 
+        if (self.HexingPantsofMrYan() === true) { r = r + 25; }
+        if (self.BaneofthePowerful() === true) { r = r + 20; }   
+        r = r / 100;        
+        console.log('r' + r);    
+        return r;
     }, this);
 
     self.ActiveSkill1Runes = ko.computed(function () {
