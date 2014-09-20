@@ -66,6 +66,15 @@ function Stats(data) {
     self.OverwhelmingDesire       = ko.observable(false, { persist: 'DC-OverwhelmingDesire' });
     self.WolfCompanion            = ko.observable(false, { persist: 'DC-WolfCompanion' });
     self.MarkedforDeath           = ko.observable(false, { persist: 'DC-MarkedforDeath' });
+    self.BigBadVoodoo             = ko.observable(false, { persist: 'DC-BigBadVoodoo' });
+    self.MassConfusion            = ko.observable(false, { persist: 'DC-MassConfusion' });
+    self.Piranhas                 = ko.observable(false, { persist: 'DC-Piranhas' });
+    self.MantraofConviction       = ko.observable(false, { persist: 'DC-MantraofConviction' });
+    self.InnerSanctuary           = ko.observable(false, { persist: 'DC-InnerSanctuary' });
+    self.CripplingWave            = ko.observable(false, { persist: 'DC-CripplingWave' });
+
+
+
 
     self.ActiveSkill1        = ko.observable(1, { persist: 'DC-ActiveSkill1' });
     self.ActiveSkill1Rune    = ko.observable(1, { persist: 'DC-ActiveSkill1Rune' });
@@ -142,8 +151,14 @@ function Stats(data) {
         if (self.OverwhelmingDesire() === true) { r = r + 35; } 
         if (self.WolfCompanion() === true) { r = r + 30; } 
         if (self.HexingPantsofMrYan() === true) { r = r + 25; }
-        if (self.BaneofthePowerful() === true) { r = r + 20; }   
-        r = r / 100;        
+        if (self.BaneofthePowerful() === true) { r = r + 20; }       
+        if (self.MassConfusion() === true) { r = r + 20; }      
+        if (self.Piranhas() === true) { r = r + 15; }
+        if (self.BigBadVoodoo() === true) { r = r + 30; } 
+        if (self.CripplingWave() === true) { r = r + 10; } 
+        if (self.MantraofConviction() === true) { r = r + 20; }
+        if (self.InnerSanctuary() === true) { r = r + 30; }  
+
         console.log('r' + r);    
         return r;
     }, this);
@@ -217,7 +232,15 @@ function Stats(data) {
             }
             else {
                 criticalModifier = (parseFloat(self.CHC()) * (parseInt(self.CHD()) + 100) / 10000) + (100 - parseFloat(self.CHC())) / 100;
-            }            
+            }      
+            
+            var skillModifier = 0;
+            switch (r[0].Skill()) {
+                case 1: skillModifier = parseInt(self.CADamage()); break;
+                case 2: skillModifier = parseInt(self.EADamage()); break;  
+                case 3: skillModifier = parseInt(self.MultishotDamage()); break;
+                case 4: skillModifier = parseInt(self.ImpaleDamage()); break;
+            }
             
             var typeModifier = 1;
             if (self.Ballistics() === true && r[0].Type() === 1) { typeModifier = 2; }
@@ -228,7 +251,7 @@ function Stats(data) {
             self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
             self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
 
-           return (singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier) * criticalModifier * self.FixedDamageModifier();
+           return (singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier) * criticalModifier * ((parseInt(self.FixedDamageModifier()) + skillModifier) / 100);
         }
         return 0;     
     }, this);
@@ -245,7 +268,15 @@ function Stats(data) {
             }
             else {
                 criticalModifier = (parseFloat(self.CHC()) * (parseInt(self.CHD()) + 100) / 10000) + (100 - parseFloat(self.CHC())) / 100;
-            }            
+            }      
+            
+            var skillModifier = 0;
+            switch (r[0].Skill()) {
+                case 1: skillModifier = parseInt(self.CADamage()); break;
+                case 2: skillModifier = parseInt(self.EADamage()); break;  
+                case 3: skillModifier = parseInt(self.MultishotDamage()); break;
+                case 4: skillModifier = parseInt(self.ImpaleDamage()); break;
+            }
             
             var typeModifier = 1;
             if (self.Ballistics() === true && r[0].Type() === 1) { typeModifier = 2; }
@@ -256,7 +287,7 @@ function Stats(data) {
             self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
             self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
 
-           return (singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier) * criticalModifier * self.FixedDamageModifier();
+           return (singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier) * criticalModifier * ((parseInt(self.FixedDamageModifier()) + skillModifier) / 100);
         }
         return 0;    
     }, this);
@@ -273,7 +304,15 @@ function Stats(data) {
             }
             else {
                 criticalModifier = (parseFloat(self.CHC()) * (parseInt(self.CHD()) + 100) / 10000) + (100 - parseFloat(self.CHC())) / 100;
-            }            
+            }      
+            
+            var skillModifier = 0;
+            switch (r[0].Skill()) {
+                case 1: skillModifier = parseInt(self.CADamage()); break;
+                case 2: skillModifier = parseInt(self.EADamage()); break;  
+                case 3: skillModifier = parseInt(self.MultishotDamage()); break;
+                case 4: skillModifier = parseInt(self.ImpaleDamage()); break;
+            }
             
             var typeModifier = 1;
             if (self.Ballistics() === true && r[0].Type() === 1) { typeModifier = 2; }
@@ -284,7 +323,7 @@ function Stats(data) {
             self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
             self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
 
-           return (singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier) * criticalModifier * self.FixedDamageModifier();
+           return (singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier) * criticalModifier * ((parseInt(self.FixedDamageModifier()) + skillModifier) / 100);
         }
         return 0;     
     }, this);
@@ -301,7 +340,15 @@ function Stats(data) {
             }
             else {
                 criticalModifier = (parseFloat(self.CHC()) * (parseInt(self.CHD()) + 100) / 10000) + (100 - parseFloat(self.CHC())) / 100;
-            }            
+            }      
+            
+            var skillModifier = 0;
+            switch (r[0].Skill()) {
+                case 1: skillModifier = parseInt(self.CADamage()); break;
+                case 2: skillModifier = parseInt(self.EADamage()); break;  
+                case 3: skillModifier = parseInt(self.MultishotDamage()); break;
+                case 4: skillModifier = parseInt(self.ImpaleDamage()); break;
+            }
             
             var typeModifier = 1;
             if (self.Ballistics() === true && r[0].Type() === 1) { typeModifier = 2; }
@@ -312,9 +359,8 @@ function Stats(data) {
             self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
             self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
 
-           return (singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier) * criticalModifier * self.FixedDamageModifier();
+           return (singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier) * criticalModifier * ((parseInt(self.FixedDamageModifier()) + skillModifier) / 100);
         }
         return 0;     
     }, this);
-
 }
