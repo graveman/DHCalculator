@@ -175,9 +175,13 @@ function Stats(data) {
         
         if (r.length > 0) {
             var mod = 1;
-            if (console.log(self.Ballistics()) === true && r[0].Type() === 1) {
+            if (self.Ballistics() === true && r[0].Type() === 1) {
                 mod = 2;
             }
+
+            console.log('mod '+mod);
+            console.log('type '+r[0].Type());
+
             var singleCap,multiCap;
             self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
             self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
