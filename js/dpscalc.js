@@ -174,13 +174,16 @@ function Stats(data) {
         });
         
         if (r.length > 0) {
-			var singleCap,multiCap;
-        	self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
-        	self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
-        	return singleCap * r[0].Single() + multiCap * r[0].Multi();
+            var mod = 1;
+            if (console.log(self.Ballistics()) === true && r[0].Type() === 1) {
+                mod = 2;
+            }
+            var singleCap,multiCap;
+            self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
+            self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
+            return singleCap * r[0].Single() + multiCap * r[0].Multi() * mod;
         }
-        console.log(self.Ballistics());
-        return 0;
+        return 0;     
     }, this);
 
     self.ActiveSkill2Damage = ko.computed(function () {
