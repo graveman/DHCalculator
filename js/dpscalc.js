@@ -2,7 +2,7 @@
  * Created by Nika on 19.09.2014.
  * Edited by K on 20.09.2014.
  */
-var Element = function (value,text) {
+var Element = function (value, text) {
     var self = this;
     self.Value = ko.observable(value);
     self.Text = ko.observable(text);    
@@ -14,12 +14,17 @@ var Skill = function (value, text) {
     self.Text  = ko.observable(text);
 };
 
-var Rune = function (value, text, skill,element) {
+var Rune = function (value, text, skill, element, single, singlecap, multi, multicap, type) {
     var self = this;
     self.Value = ko.observable(value);
     self.Text  = ko.observable(text);
     self.Skill = ko.observable(skill);
-    self.Element = ko.observable(element);
+    self.Element = ko.observable(element);          // Elemental type
+    self.Single = ko.observable(single);            // damage multiplier for primary strike
+    self.SingleCap = ko.observable(singlecap);      // max number of targets for primary strike 
+    self.Multi  = ko.observable(multi);             // damage multiplier for secondary strikes
+    self.MultiCap = ko.observable(multicap);        // max number of targets for secondary strikes
+    self.Type = ko.observable(type);                // 1 for Rocket, 2 for Grenade, 0 for no specific type
 };
 
 function Stats(data) {
@@ -79,29 +84,29 @@ function Stats(data) {
     self.SentryRunes = ko.observableArray([
         { Value: 1, Text: "Spitfire Turret", Element: 2 },
         { Value: 2, Text: "Polar Station", Element: 1 }
-    ]);
+    ]);1
 
     self.Runes = ko.observableArray([
-        new Rune(1, "Dazzling Arrow", 1, 3),
-        new Rune(2, "Shooting Stars", 1, 4),
-        new Rune(3, "Maelstrom", 1, 1),
-        new Rune(4, "Cluster Bombs", 1, 2),
-        new Rune(5, "Loaded for Bear", 1, 2),
-        new Rune(1, "Ball Lightning", 2, 3),
-        new Rune(2, "Frost  Arrow", 2, 1),
-        new Rune(3, "Immolation Arrow", 2, 2),
-        new Rune(4, "Lightning Bolts", 2, 3),
-        new Rune(5, "Nether Tentacles", 2, 4),
-        new Rune(1, "Burst Fire", 3, 1),
-        new Rune(2, "Full Broadside", 3, 4),
-        new Rune(3, "Arsenal", 3, 2),
-        new Rune(4, "Fire at Will", 3, 3),
-        new Rune(1, "Impact", 4, 4),
-        new Rune(2, "Chemical Burn", 4, 2),
-        new Rune(3, "Grievous Wounds", 4, 4),
-        new Rune(4, "Overpenetration", 4, 1),
-        new Rune(5, "Ricochet", 4, 3),
-        new Rune(1, "Twin Chakrams", 5)
+        new Rune(1, "Dazzling Arrow",       1, 3, 5.5, 1, 8.8, 1, 2),
+        new Rune(2, "Shooting Stars",       1, 4, 5.5, 1, 6, 3, 1),
+        new Rune(3, "Maelstrom",            1, 1, 5.5, 1, 4.5, 5, 1),
+//        new Rune(4, "Cluster Bombs",        1, 2, 0, 0, 0, 0),                // No idea how many grenades actually spawn
+        new Rune(5, "Loaded for Bear",      1, 2, 7.7 , 1, 8.8, 1, 2),
+//        new Rune(1, "Ball Lightning",       2, 3, 3, 1, 0, 0, 0),             // I'll wait until I figure out how to properly implement this
+        new Rune(2, "Frost  Arrow",         2, 1, 0, 0, 3.3, 11, 0),
+        new Rune(3, "Immolation Arrow",     2, 2, 3, 1, 3.15, 1, 0),
+        new Rune(4, "Lightning Bolts",      2, 3, 3, 1, 0, 0, 0),
+//        new Rune(5, "Nether Tentacles",     2, 4, 3, 1, 0, 0, 0),             // I'll wait until I figure out how to properly implement this
+        new Rune(1, "Burst Fire",           3, 1, 3.6, 20, 2, 1, 0),            // Chose arrows as primary, cold burst as secondary
+        new Rune(2, "Full Broadside",       3, 4, 4.6, 20, 0, 0, 0),            // Chose arrows as primary
+        new Rune(3, "Arsenal",              3, 2, 3.6, 20, 3, 3, 1),          // Chose arrows as primary, rockets as secondary
+        new Rune(4, "Fire at Will",         3, 3, 3.6, 20, 0, 0, 0),            // Chose arrows as primary
+        new Rune(1, "Impact",               4, 4, 7.5, 1, 0, 0, 0),
+        new Rune(2, "Chemical Burn",        4, 2, 7.5, 1, 5, 1, 0),
+        new Rune(3, "Grievous Wounds",      4, 4, 7.5, 1, 0, 0, 0),            
+        new Rune(4, "Overpenetration",      4, 1, 7.5, 1, 0, 0, 0),
+        new Rune(5, "Ricochet",             4, 3, 7.5, 3, 0, 0, 0)
+ //       new Rune(1, "Twin Chakrams",        5, 2, 0, 0, 0, 0, 0)              // I'll wait until I figure out how to properly implement this
     ]);
 
     self.ActiveSkills = ko.observableArray([
@@ -109,7 +114,7 @@ function Stats(data) {
         new Skill(2, "Elemental Arrow"),
         new Skill(3, "Multishot"),
         new Skill(4, "Impale"),
-        new Skill(5, "Chakram")
+//        new Skill(5, "Chakram")                                               // I'll wait until I figure out how to properly implement this
     ]);
 
     self.Elements = ko.observableArray([
@@ -166,14 +171,32 @@ function Stats(data) {
     }, this);
 
     self.ActiveSkill1Damage = ko.computed(function () {
-        return 0;
+        var r = ko.utils.arrayFilter( this.Runes(), function (rune) {
+            return rune.Skill() === self.ActiveSkill1() && rune.Value() === self.ActiveSkill1Rune(); 
+        });
+        var singleCap, multiCap;
+        self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
+        self.NumberofTargets() >= r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
+        return singleCap * r[0].Single() + multiCap * r[0].Multi();
     }, this);
 
     self.ActiveSkill2Damage = ko.computed(function () {
-        return 0;
+        var r = ko.utils.arrayFilter( this.Runes(), function (rune) {
+            return rune.Skill() === self.ActiveSkill2() && rune.Value() === self.ActiveSkill2Rune(); 
+        });
+        var singleCap, multiCap;
+        self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
+        self.NumberofTargets() >= r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
+        return singleCap * r[0].Single() + multiCap * r[0].Multi();
     }, this);
 
     self.ActiveSkill3Damage = ko.computed(function () {
-        return 0;
+        var r = ko.utils.arrayFilter( this.Runes(), function (rune) {
+            return rune.Skill() === self.ActiveSkill3() && rune.Value() === self.ActiveSkill3Rune(); 
+        });
+        var singleCap, multiCap;
+        self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
+        self.NumberofTargets() >= r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
+        return singleCap * r[0].Single() + multiCap * r[0].Multi();
     }, this);
 }
