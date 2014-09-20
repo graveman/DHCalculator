@@ -57,7 +57,7 @@ function Stats(data) {
     self.Grenadier                = ko.observable(false, { persist: 'DC-Grenadier' });
     self.Ambush                   = ko.observable(false, { persist: 'DC-Ambush' });
     self.Archery                  = ko.observable(false, { persist: 'DC-Archery' });
-    self.BaneofthePowerfulRank    = ko.observable(0, { persist: 'DC-BaneofthePowerfulRank' });
+    self.BaneofthePowerful        = ko.observable(false, { persist: 'DC-BaneofthePowerfulRank' });
     self.EnforcerRank             = ko.observable(0, { persist: 'DC-EnforcerRank' });
     self.BaneoftheTrappedRank     = ko.observable(0, { persist: 'DC-BaneoftheTrappedRank' });
     self.ZeisStoneofVengeanceRank = ko.observable(0, { persist: 'DC-ZeisStoneofVengeanceRank' });
@@ -75,15 +75,13 @@ function Stats(data) {
     self.ActiveSkill3        = ko.observable(3, { persist: 'DC-ActiveSkill3' });
     self.ActiveSkill3Rune    = ko.observable(1, { persist: 'DC-ActiveSkill3Rune' });
 
+    self.ActiveSkill4        = ko.observable(4, { persist: 'DC-ActiveSkill4' });
+    self.ActiveSkill4Rune    = ko.observable(1, { persist: 'DC-ActiveSkill4Rune' });
+
     self.Weapons = ko.observableArray([
         { Value: 1, Text: "Crossbow" },
         { Value: 2, Text: "Bow" },
         { Value: 3, Text: "Hand crossbow" }
-    ]);
-
-    self.SentryRunes = ko.observableArray([
-        { Value: 1, Text: "Spitfire Turret", Element: 2 },
-        { Value: 2, Text: "Polar Station", Element: 1 }
     ]);
 
     self.Runes = ko.observableArray([
@@ -105,7 +103,9 @@ function Stats(data) {
         new Rune(2, "Chemical Burn",        4, 2, 7.5, 1, 5, 1, 0),
         new Rune(3, "Grievous Wounds",      4, 4, 7.5, 1, 0, 0, 0),            
         new Rune(4, "Overpenetration",      4, 1, 7.5, 1, 0, 0, 0),
-        new Rune(5, "Ricochet",             4, 3, 7.5, 3, 0, 0, 0)
+        new Rune(5, "Ricochet",             4, 3, 7.5, 3, 0, 0, 0),
+        new Rune(1, "Spitfire Turret",      6, 2, 2.8, 1, 1.2, 1, 1),
+        new Rune(2, "Polar Station",        6, 1, 2.8, 1, 0, 0, 1)
  //       new Rune(1, "Twin Chakrams",        5, 2, 0, 0, 0, 0, 0)              // I'll wait until I figure out how to properly implement this
     ]);
 
@@ -113,8 +113,9 @@ function Stats(data) {
         new Skill(1, "Cluster Arrow"),
         new Skill(2, "Elemental Arrow"),
         new Skill(3, "Multishot"),
-        new Skill(4, "Impale")
+        new Skill(4, "Impale"),
 //        new Skill(5, "Chakram")                                               // I'll wait until I figure out how to properly implement this
+        new Skill(6, "Sentry")
     ]);
 
     self.Elements = ko.observableArray([
@@ -123,6 +124,30 @@ function Stats(data) {
         new Element(3, "Lightning"),
         new Element(4, "Physical")
     ]);
+
+    self.DamagePerHit = ko.computed(function () {
+        var r = 0;        
+        r = (parseInt(self.WeaponDamage1()) + parseInt(self.ExtraDamage1()) + parseInt(self.WeaponDamage2()) + parseInt(self.ExtraDamage2())) / 2;       
+        r = r * ((parseInt(self.Dexterity()) + 100) / 100);
+        r = r * ((parseInt(self.EliteDamage()) + 100) / 100);        
+        return r;
+    }, this);
+
+    self.FixedDamageModifier = ko.computed(function () {
+        var skillModifier = 100;
+        if (self.SteadyAim() === true) { skillModifier = skillModifier + 20; }
+        if (self.Archery() === true) { skillModifier = skillModifier + 8; }      
+        if (self.MarkedforDeath() === true) { skillModifier = skillModifier + 20; }
+        if (self.OverwhelmingDesire() === true) { skillModifier = skillModifier + 35; } 
+        if (self.WolfCompanion() === true) { skillModifier = skillModifier + 30; } 
+        if (self.HexingPantsofMrYan() === true) { skillModifier = skillModifier + 25; }
+        if (self.BaneofthePowerful() === true) { skillModifier = skillModifier + 25; }   
+        skillModifier = skillModifier / 100;       
+        
+        console.log('skillModifier' + skillModifier);
+    
+        return skillModifier;
+    }, this);
 
     self.ActiveSkill1Runes = ko.computed(function () {
         return ko.utils.arrayFilter(this.Runes(), function (rune) {
@@ -163,9 +188,17 @@ function Stats(data) {
         return r[0].Text();
     }, this);
 
+    self.ActiveSkill4Runes = ko.computed(function () {
+        return ko.utils.arrayFilter(this.Runes(), function (rune) {
+            return rune.Skill() === self.ActiveSkill4();
+        });
+    }, this);
 
-    self.SentryTotalDamage = ko.computed(function () {
-        return 0;
+    self.ActiveSkill4Name = ko.computed(function () {
+        var r = ko.utils.arrayFilter(this.ActiveSkills(), function (skill) {
+            return skill.Value() === self.ActiveSkill4();
+        });
+        return r[0].Text();
     }, this);
 
     self.ActiveSkill1Damage = ko.computed(function () {
@@ -174,18 +207,15 @@ function Stats(data) {
         });
         
         if (r.length > 0) {
-            var mod = 1;
-            if (self.Ballistics() === true && r[0].Type() === 1) {
-                mod = 2;
-            }
-
-            console.log('mod '+mod);
-            console.log('type '+r[0].Type());
+            var typeModifier = 1;
+            if (self.Ballistics() === true && r[0].Type() === 1) { typeModifier = 2; }
+            if (self.Grenadier() === true && r[0].Type() === 2) { typeModifier = 1.1; }
+            console.log('typeModifier' + typeModifier);
 
             var singleCap,multiCap;
             self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
             self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
-            return singleCap * r[0].Single() + multiCap * r[0].Multi() * mod;
+            return singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier;
         }
         return 0;     
     }, this);
@@ -196,13 +226,17 @@ function Stats(data) {
         });
         
         if (r.length > 0) {
-			var singleCap,multiCap;
-        	self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
-        	self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
-        	return singleCap * r[0].Single() + multiCap * r[0].Multi();
+            var typeModifier = 1;
+            if (self.Ballistics() === true && r[0].Type() === 1) { typeModifier = 2; }
+            if (self.Grenadier() === true && r[0].Type() === 2) { typeModifier = 1.1; }
+            console.log('typeModifier' + typeModifier);
+
+            var singleCap,multiCap;
+            self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
+            self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
+            return singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier;
         }
-        
-        return 0;     
+        return 0;    
     }, this);
 
     self.ActiveSkill3Damage = ko.computed(function () {
@@ -211,12 +245,36 @@ function Stats(data) {
         });
         
         if (r.length > 0) {
-			var singleCap,multiCap;
-        	self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
-        	self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
-        	return singleCap * r[0].Single() + multiCap * r[0].Multi();
+            var typeModifier = 1;
+            if (self.Ballistics() === true && r[0].Type() === 1) { typeModifier = 2; }
+            if (self.Grenadier() === true && r[0].Type() === 2) { typeModifier = 1.1; }
+            console.log('typeModifier' + typeModifier);
+
+            var singleCap,multiCap;
+            self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
+            self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
+            return singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier;
         }
-        
         return 0;     
     }, this);
+    
+    self.ActiveSkill4Damage = ko.computed(function () {
+        var r = ko.utils.arrayFilter( this.Runes(), function (rune) {
+            return rune.Skill() === self.ActiveSkill4() && rune.Value() === self.ActiveSkill4Rune(); 
+        });
+        
+        if (r.length > 0) {
+            var typeModifier = 1;
+            if (self.Ballistics() === true && r[0].Type() === 1) { typeModifier = 2; }
+            if (self.Grenadier() === true && r[0].Type() === 2) { typeModifier = 1.1; }
+            console.log('typeModifier' + typeModifier);
+
+            var singleCap,multiCap;
+            self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
+            self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
+            return singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier;
+        }
+        return 0;     
+    }, this);
+
 }
