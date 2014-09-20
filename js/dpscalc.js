@@ -172,29 +172,44 @@ function Stats(data) {
         var r = ko.utils.arrayFilter( this.Runes(), function (rune) {
             return rune.Skill() === self.ActiveSkill1() && rune.Value() === self.ActiveSkill1Rune(); 
         });
-        var singleCap,multiCap;
-        self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
-        self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
-        return singleCap * r[0].Single() + multiCap * r[0].Multi();
+        
+        if (r.length > 0) {
+			var singleCap,multiCap;
+        	self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
+        	self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
+        	return singleCap * r[0].Single() + multiCap * r[0].Multi();
+        }
+        
+        return 0;
     }, this);
 
     self.ActiveSkill2Damage = ko.computed(function () {
         var r = ko.utils.arrayFilter( this.Runes(), function (rune) {
             return rune.Skill() === self.ActiveSkill2() && rune.Value() === self.ActiveSkill2Rune(); 
         });
-        var singleCap,multiCap;
-        self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
-        self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
-        return singleCap * r[0].Single() + multiCap * r[0].Multi();
+        
+        if (r.length > 0) {
+			var singleCap,multiCap;
+        	self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
+        	self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
+        	return singleCap * r[0].Single() + multiCap * r[0].Multi();
+        }
+        
+        return 0;     
     }, this);
 
     self.ActiveSkill3Damage = ko.computed(function () {
         var r = ko.utils.arrayFilter( this.Runes(), function (rune) {
             return rune.Skill() === self.ActiveSkill3() && rune.Value() === self.ActiveSkill3Rune(); 
         });
-        var singleCap,multiCap;
-        self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
-        self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
-        return singleCap * r[0].Single() + multiCap * r[0].Multi();
+        
+        if (r.length > 0) {
+			var singleCap,multiCap;
+        	self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
+        	self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
+        	return singleCap * r[0].Single() + multiCap * r[0].Multi();
+        }
+        
+        return 0;     
     }, this);
 }
