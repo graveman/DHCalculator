@@ -1,6 +1,6 @@
 /**
  * Created by Nika on 19.09.2014.
- * Edited by K on 20.09.2014.
+ * 
  */
 var Element = function (value, text) {
     var self = this;
@@ -69,11 +69,11 @@ function Stats(data) {
     self.ActiveSkill1        = ko.observable(1, { persist: 'DC-ActiveSkill1' });
     self.ActiveSkill1Rune    = ko.observable(1, { persist: 'DC-ActiveSkill1Rune' });
 
-    self.ActiveSkill2     = ko.observable(2, { persist: 'DC-ActiveSkill2' });
-    self.ActiveSkill2Rune = ko.observable(1, { persist: 'DC-ActiveSkill2Rune' });
+    self.ActiveSkill2        = ko.observable(2, { persist: 'DC-ActiveSkill2' });
+    self.ActiveSkill2Rune    = ko.observable(1, { persist: 'DC-ActiveSkill2Rune' });
 
-    self.ActiveSkill3     = ko.observable(3, { persist: 'DC-ActiveSkill3' });
-    self.ActiveSkill3Rune = ko.observable(1, { persist: 'DC-ActiveSkill3Rune' });
+    self.ActiveSkill3        = ko.observable(3, { persist: 'DC-ActiveSkill3' });
+    self.ActiveSkill3Rune    = ko.observable(1, { persist: 'DC-ActiveSkill3Rune' });
 
     self.Weapons = ko.observableArray([
         { Value: 1, Text: "Crossbow" },
@@ -99,7 +99,7 @@ function Stats(data) {
 //        new Rune(5, "Nether Tentacles",     2, 4, 3, 1, 0, 0, 0),             // I'll wait until I figure out how to properly implement this
         new Rune(1, "Burst Fire",           3, 1, 3.6, 20, 2, 1, 0),            // Chose arrows as primary, cold burst as secondary
         new Rune(2, "Full Broadside",       3, 4, 4.6, 20, 0, 0, 0),            // Chose arrows as primary
-        new Rune(3, "Arsenal",              3, 2, 3.6, 20, 3, 3, 1),          // Chose arrows as primary, rockets as secondary
+        new Rune(3, "Arsenal",              3, 2, 3.6, 20, 3, 3, 1),            // Chose arrows as primary, rockets as secondary
         new Rune(4, "Fire at Will",         3, 3, 3.6, 20, 0, 0, 0),            // Chose arrows as primary
         new Rune(1, "Impact",               4, 4, 7.5, 1, 0, 0, 0),
         new Rune(2, "Chemical Burn",        4, 2, 7.5, 1, 5, 1, 0),
@@ -123,8 +123,6 @@ function Stats(data) {
         new Element(3, "Lightning"),
         new Element(4, "Physical")
     ]);
-
-    self.ActiveSkill1Rune = ko.observable(1, { persist: 'DC-ActiveSkill1Rune' });
 
     self.ActiveSkill1Runes = ko.computed(function () {
         return ko.utils.arrayFilter(this.Runes(), function (rune) {
@@ -174,32 +172,17 @@ function Stats(data) {
         var r = ko.utils.arrayFilter( this.Runes(), function (rune) {
             return rune.Skill() === self.ActiveSkill1() && rune.Value() === self.ActiveSkill1Rune(); 
         });
-        var singleCap = 0
-        var multiCap = 0;
+        var singleCap,multiCap;
         self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
-        self.NumberofTargets() >= r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
+        self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
         return singleCap * r[0].Single() + multiCap * r[0].Multi();
     }, this);
 
     self.ActiveSkill2Damage = ko.computed(function () {
-        var r = ko.utils.arrayFilter( this.Runes(), function (rune) {
-            return rune.Skill() === self.ActiveSkill2() && rune.Value() === self.ActiveSkill2Rune(); 
-        });
-        var singleCap = 0
-        var multiCap = 0;
-        self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
-        self.NumberofTargets() >= r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
-        return singleCap * r[0].Single() + multiCap * r[0].Multi();
+        return 0;
     }, this);
 
     self.ActiveSkill3Damage = ko.computed(function () {
-        var r = ko.utils.arrayFilter( this.Runes(), function (rune) {
-            return rune.Skill() === self.ActiveSkill3() && rune.Value() === self.ActiveSkill3Rune(); 
-        });
-        var singleCap = 0
-        var multiCap = 0;
-        self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
-        self.NumberofTargets() >= r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
-        return singleCap * r[0].Single() + multiCap * r[0].Multi();
+        return 0;
     }, this);
 }
