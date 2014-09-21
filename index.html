@@ -14,6 +14,16 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/site.css" rel="stylesheet">
 
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/knockout-3.2.0.js"></script>
+    <script src="js/knockout.localStorage.js"></script>
+
+    <script src="js/ascalc.js"></script>
+    <script src="js/dpscalc.js"></script>
+    <script src="js/tooltips.js"></script>
+
+
     <style>
         body {
             padding-top: 70px;
@@ -168,7 +178,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-xs-6 control-label">Number of Hits per Target</label>
+                    <label class="col-xs-6 control-label padding-right0">Number of Hits per Target</label>
                     <div class="col-xs-6">
                         <input data-bind="value: NumberofHits, valueUpdate: 'afterkeydown'"
                                type="number" min="1" max="20" class="form-control input-sm" />
@@ -433,18 +443,16 @@
             <legend>Active Skills</legend>
             <div class="col-xs-12">
                 <div class="form-group">
-                    <div class="col-xs-1 padding0">
-                        <img style="height: 28px" data-bind="attr:{src: 'images/demonhunter_skill_'+ActiveSkill1()+'.png'}" />
-                    </div>
-                    <label class="col-xs-5 control-label">Sentry</label>
-<!--                    <div class="col-xs-5 padding-right0">
-                        <select data-bind="options: ActiveSkills, optionsText: 'Text', optionsValue: 'Value', value: ActiveSkill1"
-                                 class="form-control input-sm"></select>
-                    </div>-->
-                    <div class="col-xs-6">
-                        <select data-bind="options: ActiveSkill1Runes, optionsText: 'Text', optionsValue: 'Value', value: ActiveSkill1Rune"
-                                 class="form-control input-sm"></select>
-                    </div>
+                    <a style="display: block" href="http://eu.battle.net/d3/en/class/demon-hunter/active/sentry#c+" onclick="return false;">
+                        <div class="col-xs-1 padding0">                        
+                            <img style="height: 28px" data-bind="attr:{src: 'images/demonhunter_skill_'+ActiveSkill1()+'.png'}" />                        
+                        </div>
+                        <label class="col-xs-5 control-label">Sentry</label>
+                        <div class="col-xs-6">
+                            <select data-bind="options: ActiveSkill1Runes, optionsText: 'Text', optionsValue: 'Value', value: ActiveSkill1Rune"
+                                     class="form-control input-sm"></select>
+                        </div>
+                    </a>    
                 </div>
                 <div class="form-group">
                     <div class="col-xs-1 padding0">
@@ -696,13 +704,6 @@
     </form>
 </div>
 <!-- /.container -->
-<script src="js/jquery-1.11.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/knockout-3.2.0.js"></script>
-<script src="js/knockout.localStorage.js"></script>
-
-<script src="js/ascalc.js"></script>
-<script src="js/dpscalc.js"></script>
 
 <div class="modal fade" id="ASCalculator">
     <div class="modal-dialog">
@@ -835,16 +836,8 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<script src="http://eu.battle.net/d3/static/js/tooltips.js"></script>
-<script>
-    var b = Bnet.D3.Tooltips;
-    b.registerDataOld = b.registerData;
-    b.registerData = function (data) {
-        var c = document.body.children, s = c[c.length - 1].src;
-        data.params.key = s.substr(0, s.indexOf('?')).substr(s.lastIndexOf('/') + 1);
-        this.registerDataOld(data);
-    }
-</script>
+
+
 
 <script>
     function showASCalculator() {
