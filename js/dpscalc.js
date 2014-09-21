@@ -48,7 +48,7 @@ function Stats(data) {
     self.LightningDamage          = ko.observable(0, { persist: 'DC-LightningDamage' });
     self.PhysicalDamage           = ko.observable(0, { persist: 'DC-PhysicalDamage' });
 
-    self.NumberofTargets          = ko.observable(0, { persist: 'DC-NumberofTargets' });
+    self.NumberofTargets          = ko.observable(1, { persist: 'DC-NumberofTargets' });
 
     self.SentryDamage             = ko.observable(0, { persist: 'DC-SentryDamage' });
     self.CADamage                 = ko.observable(0, { persist: 'DC-CADamage' });
