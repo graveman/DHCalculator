@@ -77,6 +77,7 @@ function Stats(data) {
     self.BaneoftheTrappedModifier       = ko.observable(0, { persist: 'DC-BaneoftheTrappedModifier' });
     self.ZeisStoneofVengeance           = ko.observable(false, { persist: 'DC-ZeisStoneofVengeance' });
     self.ZeisStoneofVengeanceRank       = ko.observable(0, { persist: 'DC-ZeisStoneofVengeanceRank' });
+    self.ZeisStoneofVengeanceDistance   = ko.observable(1, { persist: 'DC-ZeisStoneofVengeanceDistance' });
     self.ZeisStoneofVengeanceModifier   = ko.observable(0, { persist: 'DC-ZeisStoneofVengeanceModifier' });
     
     self.HexingPantsofMrYan             = ko.observable(false, { persist: 'DC-HexingPantsofMrYan' });
@@ -94,7 +95,7 @@ function Stats(data) {
     self.CripplingWave            = ko.observable(false, { persist: 'DC-CripplingWave' });
 
     self.ActiveSkill1        = ko.observable(6, { persist: 'DC-ActiveSkill1' });
-    self.ActiveSkill1Rune    = ko.observable(6, { persist: 'DC-ActiveSkill1Rune' });
+    self.ActiveSkill1Rune    = ko.observable(1, { persist: 'DC-ActiveSkill1Rune' });
 
     self.ActiveSkill2        = ko.observable(2, { persist: 'DC-ActiveSkill2' });
     self.ActiveSkill2Rune    = ko.observable(1, { persist: 'DC-ActiveSkill2Rune' });
@@ -171,6 +172,15 @@ function Stats(data) {
         return r;
     }, this);
 
+    self.ZeisStoneofVengeanceModifier = ko.computed(function () {
+        var r = 1;
+        if (self.ZeisStoneofVengeance() === true) {
+            r = r * (100 + (4 + parseInt(self.ZeisStoneofVengeanceRank()) * 0.05) * parseInt(self.ZeisStoneofVengeanceDistance())) / 100;
+        };
+        return r;
+    }, this);
+
+
     self.EnforcerModifier = ko.computed(function () {
         var r = 0;      
         if (self.Enforcer() === true) {
@@ -207,6 +217,7 @@ function Stats(data) {
         var r = 1;
         r = r * (parseInt(self.Dexterity()) + 100) / 100;
         r = r * self.BaneoftheTrappedModifier();
+        r = r * self.ZeisStoneofVengeanceModifier();
         r = r * (parseInt(self.SentryDamage()) + 100) / 100;
         if (self.Ambush() === true) { r = r * 1.1; }
         if (self.CulltheWeak() === true) { r = r * 1.2; }
