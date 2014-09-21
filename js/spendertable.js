@@ -1,4 +1,4 @@
-var spenderdata =
+spenderdata =
 [
 new Combo(37,13,0,12,12,0,0,134,1),
 new Combo(42,11,0,21,10,0,0,134,2),
