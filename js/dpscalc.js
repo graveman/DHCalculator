@@ -30,6 +30,18 @@ var Rune = function (value, text, skill, element, single, singlecap, multi, mult
     self.Slug       = ko.observable(slug);
 };
 
+var Combo = function(total, ca, ea, ms, imp, chak, bolts, code, bp) {
+    var self = this;
+    self.Total       = ko.observable(total);          
+    self.CA          = ko.observable(ca);            
+    self.EA          = ko.observable(ea);      
+    self.MS          = ko.observable(ms);          
+    self.Imp         = ko.observable(imp);           
+    self.Chak        = ko.observable(chak);           
+    self.Bolts       = ko.observable(bolts);             
+    self.Code        = ko.observable(code);
+    self.BP          = ko.observable(bp);
+};
 
 function Stats(data) {
     var self = this;
@@ -131,6 +143,10 @@ function Stats(data) {
         //       new Rune(1, "Twin Chakrams",        5, 2, 0, 0, 0, 0, 0)              // I'll wait until I figure out how to properly implement this
     ]);
 
+    self.Combos = ko.observableArray([
+        new Combo(150, 14, 100, 36, 0, 0, 0, 123, 7)        
+    ]);
+
     self.ActiveSkill1           = ko.observable(6, { persist: 'DC-ActiveSkill1' });
     self.ActiveSkill1Data       = ko.computed(function () {
         var r = ko.utils.arrayFilter(self.ActiveSkills(), function (skill) {
@@ -138,7 +154,7 @@ function Stats(data) {
         });
         return r[0];
     }, this);
-    self.ActiveSkill1Rune       = ko.observable(6, { persist: 'DC-ActiveSkill1Rune' });
+    self.ActiveSkill1Rune       = ko.observable(1, { persist: 'DC-ActiveSkill1Rune' });
     self.ActiveSkill1Runes      = ko.computed(function () {
         return ko.utils.arrayFilter(this.Runes(), function (rune) {
             return rune.Skill() === self.ActiveSkill1();
@@ -242,8 +258,6 @@ function Stats(data) {
     self.BreakPoint = ko.computed(function () {
         var ttAPS = parseFloat(self.AttackSpeed());
 
-        if (ttAPS >= 0.98182 && ttAPS <= 1.10204)
-            return 0;
         if (ttAPS >= 1.10205 && ttAPS <= 1.25581)
             return 1;
         if (ttAPS >= 1.25582 && ttAPS <= 1.4545)
@@ -361,9 +375,20 @@ function Stats(data) {
 
             var hits = 1;
             if (r[0].Hits() === true) { hits = parseInt(self.NumberofHits()); }
+
+            var rockets = 0;
+
+            var c = ko.utils.arrayFilter( this.Combos(), function (combo) {
+                return combo.BP() === parseInt(self.BreakPoint()) && combo.Code() === parseInt(self.SpenderCombo()); 
+            });            
+
+
+            if (c.length > 0) {
+               if (self.ActiveSkill1Rune() === 1) { rockets = c[0].Total(); }   
+            }         
             
             var total = 0;
-            total = singleCap * r[0].Single() * hits + multiCap * r[0].Multi() * typeModifier;
+            total = singleCap * r[0].Single() * hits + multiCap * r[0].Multi() * typeModifier * rockets;
             total = total * self.BaseWeaponDamage();
             total = total * criticalModifier;
             total = total * (1 + self.EnforcerModifier() + elementalModifier);
@@ -372,7 +397,8 @@ function Stats(data) {
             total = total * (parseInt(self.EliteDamage()) + 100) / 100;
             return total;
         }
-        return 0;      
+
+        return 0;  
     }, this);
 
     self.ActiveSkill2Damage = ko.computed(function () {
