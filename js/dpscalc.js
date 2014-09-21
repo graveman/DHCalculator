@@ -214,6 +214,14 @@ function Stats(data) {
         return r[0];
     }, this);
 
+    self.SpenderCombo = ko.computed(function () {
+        var a = [self.ActiveSkill2(),self.ActiveSkill3(),self.ActiveSkill4()];
+        a.sort();
+        var r = a.join('');
+        return r;
+    }, this);
+
+
     self.BaseWeaponDamage         = ko.observable(0, { persist: 'DC-BaseWeaponDamage' });
     self.AdditiveModifier         = ko.observable(0, { persist: 'DC-AdditiveModifier' });
     self.MultiplicativeModifier   = ko.observable(0, { persist: 'DC-MultiplicativeModifier' });
