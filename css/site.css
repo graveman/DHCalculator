@@ -39,10 +39,6 @@ input {
     text-align: left !important;
 }
 
-.checkbox {
-    margin-top: 0px !important;
-    padding-top: 0px !important;
-}
 
 hr {
     margin-top: 10px;
@@ -79,6 +75,12 @@ hr {
     padding-right: 2px;
 }
 
+/*
+.checkbox {
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+}
+
 .check {
     margin-top: 8px !important;
 }
@@ -87,6 +89,7 @@ hr {
     margin-top: -3px !important;
 }
 
+*/
 
 .d3-label {
     text-align: left !important;
@@ -110,7 +113,13 @@ hr {
 .green {
     color: green;
 }
-
+/*
 label{
     display:inline;
 }
+input[type="radio"], input[type="checkbox"] {
+    line-height: normal;
+    margin: 0;
+}
+*/
+
