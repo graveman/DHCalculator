@@ -30,51 +30,63 @@ var Rune = function (value, text, skill, element, single, singlecap, multi, mult
 function Stats(data) {
     var self = this;
     self.Weapon                   = ko.observable(0, { persist: 'DC-Weapon' });
-    self.WeaponDamage1            = ko.observable(0, { persist: 'DC-WeaponDamage1' });
-    self.WeaponDamage2            = ko.observable(0, { persist: 'DC-WeaponDamage2' });
-    self.ExtraDamage1             = ko.observable(0, { persist: 'DC-ExtraDamage1' });
-    self.ExtraDamage2             = ko.observable(0, { persist: 'DC-ExtraDamage2' });
     self.AttackSpeed              = ko.observable(0, { persist: 'DC-AttackSpeed' });
     self.TTBuff                   = ko.observable(0, { persist: 'DC-TTBuff' });
+
+    self.WeaponDamage1            = ko.observable(0, { persist: 'DC-WeaponDamage1' });
+    self.WeaponDamage2            = ko.observable(0, { persist: 'DC-WeaponDamage2' });
+    self.JewelryDamage1             = ko.observable(0, { persist: 'DC-JewelryDamage1' });
+    self.JewelryDamage2             = ko.observable(0, { persist: 'DC-JewelryDamage2' });
+
     self.Dexterity                = ko.observable(0, { persist: 'DC-Dexterity' });
     self.CHC                      = ko.observable(0, { persist: 'DC-CHC' });
     self.CHD                      = ko.observable(0, { persist: 'DC-CHD' });
     self.EliteDamage              = ko.observable(0, { persist: 'DC-EliteDamage' });
+
     self.ColdDamage               = ko.observable(0, { persist: 'DC-ColdDamage' });
     self.FireDamage               = ko.observable(0, { persist: 'DC-FireDamage' });
     self.LightningDamage          = ko.observable(0, { persist: 'DC-LightningDamage' });
-    self.NumberofTargets          = ko.observable(0, { persist: 'DC-NumberofTargets' });
     self.PhysicalDamage           = ko.observable(0, { persist: 'DC-PhysicalDamage' });
+
+    self.NumberofTargets          = ko.observable(0, { persist: 'DC-NumberofTargets' });
+
     self.SentryDamage             = ko.observable(0, { persist: 'DC-SentryDamage' });
     self.CADamage                 = ko.observable(0, { persist: 'DC-CADamage' });
     self.MultishotDamage          = ko.observable(0, { persist: 'DC-MultishotDamage' });
     self.EADamage                 = ko.observable(0, { persist: 'DC-EADamage' });
     self.ImpaleDamage             = ko.observable(0, { persist: 'DC-ImpaleDamage' });
-    self.ActiveSentryRune         = ko.observable(0, { persist: 'DC-ActiveSentryRune' });
+    self.ChakramDamage             = ko.observable(0, { persist: 'DC-ImpaleDamage' });
+    self.WolfCompanion            = ko.observable(false, { persist: 'DC-WolfCompanion' });
+    self.MarkedforDeath           = ko.observable(false, { persist: 'DC-MarkedforDeath' });
+
     self.CulltheWeak              = ko.observable(false, { persist: 'DC-CulltheWeak' });
     self.SteadyAim                = ko.observable(false, { persist: 'DC-SteadyAim' });
     self.Ballistics               = ko.observable(false, { persist: 'DC-Ballistics' });
     self.Grenadier                = ko.observable(false, { persist: 'DC-Grenadier' });
     self.Ambush                   = ko.observable(false, { persist: 'DC-Ambush' });
     self.Archery                  = ko.observable(false, { persist: 'DC-Archery' });
-    self.BaneofthePowerful        = ko.observable(false, { persist: 'DC-BaneofthePowerfulRank' });
-    self.EnforcerRank             = ko.observable(0, { persist: 'DC-EnforcerRank' });
-    self.BaneoftheTrappedRank     = ko.observable(0, { persist: 'DC-BaneoftheTrappedRank' });
-    self.ZeisStoneofVengeanceRank = ko.observable(0, { persist: 'DC-ZeisStoneofVengeanceRank' });
+    
+    self.BaneofthePowerful              = ko.observable(false, { persist: 'DC-BaneofthePowerfulRank' });
+    self.Enforcer                       = ko.observable(false, { persist: 'DC-Enforcer' });
+    self.EnforcerRank                   = ko.observable(0, { persist: 'DC-EnforcerRank' });
+    self.EnforcerModifier               = ko.observable(0, { persist: 'DC-EnforcerModifier' });
+    self.BaneoftheTrapped               = ko.observable(false, { persist: 'DC-BaneoftheTrapped' });    
+    self.BaneoftheTrappedRank           = ko.observable(0, { persist: 'DC-BaneoftheTrappedRank' });
+    self.BaneoftheTrappedModifier       = ko.observable(0, { persist: 'DC-BaneoftheTrappedModifier' });
+    self.ZeisStoneofVengeance           = ko.observable(false, { persist: 'DC-ZeisStoneofVengeance' });
+    self.ZeisStoneofVengeanceRank       = ko.observable(0, { persist: 'DC-ZeisStoneofVengeanceRank' });
+    self.ZeisStoneofVengeanceModifier   = ko.observable(0, { persist: 'DC-ZeisStoneofVengeanceModifier' });
+    
     self.HexingPantsofMrYan       = ko.observable(false, { persist: 'DC-HexingPantsofMrYan' });
     self.StrongarmBracers         = ko.observable(0, { persist: 'DC-StrongarmBracers' });
     self.OverwhelmingDesire       = ko.observable(false, { persist: 'DC-OverwhelmingDesire' });
-    self.WolfCompanion            = ko.observable(false, { persist: 'DC-WolfCompanion' });
-    self.MarkedforDeath           = ko.observable(false, { persist: 'DC-MarkedforDeath' });
+
     self.BigBadVoodoo             = ko.observable(false, { persist: 'DC-BigBadVoodoo' });
     self.MassConfusion            = ko.observable(false, { persist: 'DC-MassConfusion' });
     self.Piranhas                 = ko.observable(false, { persist: 'DC-Piranhas' });
     self.MantraofConviction       = ko.observable(false, { persist: 'DC-MantraofConviction' });
     self.InnerSanctuary           = ko.observable(false, { persist: 'DC-InnerSanctuary' });
     self.CripplingWave            = ko.observable(false, { persist: 'DC-CripplingWave' });
-
-
-
 
     self.ActiveSkill1        = ko.observable(1, { persist: 'DC-ActiveSkill1' });
     self.ActiveSkill1Rune    = ko.observable(1, { persist: 'DC-ActiveSkill1Rune' });
@@ -87,6 +99,10 @@ function Stats(data) {
 
     self.ActiveSkill4        = ko.observable(4, { persist: 'DC-ActiveSkill4' });
     self.ActiveSkill4Rune    = ko.observable(1, { persist: 'DC-ActiveSkill4Rune' });
+
+    self.BaseWeaponDamage               = ko.observable(0, { persist: 'DC-BaseWeaponDamage' });
+    self.AdditiveDamageModifier         = ko.observable(0, { persist: 'DC-AdditiveDamageModifier' });
+    self.MultiplicativeDamageModifier   = ko.observable(0, { persist: 'DC-MultiplicativeDamageModifier' });
 
     self.Weapons = ko.observableArray([
         { Value: 1, Text: "Crossbow" },
@@ -135,15 +151,30 @@ function Stats(data) {
         new Element(4, "Physical")
     ]);
 
-    self.DamagePerHit = ko.computed(function () {
+    self.BaseWeaponDamage = ko.computed(function () {
         var r = 0;        
-        r = (parseInt(self.WeaponDamage1()) + parseInt(self.ExtraDamage1()) + parseInt(self.WeaponDamage2()) + parseInt(self.ExtraDamage2())) / 2;       
-        r = r * ((parseInt(self.Dexterity()) + 100) / 100);
-        r = r * ((parseInt(self.EliteDamage()) + 100) / 100);        
+        r = (parseInt(self.WeaponDamage1()) + parseInt(self.JewelryDamage1()) + parseInt(self.WeaponDamage2()) + parseInt(self.JewelryDamage2())) / 2;       
         return r;
     }, this);
 
-    self.FixedDamageModifier = ko.computed(function () {
+    self.BaneoftheTrappedModifier = ko.computed(function () {
+        var r = 1;
+        if (self.BaneoftheTrapped() === true) {
+            r = r * (100 + 15 + parseInt(self.BaneoftheTrappedRank()) * 0.3) / 100;
+        }
+        return r;
+    }, this);
+
+    self.EnforcerModifier = ko.computed(function () {
+        var r = 0;      
+        if (self.Enforcer() === true) {
+            r = r + 15 + parseInt(self.EnforcerRank()) * 0.3;
+        }
+        r = r / 100;
+        return r;
+    }, this);
+
+    self.AdditiveDamageModifier = ko.computed(function () {
         var r = 100;
         if (self.SteadyAim() === true) { r = r + 20; }
         if (self.Archery() === true) { r = r + 8; }      
@@ -151,22 +182,32 @@ function Stats(data) {
         if (self.OverwhelmingDesire() === true) { r = r + 35; } 
         if (self.WolfCompanion() === true) { r = r + 30; } 
         if (self.HexingPantsofMrYan() === true) { r = r + 25; }
-        if (self.BaneofthePowerful() === true) { r = r + 20; }       
+        if (self.BaneofthePowerful() === true) { r = r + 20; } 
         if (self.MassConfusion() === true) { r = r + 20; }      
         if (self.Piranhas() === true) { r = r + 15; }
         if (self.BigBadVoodoo() === true) { r = r + 30; } 
         if (self.CripplingWave() === true) { r = r + 10; } 
         if (self.MantraofConviction() === true) { r = r + 20; }
         if (self.InnerSanctuary() === true) { r = r + 30; }  
+        r = r + parseInt(self.StrongarmBracers());
+        r = r / 100;
 
         console.log('r' + r);    
         return r;
     }, this);
-    
- /*   self.CriticalDamageModifier = ko.computed(function () {
-        var r = (parseInt(self.CHC()) * (parseInt(self.CHD()) + 100) / 10000) + (100 - parseInt(self.CHC())) / 100;      
+
+    self.MultiplicativeDamageModifier = ko.computed(function () {
+        var r = 1;
+        r = r * (parseInt(self.Dexterity()) + 100) / 100;
+        r = r * (parseInt(self.EliteDamage()) + 100) / 100;
+        r = r * self.BaneoftheTrappedModifier();
+        r = r * (parseInt(self.SentryDamage()) + 100) / 100;
+        if (self.Ambush() === true) { r = r * 1.1; }
+        if (self.CulltheWeak() === true) { r = r * 1.2; }
+
+        console.log('r' + r); 
         return r;
-    }, this);*/    
+    }, this);
 
     self.ActiveSkill1Runes = ko.computed(function () {
         return ko.utils.arrayFilter(this.Runes(), function (rune) {
@@ -236,10 +277,11 @@ function Stats(data) {
             
             var skillModifier = 0;
             switch (r[0].Skill()) {
-                case 1: skillModifier = parseInt(self.CADamage()); break;
-                case 2: skillModifier = parseInt(self.EADamage()); break;  
-                case 3: skillModifier = parseInt(self.MultishotDamage()); break;
-                case 4: skillModifier = parseInt(self.ImpaleDamage()); break;
+                case 1: skillModifier = parseInt(self.CADamage()) / 100; break;
+                case 2: skillModifier = parseInt(self.EADamage()) / 100; break;
+                case 3: skillModifier = parseInt(self.MultishotDamage()) / 100; break;
+                case 4: skillModifier = parseInt(self.ImpaleDamage()) / 100; break;
+                case 5: skillModifier = parseInt(self.ChakramDamage()) / 100; break;
             }
             
             var typeModifier = 1;
@@ -251,7 +293,7 @@ function Stats(data) {
             self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
             self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
 
-           return (singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier) * criticalModifier * ((parseInt(self.FixedDamageModifier()) + skillModifier) / 100);
+           return (singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier) * criticalModifier;
         }
         return 0;     
     }, this);
@@ -272,10 +314,11 @@ function Stats(data) {
             
             var skillModifier = 0;
             switch (r[0].Skill()) {
-                case 1: skillModifier = parseInt(self.CADamage()); break;
-                case 2: skillModifier = parseInt(self.EADamage()); break;  
-                case 3: skillModifier = parseInt(self.MultishotDamage()); break;
-                case 4: skillModifier = parseInt(self.ImpaleDamage()); break;
+                case 1: skillModifier = parseInt(self.CADamage()) / 100; break;
+                case 2: skillModifier = parseInt(self.EADamage()) / 100; break;
+                case 3: skillModifier = parseInt(self.MultishotDamage()) / 100; break;
+                case 4: skillModifier = parseInt(self.ImpaleDamage()) / 100; break;
+                case 5: skillModifier = parseInt(self.ChakramDamage()) / 100; break;
             }
             
             var typeModifier = 1;
@@ -287,7 +330,7 @@ function Stats(data) {
             self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
             self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
 
-           return (singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier) * criticalModifier * ((parseInt(self.FixedDamageModifier()) + skillModifier) / 100);
+           return (singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier) * criticalModifier;
         }
         return 0;    
     }, this);
@@ -308,10 +351,11 @@ function Stats(data) {
             
             var skillModifier = 0;
             switch (r[0].Skill()) {
-                case 1: skillModifier = parseInt(self.CADamage()); break;
-                case 2: skillModifier = parseInt(self.EADamage()); break;  
-                case 3: skillModifier = parseInt(self.MultishotDamage()); break;
-                case 4: skillModifier = parseInt(self.ImpaleDamage()); break;
+                case 1: skillModifier = parseInt(self.CADamage()) / 100; break;
+                case 2: skillModifier = parseInt(self.EADamage()) / 100; break;
+                case 3: skillModifier = parseInt(self.MultishotDamage()) / 100; break;
+                case 4: skillModifier = parseInt(self.ImpaleDamage()) / 100; break;
+                case 5: skillModifier = parseInt(self.ChakramDamage()) / 100; break;
             }
             
             var typeModifier = 1;
@@ -323,7 +367,7 @@ function Stats(data) {
             self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
             self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
 
-           return (singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier) * criticalModifier * ((parseInt(self.FixedDamageModifier()) + skillModifier) / 100);
+           return (singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier) * criticalModifier;
         }
         return 0;     
     }, this);
@@ -344,10 +388,11 @@ function Stats(data) {
             
             var skillModifier = 0;
             switch (r[0].Skill()) {
-                case 1: skillModifier = parseInt(self.CADamage()); break;
-                case 2: skillModifier = parseInt(self.EADamage()); break;  
-                case 3: skillModifier = parseInt(self.MultishotDamage()); break;
-                case 4: skillModifier = parseInt(self.ImpaleDamage()); break;
+                case 1: skillModifier = parseInt(self.CADamage()) / 100; break;
+                case 2: skillModifier = parseInt(self.EADamage()) / 100; break;
+                case 3: skillModifier = parseInt(self.MultishotDamage()) / 100; break;
+                case 4: skillModifier = parseInt(self.ImpaleDamage()) / 100; break;
+                case 5: skillModifier = parseInt(self.ChakramDamage()) / 100; break;
             }
             
             var typeModifier = 1;
@@ -359,7 +404,7 @@ function Stats(data) {
             self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
             self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
 
-           return (singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier) * criticalModifier * ((parseInt(self.FixedDamageModifier()) + skillModifier) / 100);
+           return (singleCap * r[0].Single() + multiCap * r[0].Multi() * typeModifier) * criticalModifier;
         }
         return 0;     
     }, this);
