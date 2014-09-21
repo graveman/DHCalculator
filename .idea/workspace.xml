@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="598331bb-d12f-427f-bd5a-06d580bf30c7" name="Default" comment="removed Total Attack Speed field from dps calc">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/dpscalc.js" afterPath="$PROJECT_DIR$/js/dpscalc.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/spendertable.js" afterPath="$PROJECT_DIR$/js/spendertable.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/knockout.localStorage.js" afterPath="$PROJECT_DIR$/js/knockout.localStorage.js" />
     </list>
     <ignored path="DHCalculator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,8 +39,18 @@
       <file leaf-file-name="dpscalc.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/dpscalc.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7775378" vertical-offset="5175" max-vertical-offset="6600">
-              <caret line="393" column="61" selection-start-line="393" selection-start-column="61" selection-end-line="393" selection-end-column="61" />
+            <state vertical-scroll-proportion="0.78941685" vertical-offset="5674" max-vertical-offset="6600">
+              <caret line="427" column="38" selection-start-line="427" selection-start-column="38" selection-end-line="427" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="knockout.localStorage.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/knockout.localStorage.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="555">
+              <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -51,7 +60,7 @@
         <entry file="file://$PROJECT_DIR$/js/spendertable.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2820">
-              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+              <caret line="143" column="33" selection-start-line="143" selection-start-column="33" selection-end-line="143" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -104,6 +113,7 @@
         <option value="$PROJECT_DIR$/css/site.css" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/js/spendertable.js" />
+        <option value="$PROJECT_DIR$/js/knockout.localStorage.js" />
         <option value="$PROJECT_DIR$/js/dpscalc.js" />
       </list>
     </option>
@@ -199,6 +209,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="FullScreen" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
+    <property name="LayoutCode.rearrangeEntriesJavaScript" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -496,15 +507,23 @@
     <entry file="file://$PROJECT_DIR$/js/spendertable.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2820">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <caret line="143" column="33" selection-start-line="143" selection-start-column="33" selection-end-line="143" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/knockout.localStorage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="555">
+          <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/dpscalc.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7775378" vertical-offset="5175" max-vertical-offset="6600">
-          <caret line="393" column="61" selection-start-line="393" selection-start-column="61" selection-end-line="393" selection-end-column="61" />
+        <state vertical-scroll-proportion="0.78941685" vertical-offset="5674" max-vertical-offset="6600">
+          <caret line="427" column="38" selection-start-line="427" selection-start-column="38" selection-end-line="427" selection-end-column="38" />
           <folding />
         </state>
       </provider>

@@ -8,11 +8,11 @@
             options = options || {};
 
             var key = options.persist;
-
+            var item = window.localStorage.getItem(key);
             // Load existing value if set
-            if (key && localStorage.hasOwnProperty(key)) {
+            if (key &&  item !== null) {
                 try {
-                    initialValue = JSON.parse(localStorage.getItem(key))
+                    initialValue = JSON.parse(item)
                 } catch (e) { };
             }
 
@@ -22,7 +22,7 @@
             // Subscribe to changes, and save to localStorage
             if (key) {
                 observable.subscribe(function (newValue) {
-                    localStorage.setItem(key, ko.toJSON(newValue));
+                    window.localStorage.setItem(key, ko.toJSON(newValue));
                 });
             };
 
