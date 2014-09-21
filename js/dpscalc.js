@@ -8,24 +8,26 @@ var Element = function (value, text) {
     self.Text = ko.observable(text);    
 }
 
-var Skill = function (value, text) {
+var Skill = function (value, text, slug) {
     var self = this;
     self.Value = ko.observable(value);
     self.Text  = ko.observable(text);
+    self.Slug  = ko.observable(slug);
 };
 
-var Rune = function (value, text, skill, element, single, singlecap, multi, multicap, type, hits) {
+var Rune = function (value, text, skill, element, single, singlecap, multi, multicap, type, hits, slug) {
     var self = this;
-    self.Value = ko.observable(value);
-    self.Text  = ko.observable(text);
-    self.Skill = ko.observable(skill);
-    self.Element = ko.observable(element);          // Elemental type
-    self.Single = ko.observable(single);            // damage multiplier for primary strike
-    self.SingleCap = ko.observable(singlecap);      // max number of targets for primary strike 
-    self.Multi  = ko.observable(multi);             // damage multiplier for secondary strikes
-    self.MultiCap = ko.observable(multicap);        // max number of targets for secondary strikes
-    self.Type = ko.observable(type);                // 1 for Rocket, 2 for Grenade, 0 for no specific type
-    self.Hits = ko.observable(hits);                // allow for multiple hits to same enemy, true or false
+    self.Value      = ko.observable(value);
+    self.Text       = ko.observable(text);
+    self.Skill      = ko.observable(skill);
+    self.Element    = ko.observable(element);             // Elemental type
+    self.Single     = ko.observable(single);              // damage multiplier for primary strike
+    self.SingleCap  = ko.observable(singlecap);           // max number of targets for primary strike 
+    self.Multi      = ko.observable(multi);               // damage multiplier for secondary strikes
+    self.MultiCap   = ko.observable(multicap);            // max number of targets for secondary strikes
+    self.Type       = ko.observable(type);                // 1 for Rocket, 2 for Grenade, 0 for no specific type
+    self.Hits       = ko.observable(hits);                // allow for multiple hits to same enemy, true or false
+    self.Slug       = ko.observable(slug);
 };
 
 function Stats(data) {
@@ -57,7 +59,7 @@ function Stats(data) {
     self.MultishotDamage          = ko.observable(0, { persist: 'DC-MultishotDamage' });
     self.EADamage                 = ko.observable(0, { persist: 'DC-EADamage' });
     self.ImpaleDamage             = ko.observable(0, { persist: 'DC-ImpaleDamage' });
-    self.ChakramDamage             = ko.observable(0, { persist: 'DC-ImpaleDamage' });
+    self.ChakramDamage            = ko.observable(0, { persist: 'DC-ImpaleDamage' });
     self.WolfCompanion            = ko.observable(false, { persist: 'DC-WolfCompanion' });
     self.MarkedforDeath           = ko.observable(false, { persist: 'DC-MarkedforDeath' });
 
@@ -93,17 +95,125 @@ function Stats(data) {
     self.InnerSanctuary           = ko.observable(false, { persist: 'DC-InnerSanctuary' });
     self.CripplingWave            = ko.observable(false, { persist: 'DC-CripplingWave' });
 
-    self.ActiveSkill1        = ko.observable(6, { persist: 'DC-ActiveSkill1' });
-    self.ActiveSkill1Rune    = ko.observable(6, { persist: 'DC-ActiveSkill1Rune' });
+
+    self.ActiveSkills = ko.observableArray([
+        new Skill(1, "Cluster Arrow", "cluster-arrow"),
+        new Skill(2, "Elemental Arrow", "elemental-arrow"),
+        new Skill(3, "Multishot", "multishot"),
+        new Skill(4, "Impale", "impale"),
+//        new Skill(5, "Chakram")                                               // I'll wait until I figure out how to properly implement this
+        new Skill(6, "Sentry", "sentry")
+    ]);
+
+    self.Runes = ko.observableArray([
+        new Rune(1, "Dazzling Arrow",       1, 3, 5.5, 1, 8.8, 1, 2, false, "e"),
+        new Rune(2, "Shooting Stars",       1, 4, 5.5, 1, 6, 3, 1, false, "b"),
+        new Rune(3, "Maelstrom",            1, 1, 5.5, 1, 4.5, 5, 1, false, "d"),
+//        new Rune(4, "Cluster Bombs",        1, 2, 0, 0, 0, 0),                // No idea how many grenades actually spawn
+        new Rune(5, "Loaded for Bear",      1, 2, 7.7 , 1, 8.8, 1, 2, false, "a"),
+        new Rune(1, "Ball Lightning",       2, 3, 3, 1, 0, 0, 0, true, "b"),
+        new Rune(2, "Frost  Arrow",         2, 1, 0, 0, 3.3, 11, 0, false, "a"),
+        new Rune(3, "Immolation Arrow",     2, 2, 3, 1, 3.15, 1, 0, false, "c"),
+        new Rune(4, "Lightning Bolts",      2, 3, 3, 1, 0, 0, 0, false,"e"),
+        new Rune(5, "Nether Tentacles",     2, 4, 3, 1, 0, 0, 0, true, "d"),
+        new Rune(1, "Burst Fire",           3, 1, 3.6, 11, 2, 1, 0, false, "b"),     // Chose arrows as primary, cold burst as secondary
+        new Rune(2, "Full Broadside",       3, 4, 4.6, 11, 0, 0, 0, false, "a"),     // Chose arrows as primary
+        new Rune(3, "Arsenal",              3, 2, 3.6, 11, 3, 3, 1, false, "c"),     // Chose arrows as primary, rockets as secondary
+        new Rune(4, "Fire at Will",         3, 3, 3.6, 11, 0, 0, 0, false, "d"),     // Chose arrows as primary
+        new Rune(5, "Suppression Fire",     3, 4, 3.6, 11, 0, 0, 0, false, "e"),     // Chose arrows as primary
+        new Rune(1, "Impact",               4, 4, 7.5, 1, 0, 0, 0, false, "b"),
+        new Rune(2, "Chemical Burn",        4, 2, 7.5, 1, 5, 1, 0, false, "c"),
+        new Rune(3, "Grievous Wounds",      4, 4, 7.5, 1, 0, 0, 0, false, "e"),
+        new Rune(4, "Overpenetration",      4, 1, 7.5, 1, 0, 0, 0, false, "a"),
+        new Rune(5, "Ricochet",             4, 3, 7.5, 3, 0, 0, 0, false, "d"),
+        new Rune(1, "Spitfire Turret",      6, 2, 2.8, 1, 1.2, 1, 1, false, "c"),    // Bolts as primary, rockets as secondary
+        new Rune(2, "Polar Station",        6, 1, 2.8, 1, 0, 0, 1, false, "d")       // Bolts as primary
+        //       new Rune(1, "Twin Chakrams",        5, 2, 0, 0, 0, 0, 0)              // I'll wait until I figure out how to properly implement this
+    ]);
+
+
+    self.ActiveSkill1           = ko.observable(6, { persist: 'DC-ActiveSkill1' });
+    self.ActiveSkill1Data       = ko.computed(function () {
+        var r = ko.utils.arrayFilter(self.ActiveSkills(), function (skill) {
+            return skill.Value() === self.ActiveSkill1();
+        });
+        return r[0];
+    }, this);
+    self.ActiveSkill1Rune       = ko.observable(6, { persist: 'DC-ActiveSkill1Rune' });
+    self.ActiveSkill1Runes      = ko.computed(function () {
+        return ko.utils.arrayFilter(this.Runes(), function (rune) {
+            return rune.Skill() === self.ActiveSkill1();
+        });
+    }, this);
+    self.ActiveSkill1RuneData   = ko.computed(function () {
+        var r = ko.utils.arrayFilter( this.Runes(), function (rune) {
+            return rune.Skill() === self.ActiveSkill1() && rune.Value() === self.ActiveSkill1Rune();
+        });
+        return r[0];
+    }, this);
+
 
     self.ActiveSkill2        = ko.observable(2, { persist: 'DC-ActiveSkill2' });
+    self.ActiveSkill2Data = ko.computed(function () {
+        var r = ko.utils.arrayFilter(this.ActiveSkills(), function (skill) {
+            return skill.Value() === self.ActiveSkill2();
+        });
+        return r[0];
+    }, this);
     self.ActiveSkill2Rune    = ko.observable(1, { persist: 'DC-ActiveSkill2Rune' });
+    self.ActiveSkill2Runes = ko.computed(function () {
+        return ko.utils.arrayFilter(this.Runes(), function (rune) {
+            return rune.Skill() === self.ActiveSkill2();
+        });
+    }, this);
+    self.ActiveSkill2RuneData = ko.computed(function () {
+        var r = ko.utils.arrayFilter( this.Runes(), function (rune) {
+            return rune.Skill() === self.ActiveSkill2() && rune.Value() === self.ActiveSkill2Rune();
+        });
+        return r[0];
+    }, this);
 
-    self.ActiveSkill3        = ko.observable(3, { persist: 'DC-ActiveSkill3' });
-    self.ActiveSkill3Rune    = ko.observable(1, { persist: 'DC-ActiveSkill3Rune' });
 
-    self.ActiveSkill4        = ko.observable(4, { persist: 'DC-ActiveSkill4' });
-    self.ActiveSkill4Rune    = ko.observable(1, { persist: 'DC-ActiveSkill4Rune' });
+    self.ActiveSkill3           = ko.observable(3, { persist: 'DC-ActiveSkill3' });
+    self.ActiveSkill3Rune       = ko.observable(1, { persist: 'DC-ActiveSkill3Rune' });
+    self.ActiveSkill3Runes      = ko.computed(function () {
+        return ko.utils.arrayFilter(this.Runes(), function (rune) {
+            return rune.Skill() === self.ActiveSkill3();
+        });
+    }, this);
+    self.ActiveSkill3Data       = ko.computed(function () {
+        var r = ko.utils.arrayFilter(this.ActiveSkills(), function (skill) {
+            return skill.Value() === self.ActiveSkill3();
+        });
+        return r[0];
+    }, this);
+    self.ActiveSkill3RuneData   = ko.computed(function () {
+        var r = ko.utils.arrayFilter( this.Runes(), function (rune) {
+            return rune.Skill() === self.ActiveSkill3() && rune.Value() === self.ActiveSkill3Rune();
+        });
+        return r[0];
+    }, this);
+
+
+    self.ActiveSkill4           = ko.observable(4, { persist: 'DC-ActiveSkill4' });
+    self.ActiveSkill4Rune       = ko.observable(1, { persist: 'DC-ActiveSkill4Rune' });
+    self.ActiveSkill4Runes      = ko.computed(function () {
+        return ko.utils.arrayFilter(this.Runes(), function (rune) {
+            return rune.Skill() === self.ActiveSkill4();
+        });
+    }, this);
+    self.ActiveSkill4Data       = ko.computed(function () {
+        var r = ko.utils.arrayFilter(this.ActiveSkills(), function (skill) {
+            return skill.Value() === self.ActiveSkill4();
+        });
+        return r[0];
+    }, this);
+    self.ActiveSkill4RuneData   = ko.computed(function () {
+        var r = ko.utils.arrayFilter( this.Runes(), function (rune) {
+            return rune.Skill() === self.ActiveSkill4() && rune.Value() === self.ActiveSkill4Rune();
+        });
+        return r[0];
+    }, this);
 
     self.BaseWeaponDamage         = ko.observable(0, { persist: 'DC-BaseWeaponDamage' });
     self.AdditiveModifier         = ko.observable(0, { persist: 'DC-AdditiveModifier' });
@@ -115,40 +225,7 @@ function Stats(data) {
         { Value: 3, Text: "Hand crossbow" }
     ]);
 
-    self.Runes = ko.observableArray([
-        new Rune(1, "Dazzling Arrow",       1, 3, 5.5, 1, 8.8, 1, 2, false),
-        new Rune(2, "Shooting Stars",       1, 4, 5.5, 1, 6, 3, 1, false),
-        new Rune(3, "Maelstrom",            1, 1, 5.5, 1, 4.5, 5, 1, false),
-//        new Rune(4, "Cluster Bombs",        1, 2, 0, 0, 0, 0),                // No idea how many grenades actually spawn
-        new Rune(5, "Loaded for Bear",      1, 2, 7.7 , 1, 8.8, 1, 2, false),
-        new Rune(1, "Ball Lightning",       2, 3, 3, 1, 0, 0, 0, true),         
-        new Rune(2, "Frost  Arrow",         2, 1, 0, 0, 3.3, 11, 0, false),
-        new Rune(3, "Immolation Arrow",     2, 2, 3, 1, 3.15, 1, 0, false),
-        new Rune(4, "Lightning Bolts",      2, 3, 3, 1, 0, 0, 0, false),
-        new Rune(5, "Nether Tentacles",     2, 4, 3, 1, 0, 0, 0, true),               
-        new Rune(1, "Burst Fire",           3, 1, 3.6, 11, 2, 1, 0, false),     // Chose arrows as primary, cold burst as secondary
-        new Rune(2, "Full Broadside",       3, 4, 4.6, 11, 0, 0, 0, false),     // Chose arrows as primary
-        new Rune(3, "Arsenal",              3, 2, 3.6, 11, 3, 3, 1, false),     // Chose arrows as primary, rockets as secondary
-        new Rune(4, "Fire at Will",         3, 3, 3.6, 11, 0, 0, 0, false),     // Chose arrows as primary
-        new Rune(5, "Suppression Fire",     3, 4, 3.6, 11, 0, 0, 0, false),     // Chose arrows as primary
-        new Rune(1, "Impact",               4, 4, 7.5, 1, 0, 0, 0, false),
-        new Rune(2, "Chemical Burn",        4, 2, 7.5, 1, 5, 1, 0, false),
-        new Rune(3, "Grievous Wounds",      4, 4, 7.5, 1, 0, 0, 0, false),            
-        new Rune(4, "Overpenetration",      4, 1, 7.5, 1, 0, 0, 0, false),
-        new Rune(5, "Ricochet",             4, 3, 7.5, 3, 0, 0, 0, false),
-        new Rune(1, "Spitfire Turret",      6, 2, 2.8, 1, 1.2, 1, 1, false),    // Bolts as primary, rockets as secondary
-        new Rune(2, "Polar Station",        6, 1, 2.8, 1, 0, 0, 1, false)       // Bolts as primary
- //       new Rune(1, "Twin Chakrams",        5, 2, 0, 0, 0, 0, 0)              // I'll wait until I figure out how to properly implement this
-    ]);
 
-    self.ActiveSkills = ko.observableArray([
-        new Skill(1, "Cluster Arrow"),
-        new Skill(2, "Elemental Arrow"),
-        new Skill(3, "Multishot"),
-        new Skill(4, "Impale"),
-//        new Skill(5, "Chakram")                                               // I'll wait until I figure out how to properly implement this
-        new Skill(6, "Sentry")
-    ]);
 
     self.Elements = ko.observableArray([
         new Element(1, "Cold"),
@@ -215,57 +292,8 @@ function Stats(data) {
         return r;
     }, this);
 
-    self.ActiveSkill1Runes = ko.computed(function () {
-        return ko.utils.arrayFilter(this.Runes(), function (rune) {
-            return rune.Skill() === self.ActiveSkill1();
-        });
-    }, this);
 
-    self.ActiveSkill1Name = ko.computed(function () {
-        var r = ko.utils.arrayFilter(this.ActiveSkills(), function (skill) {
-            return skill.Value() === self.ActiveSkill1();
-        });
-        return r[0].Text();
-    }, this);
 
-    self.ActiveSkill2Runes = ko.computed(function () {
-        return ko.utils.arrayFilter(this.Runes(), function (rune) {
-            return rune.Skill() === self.ActiveSkill2();
-        });
-    }, this);
-
-    self.ActiveSkill2Name = ko.computed(function () {
-        var r = ko.utils.arrayFilter(this.ActiveSkills(), function (skill) {
-            return skill.Value() === self.ActiveSkill2();
-        });
-        return r[0].Text();
-    }, this);
-
-    self.ActiveSkill3Runes = ko.computed(function () {
-        return ko.utils.arrayFilter(this.Runes(), function (rune) {
-            return rune.Skill() === self.ActiveSkill3();
-        });
-    }, this);
-
-    self.ActiveSkill3Name = ko.computed(function () {
-        var r = ko.utils.arrayFilter(this.ActiveSkills(), function (skill) {
-            return skill.Value() === self.ActiveSkill3();
-        });
-        return r[0].Text();
-    }, this);
-
-    self.ActiveSkill4Runes = ko.computed(function () {
-        return ko.utils.arrayFilter(this.Runes(), function (rune) {
-            return rune.Skill() === self.ActiveSkill4();
-        });
-    }, this);
-
-    self.ActiveSkill4Name = ko.computed(function () {
-        var r = ko.utils.arrayFilter(this.ActiveSkills(), function (skill) {
-            return skill.Value() === self.ActiveSkill4();
-        });
-        return r[0].Text();
-    }, this);
 
     self.ActiveSkill1Damage = ko.computed(function () {
         var r = ko.utils.arrayFilter( this.Runes(), function (rune) {
