@@ -373,8 +373,6 @@ function Stats(data) {
                 criticalModifier = (parseFloat(self.CHC()) * (parseInt(self.CHD()) + 100) / 10000) + (100 - parseFloat(self.CHC())) / 100;
             }
 
-            console.log(criticalModifier);
-
             var skillModifier = 0;
             switch (r[0].Skill()) {
                 case 1: skillModifier = parseInt(self.CADamage()) / 100; break;
