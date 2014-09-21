@@ -63,13 +63,30 @@ hr {
     padding-right: 0px;
 }
 
+.padding-left0 {
+    padding-left: 0px;
+}
+
 .padding-right0 {
     padding-right: 0px;
+}
+
+.padding-left2 {
+    padding-left: 2px;
+}
+
+.padding-right2 {
+    padding-right: 2px;
 }
 
 .check {
     margin-top: 0px !important;
 }
+
+.check-3 {
+    margin-top: -3px !important;
+}
+
 
 .d3-label {
     text-align: left !important;
