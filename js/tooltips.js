@@ -212,7 +212,7 @@ if(typeof Bnet.D3.Tooltips == 'undefined') Bnet.D3.Tooltips = new function() { /
 
         parseUrl(link, params);
         parseOptions(link, params);
-		
+
         if(!params.key || currentLink == link) {
             return;
         }
@@ -222,8 +222,9 @@ if(typeof Bnet.D3.Tooltips == 'undefined') Bnet.D3.Tooltips = new function() { /
 
         //added by Beornhelm, branch of here for multiple request if type is skillAndRune
         if (params.type == 'skillAndRune'){
-            getRuneAndSkillTooltip(params);            
-        } else {
+            getRuneAndSkillTooltip(params);
+
+        }else{
 
             var data = getTooltip(params);
 

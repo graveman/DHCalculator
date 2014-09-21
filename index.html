@@ -443,7 +443,7 @@
             <legend>Active Skills</legend>
             <div class="col-xs-12">
                 <div class="form-group">
-                    <a style="display: block" data-bind="attr:{href: 'http://eu.battle.net/d3/en/class/demon-hunter/active/sentry#' + ActiveSkill1RuneData().Slug()+'+'}" onclick="return false;">
+                    <a style="display: block" href="http://eu.battle.net/d3/en/class/demon-hunter/active/sentry#c+" onclick="return false;">
                         <div class="col-xs-1 padding0">                        
                             <img style="height: 28px" data-bind="attr:{src: 'images/demonhunter_skill_'+ActiveSkill1()+'.png'}" />                        
                         </div>
@@ -455,49 +455,43 @@
                     </a>    
                 </div>
                 <div class="form-group">
-                    <a style="display: block" data-bind="attr:{href: 'http://eu.battle.net/d3/en/class/demon-hunter/active/'+ActiveSkill2Data().Slug()+'#' + ActiveSkill2RuneData().Slug()+'+'}" onclick="return false;">
-                        <div class="col-xs-1 padding0">
-                            <img style="height: 28px" data-bind="attr:{src: 'images/demonhunter_skill_'+ActiveSkill2()+'.png'}" />
-                        </div>
-                        <div class="col-xs-5 padding-right0">
-                            <select data-bind="options: ActiveSkills, optionsText: 'Text', optionsValue: 'Value', value: ActiveSkill2"
-                                     class="form-control input-sm"></select>
-                        </div>
-                        <div class="col-xs-6">
-                            <select data-bind="options: ActiveSkill2Runes, optionsText: 'Text', optionsValue: 'Value', value: ActiveSkill2Rune"
-                                     class="form-control input-sm"></select>
-                        </div>                            
-                    </a>                    
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" data-bind="attr:{src: 'images/demonhunter_skill_'+ActiveSkill2()+'.png'}" />
+                    </div>
+                    <div class="col-xs-5 padding-right0">
+                        <select data-bind="options: ActiveSkills, optionsText: 'Text', optionsValue: 'Value', value: ActiveSkill2"
+                                 class="form-control input-sm"></select>
+                    </div>
+                    <div class="col-xs-6">
+                        <select data-bind="options: ActiveSkill2Runes, optionsText: 'Text', optionsValue: 'Value', value: ActiveSkill2Rune"
+                                 class="form-control input-sm"></select>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <a style="display: block" data-bind="attr:{href: 'http://eu.battle.net/d3/en/class/demon-hunter/active/'+ActiveSkill3Data().Slug()+'#' + ActiveSkill3RuneData().Slug()+'+'}" onclick="return false;">
-                        <div class="col-xs-1 padding0">
-                            <img style="height: 28px" data-bind="attr:{src: 'images/demonhunter_skill_'+ActiveSkill3()+'.png'}" />
-                        </div>
-                        <div class="col-xs-5 padding-right0">
-                            <select data-bind="options: ActiveSkills, optionsText: 'Text', optionsValue: 'Value', value: ActiveSkill3"
-                                     class="form-control input-sm"></select>
-                        </div>
-                        <div class="col-xs-6">
-                            <select data-bind="options: ActiveSkill3Runes, optionsText: 'Text', optionsValue: 'Value', value: ActiveSkill3Rune"
-                                     class="form-control input-sm"></select>
-                        </div>
-                    </a>
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" data-bind="attr:{src: 'images/demonhunter_skill_'+ActiveSkill3()+'.png'}" />
+                    </div>
+                    <div class="col-xs-5 padding-right0">
+                        <select data-bind="options: ActiveSkills, optionsText: 'Text', optionsValue: 'Value', value: ActiveSkill3"
+                                 class="form-control input-sm"></select>
+                    </div>
+                    <div class="col-xs-6">
+                        <select data-bind="options: ActiveSkill3Runes, optionsText: 'Text', optionsValue: 'Value', value: ActiveSkill3Rune"
+                                 class="form-control input-sm"></select>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <a style="display: block" data-bind="attr:{href: 'http://eu.battle.net/d3/en/class/demon-hunter/active/'+ActiveSkill4Data().Slug()+'#' + ActiveSkill4RuneData().Slug()+'+'}" onclick="return false;">
-                        <div class="col-xs-1 padding0">
-                            <img style="height: 28px" data-bind="attr:{src: 'images/demonhunter_skill_'+ActiveSkill4()+'.png'}" />
-                        </div>
-                        <div class="col-xs-5 padding-right0">
-                            <select data-bind="options: ActiveSkills, optionsText: 'Text', optionsValue: 'Value', value: ActiveSkill4"
-                                     class="form-control input-sm"></select>
-                        </div>
-                        <div class="col-xs-6">
-                            <select data-bind="options: ActiveSkill4Runes, optionsText: 'Text', optionsValue: 'Value', value: ActiveSkill4Rune"
-                                     class="form-control input-sm"></select>
-                        </div>
-                    </a>
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" data-bind="attr:{src: 'images/demonhunter_skill_'+ActiveSkill4()+'.png'}" />
+                    </div>
+                    <div class="col-xs-5 padding-right0">
+                        <select data-bind="options: ActiveSkills, optionsText: 'Text', optionsValue: 'Value', value: ActiveSkill4"
+                                 class="form-control input-sm"></select>
+                    </div>
+                    <div class="col-xs-6">
+                        <select data-bind="options: ActiveSkill4Runes, optionsText: 'Text', optionsValue: 'Value', value: ActiveSkill4Rune"
+                                 class="form-control input-sm"></select>
+                    </div>
                 </div>
             </div>
             <legend>Legendary Items &amp; Gems</legend>
@@ -668,7 +662,7 @@
                     <div class="col-xs-1 padding0">
                         <img style="height: 28px" data-bind="attr:{src: 'images/demonhunter_skill_'+ActiveSkill1()+'.png'}" />
                     </div>
-                    <label  class="col-xs-5 control-label d3-label" data-bind="text: ActiveSkill1Data().Text"></label>
+                    <label  class="col-xs-5 control-label d3-label" data-bind="text: ActiveSkill1Name"></label>
                     <div class="col-xs-6">
                         <input data-bind="value: ActiveSkill1Damage"
                                type="text" class="form-control  input-sm" />
@@ -678,7 +672,7 @@
                     <div class="col-xs-1 padding0">
                         <img style="height: 28px" data-bind="attr:{src: 'images/demonhunter_skill_'+ActiveSkill2()+'.png'}" />
                     </div>
-                    <label  class="col-xs-5 control-label d3-label" data-bind="text: ActiveSkill2Data().Text"></label>
+                    <label  class="col-xs-5 control-label d3-label" data-bind="text: ActiveSkill2Name"></label>
                     <div class="col-xs-6">
                         <input data-bind="value: ActiveSkill2Damage"
                                type="text" class="form-control input-sm" />
@@ -688,7 +682,7 @@
                     <div class="col-xs-1 padding0">
                         <img style="height: 28px" data-bind="attr:{src: 'images/demonhunter_skill_'+ActiveSkill3()+'.png'}" />
                     </div>
-                    <label  class="col-xs-5 control-label d3-label" data-bind="text: ActiveSkill3Data().Text"></label>
+                    <label  class="col-xs-5 control-label d3-label" data-bind="text: ActiveSkill3Name"></label>
                     <div class="col-xs-6">
                         <input data-bind="value: ActiveSkill3Damage"
                                type="text" class="form-control input-sm" />
@@ -698,7 +692,7 @@
                     <div class="col-xs-1 padding0">
                         <img style="height: 28px" data-bind="attr:{src: 'images/demonhunter_skill_'+ActiveSkill4()+'.png'}" />
                     </div>
-                    <label  class="col-xs-5 control-label d3-label" data-bind="text: ActiveSkill4Data().Text"></label>
+                    <label  class="col-xs-5 control-label d3-label" data-bind="text: ActiveSkill4Name"></label>
                     <div class="col-xs-6">
                         <input data-bind="value: ActiveSkill4Damage"
                                type="text" class="form-control input-sm" />
