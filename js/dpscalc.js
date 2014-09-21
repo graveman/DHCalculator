@@ -79,9 +79,12 @@ function Stats(data) {
     self.ZeisStoneofVengeanceRank       = ko.observable(0, { persist: 'DC-ZeisStoneofVengeanceRank' });
     self.ZeisStoneofVengeanceModifier   = ko.observable(0, { persist: 'DC-ZeisStoneofVengeanceModifier' });
     
-    self.HexingPantsofMrYan       = ko.observable(false, { persist: 'DC-HexingPantsofMrYan' });
-    self.StrongarmBracers         = ko.observable(0, { persist: 'DC-StrongarmBracers' });
-    self.OverwhelmingDesire       = ko.observable(false, { persist: 'DC-OverwhelmingDesire' });
+    self.HexingPantsofMrYan             = ko.observable(false, { persist: 'DC-HexingPantsofMrYan' });
+    self.OverwhelmingDesire             = ko.observable(false, { persist: 'DC-OverwhelmingDesire' });
+    self.StrongarmBracers               = ko.observable(false, { persist: 'DC-StrongarmBracers' });
+    self.StrongarmBracersModifier       = ko.observable(20, { persist: 'DC-StrongarmBracersModifier' }); 
+    self.HarringtonsWaistguard          = ko.observable(false, { persist: 'DC-HarringtonsWaistguard' });  
+    self.HarringtonsWaistguardModifier  = ko.observable(100, { persist: 'DC-HarringtonsWaistguard' });   
 
     self.BigBadVoodoo             = ko.observable(false, { persist: 'DC-BigBadVoodoo' });
     self.MassConfusion            = ko.observable(false, { persist: 'DC-MassConfusion' });
@@ -90,8 +93,8 @@ function Stats(data) {
     self.InnerSanctuary           = ko.observable(false, { persist: 'DC-InnerSanctuary' });
     self.CripplingWave            = ko.observable(false, { persist: 'DC-CripplingWave' });
 
-    self.ActiveSkill1        = ko.observable(1, { persist: 'DC-ActiveSkill1' });
-    self.ActiveSkill1Rune    = ko.observable(1, { persist: 'DC-ActiveSkill1Rune' });
+    self.ActiveSkill1        = ko.observable(6, { persist: 'DC-ActiveSkill1' });
+    self.ActiveSkill1Rune    = ko.observable(6, { persist: 'DC-ActiveSkill1Rune' });
 
     self.ActiveSkill2        = ko.observable(2, { persist: 'DC-ActiveSkill2' });
     self.ActiveSkill2Rune    = ko.observable(1, { persist: 'DC-ActiveSkill2Rune' });
@@ -192,7 +195,8 @@ function Stats(data) {
         if (self.CripplingWave() === true) { r = r + 10; } 
         if (self.MantraofConviction() === true) { r = r + 20; }
         if (self.InnerSanctuary() === true) { r = r + 30; }  
-        r = r + parseInt(self.StrongarmBracers());
+        if (self.HarringtonsWaistguard() === true) { r = r + parseInt(self.HarringtonsWaistguardModifier()); } 
+        if (self.StrongarmBracers() === true) { r = r + parseInt(self.StrongarmBracersModifier()); } 
         r = r / 100;
 
         console.log('r' + r);    
