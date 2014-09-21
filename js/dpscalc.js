@@ -93,6 +93,7 @@ function Stats(data) {
     self.ZeisStoneofVengeance           = ko.observable(false, { persist: 'DC-ZeisStoneofVengeance' });
     self.ZeisStoneofVengeanceRank       = ko.observable(0, { persist: 'DC-ZeisStoneofVengeanceRank' });
     self.ZeisStoneofVengeanceModifier   = ko.observable(0, { persist: 'DC-ZeisStoneofVengeanceModifier' });
+    self.ZeisStoneofVengeanceDistance   = ko.observable(1, { persist: 'DC-ZeisStoneofVengeanceDistance' });
     
     self.HexingPantsofMrYan             = ko.observable(false, { persist: 'DC-HexingPantsofMrYan' });
     self.OverwhelmingDesire             = ko.observable(false, { persist: 'DC-OverwhelmingDesire' });
@@ -298,6 +299,14 @@ function Stats(data) {
         return r;
     }, this);
 
+    self.ZeisStoneofVengeanceModifier = ko.computed(function () {
+        var r = 1;
+        if (self.ZeisStoneofVengeance() === true) {
+            r = r * (100 + (4 + parseInt(self.ZeisStoneofVengeanceRank()) * 0.05) * parseInt(self.ZeisStoneofVengeanceDistance())) / 100;
+        };
+        return r;
+    }, this);
+
     self.AdditiveModifier = ko.computed(function () {
         var r = 100;
         if (self.SteadyAim() === true) { r = r + 20; }
@@ -325,6 +334,7 @@ function Stats(data) {
         var r = 1;
         r = r * (parseInt(self.Dexterity()) + 100) / 100;
         r = r * self.BaneoftheTrappedModifier();
+        r = r * self.ZeisStoneofVengeanceModifier();       
         r = r * (parseInt(self.SentryDamage()) + 100) / 100;
         if (self.Ambush() === true) { r = r * 1.1; }
         if (self.CulltheWeak() === true) { r = r * 1.2; }
