@@ -80,7 +80,7 @@ hr {
 }
 
 .check {
-    margin-top: 0px !important;
+    margin-top: 8px !important;
 }
 
 .check-3 {
@@ -109,4 +109,8 @@ hr {
 
 .green {
     color: green;
+}
+
+label{
+    display:inline;
 }
