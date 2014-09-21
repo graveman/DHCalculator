@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="598331bb-d12f-427f-bd5a-06d580bf30c7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/ascalc.js" afterPath="$PROJECT_DIR$/js/ascalc.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/dpscalc.js" afterPath="$PROJECT_DIR$/js/dpscalc.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
     </list>
     <ignored path="DHCalculator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -44,8 +42,8 @@
       <file leaf-file-name="dpscalc.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/dpscalc.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41379312" vertical-offset="2336" max-vertical-offset="3791">
-              <caret line="242" column="25" selection-start-line="242" selection-start-column="25" selection-end-line="242" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.46875" vertical-offset="2336" max-vertical-offset="3791">
+              <caret line="245" column="21" selection-start-line="245" selection-start-column="21" selection-end-line="245" selection-end-column="21" />
               <folding>
                 <element signature="e#6326#6723#0" expanded="false" />
                 <element signature="e#6763#9003#0" expanded="false" />
@@ -60,11 +58,11 @@
                 <element signature="e#11933#12077#0" expanded="false" />
                 <element signature="e#12144#12319#0" expanded="false" />
                 <element signature="e#12386#12597#0" expanded="false" />
-                <element signature="e#14746#15852#0" expanded="false" />
-                <element signature="e#16339#19212#0" expanded="false" />
-                <element signature="e#19276#22149#0" expanded="false" />
-                <element signature="e#22213#25087#0" expanded="false" />
-                <element signature="e#25155#28027#0" expanded="false" />
+                <element signature="e#14748#15854#0" expanded="false" />
+                <element signature="e#16341#19214#0" expanded="false" />
+                <element signature="e#19278#22151#0" expanded="false" />
+                <element signature="e#22215#25089#0" expanded="false" />
+                <element signature="e#25157#28029#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -396,11 +394,11 @@
             <element signature="e#11933#12077#0" expanded="false" />
             <element signature="e#12144#12319#0" expanded="false" />
             <element signature="e#12386#12597#0" expanded="false" />
-            <element signature="e#14746#15852#0" expanded="false" />
-            <element signature="e#16339#19212#0" expanded="false" />
-            <element signature="e#19276#22149#0" expanded="false" />
-            <element signature="e#22213#25087#0" expanded="false" />
-            <element signature="e#25155#28027#0" expanded="false" />
+            <element signature="e#14748#15854#0" expanded="false" />
+            <element signature="e#16341#19214#0" expanded="false" />
+            <element signature="e#19278#22151#0" expanded="false" />
+            <element signature="e#22215#25089#0" expanded="false" />
+            <element signature="e#25157#28029#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -494,8 +492,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/dpscalc.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41379312" vertical-offset="2336" max-vertical-offset="3791">
-          <caret line="242" column="25" selection-start-line="242" selection-start-column="25" selection-end-line="242" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.46875" vertical-offset="2336" max-vertical-offset="3791">
+          <caret line="245" column="21" selection-start-line="245" selection-start-column="21" selection-end-line="245" selection-end-column="21" />
           <folding>
             <element signature="e#6326#6723#0" expanded="false" />
             <element signature="e#6763#9003#0" expanded="false" />
@@ -510,11 +508,11 @@
             <element signature="e#11933#12077#0" expanded="false" />
             <element signature="e#12144#12319#0" expanded="false" />
             <element signature="e#12386#12597#0" expanded="false" />
-            <element signature="e#14746#15852#0" expanded="false" />
-            <element signature="e#16339#19212#0" expanded="false" />
-            <element signature="e#19276#22149#0" expanded="false" />
-            <element signature="e#22213#25087#0" expanded="false" />
-            <element signature="e#25155#28027#0" expanded="false" />
+            <element signature="e#14748#15854#0" expanded="false" />
+            <element signature="e#16341#19214#0" expanded="false" />
+            <element signature="e#19278#22151#0" expanded="false" />
+            <element signature="e#22215#25089#0" expanded="false" />
+            <element signature="e#25157#28029#0" expanded="false" />
           </folding>
         </state>
       </provider>

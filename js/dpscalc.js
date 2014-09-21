@@ -232,7 +232,7 @@ function Stats(data) {
     ]);
 
     self.BreakPoint = ko.computed(function () {
-        var aps = parseFloat(self.AttackSpeed());
+        var ttAPS = parseFloat(self.AttackSpeed());
 
         if (ttAPS >= 0.98182 && ttAPS <= 1.10204)
             return 0;
