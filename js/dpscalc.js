@@ -402,7 +402,7 @@ function Stats(data) {
             var hits = 1;
             if (r[0].Hits() === true) { hits = parseInt(self.NumberofHits()); }
 
-            var castsArray = ko.utils.arrayFilter(self.Combos(), function (combo) {
+            var castsArray = ko.utils.arrayFilter(spenderdata.Combos(), function (combo) {
                 return combo.BP() === parseInt(self.BreakPoint()) && combo.Code() === parseInt(self.SpenderCombo());
             });
 
