@@ -102,9 +102,9 @@ function Stats(data) {
     self.ActiveSkill4        = ko.observable(4, { persist: 'DC-ActiveSkill4' });
     self.ActiveSkill4Rune    = ko.observable(1, { persist: 'DC-ActiveSkill4Rune' });
 
-    self.BaseWeaponDamage               = ko.observable(0, { persist: 'DC-BaseWeaponDamage' });
-    self.AdditiveDamageModifier         = ko.observable(0, { persist: 'DC-AdditiveDamageModifier' });
-    self.MultiplicativeDamageModifier   = ko.observable(0, { persist: 'DC-MultiplicativeDamageModifier' });
+    self.BaseWeaponDamage         = ko.observable(0, { persist: 'DC-BaseWeaponDamage' });
+    self.AdditiveModifier         = ko.observable(0, { persist: 'DC-AdditiveModifier' });
+    self.MultiplicativeModifier   = ko.observable(0, { persist: 'DC-MultiplicativeModifier' });
 
     self.Weapons = ko.observableArray([
         { Value: 1, Text: "Crossbow" },
@@ -123,11 +123,11 @@ function Stats(data) {
         new Rune(3, "Immolation Arrow",     2, 2, 3, 1, 3.15, 1, 0, false),
         new Rune(4, "Lightning Bolts",      2, 3, 3, 1, 0, 0, 0, false),
         new Rune(5, "Nether Tentacles",     2, 4, 3, 1, 0, 0, 0, true),               
-        new Rune(1, "Burst Fire",           3, 1, 3.6, 20, 2, 1, 0, false),     // Chose arrows as primary, cold burst as secondary
-        new Rune(2, "Full Broadside",       3, 4, 4.6, 20, 0, 0, 0, false),     // Chose arrows as primary
-        new Rune(3, "Arsenal",              3, 2, 3.6, 20, 3, 3, 1, false),     // Chose arrows as primary, rockets as secondary
-        new Rune(4, "Fire at Will",         3, 3, 3.6, 20, 0, 0, 0, false),     // Chose arrows as primary
-        new Rune(5, "Suppression Fire",     3, 4, 3.6, 20, 0, 0, 0, false),     // Chose arrows as primary
+        new Rune(1, "Burst Fire",           3, 1, 3.6, 11, 2, 1, 0, false),     // Chose arrows as primary, cold burst as secondary
+        new Rune(2, "Full Broadside",       3, 4, 4.6, 11, 0, 0, 0, false),     // Chose arrows as primary
+        new Rune(3, "Arsenal",              3, 2, 3.6, 11, 3, 3, 1, false),     // Chose arrows as primary, rockets as secondary
+        new Rune(4, "Fire at Will",         3, 3, 3.6, 11, 0, 0, 0, false),     // Chose arrows as primary
+        new Rune(5, "Suppression Fire",     3, 4, 3.6, 11, 0, 0, 0, false),     // Chose arrows as primary
         new Rune(1, "Impact",               4, 4, 7.5, 1, 0, 0, 0, false),
         new Rune(2, "Chemical Burn",        4, 2, 7.5, 1, 5, 1, 0, false),
         new Rune(3, "Grievous Wounds",      4, 4, 7.5, 1, 0, 0, 0, false),            
@@ -177,7 +177,7 @@ function Stats(data) {
         return r;
     }, this);
 
-    self.AdditiveDamageModifier = ko.computed(function () {
+    self.AdditiveModifier = ko.computed(function () {
         var r = 100;
         if (self.SteadyAim() === true) { r = r + 20; }
         if (self.Archery() === true) { r = r + 8; }      
@@ -199,10 +199,9 @@ function Stats(data) {
         return r;
     }, this);
 
-    self.MultiplicativeDamageModifier = ko.computed(function () {
+    self.MultiplicativeModifier = ko.computed(function () {
         var r = 1;
         r = r * (parseInt(self.Dexterity()) + 100) / 100;
-        r = r * (parseInt(self.EliteDamage()) + 100) / 100;
         r = r * self.BaneoftheTrappedModifier();
         r = r * (parseInt(self.SentryDamage()) + 100) / 100;
         if (self.Ambush() === true) { r = r * 1.1; }
@@ -286,6 +285,14 @@ function Stats(data) {
                 case 4: skillModifier = parseInt(self.ImpaleDamage()) / 100; break;
                 case 5: skillModifier = parseInt(self.ChakramDamage()) / 100; break;
             }
+
+            var elementalModifier = 0;
+            switch (r[0].Element()) {
+                case 1: elementalModifier = parseInt(self.ColdDamage()) / 100; break;
+                case 2: elementalModifier = parseInt(self.FireDamage()) / 100; break;
+                case 3: elementalModifier = parseInt(self.LightningDamage()) / 100; break;
+                case 4: elementalModifier = parseInt(self.PhysicalDamage()) / 100; break;
+            }            
             
             var typeModifier = 1;
             if (self.Ballistics() === true && r[0].Type() === 1) { typeModifier = 2; }
@@ -295,13 +302,21 @@ function Stats(data) {
             var singleCap,multiCap;
             self.NumberofTargets() > r[0].SingleCap() ? singleCap = r[0].SingleCap() : singleCap = self.NumberofTargets();
             self.NumberofTargets() > r[0].MultiCap() ? multiCap = r[0].MultiCap() : multiCap = self.NumberofTargets();
-            
+
             var hits = 1;
             if (r[0].Hits() === true) { hits = parseInt(self.NumberofHits()); }
-
-           return (singleCap * r[0].Single() * hits + multiCap * r[0].Multi() * typeModifier) * criticalModifier;
+            
+            var total = 0;
+            total = singleCap * r[0].Single() * hits + multiCap * r[0].Multi() * typeModifier;
+            total = total * self.BaseWeaponDamage();
+            total = total * criticalModifier;
+            total = total * (1 + self.EnforcerModifier() + elementalModifier);
+            total = total * (self.AdditiveModifier() + skillModifier);
+            total = total * self.MultiplicativeModifier();
+            total = total * (parseInt(self.EliteDamage()) + 100) / 100;
+            return total;
         }
-        return 0;     
+        return 0;      
     }, this);
 
     self.ActiveSkill2Damage = ko.computed(function () {
@@ -326,6 +341,14 @@ function Stats(data) {
                 case 4: skillModifier = parseInt(self.ImpaleDamage()) / 100; break;
                 case 5: skillModifier = parseInt(self.ChakramDamage()) / 100; break;
             }
+
+            var elementalModifier = 0;
+            switch (r[0].Element()) {
+                case 1: elementalModifier = parseInt(self.ColdDamage()) / 100; break;
+                case 2: elementalModifier = parseInt(self.FireDamage()) / 100; break;
+                case 3: elementalModifier = parseInt(self.LightningDamage()) / 100; break;
+                case 4: elementalModifier = parseInt(self.PhysicalDamage()) / 100; break;
+            }            
             
             var typeModifier = 1;
             if (self.Ballistics() === true && r[0].Type() === 1) { typeModifier = 2; }
@@ -338,10 +361,18 @@ function Stats(data) {
 
             var hits = 1;
             if (r[0].Hits() === true) { hits = parseInt(self.NumberofHits()); }
-
-           return (singleCap * r[0].Single() * hits + multiCap * r[0].Multi() * typeModifier) * criticalModifier;
+            
+            var total = 0;
+            total = singleCap * r[0].Single() * hits + multiCap * r[0].Multi() * typeModifier;
+            total = total * self.BaseWeaponDamage();
+            total = total * criticalModifier;
+            total = total * (1 + self.EnforcerModifier() + elementalModifier);
+            total = total * (self.AdditiveModifier() + skillModifier);
+            total = total * self.MultiplicativeModifier();
+            total = total * (parseInt(self.EliteDamage()) + 100) / 100;
+            return total;
         }
-        return 0;    
+        return 0;      
     }, this);
 
     self.ActiveSkill3Damage = ko.computed(function () {
@@ -366,6 +397,14 @@ function Stats(data) {
                 case 4: skillModifier = parseInt(self.ImpaleDamage()) / 100; break;
                 case 5: skillModifier = parseInt(self.ChakramDamage()) / 100; break;
             }
+
+            var elementalModifier = 0;
+            switch (r[0].Element()) {
+                case 1: elementalModifier = parseInt(self.ColdDamage()) / 100; break;
+                case 2: elementalModifier = parseInt(self.FireDamage()) / 100; break;
+                case 3: elementalModifier = parseInt(self.LightningDamage()) / 100; break;
+                case 4: elementalModifier = parseInt(self.PhysicalDamage()) / 100; break;
+            }            
             
             var typeModifier = 1;
             if (self.Ballistics() === true && r[0].Type() === 1) { typeModifier = 2; }
@@ -378,10 +417,18 @@ function Stats(data) {
 
             var hits = 1;
             if (r[0].Hits() === true) { hits = parseInt(self.NumberofHits()); }
-
-           return (singleCap * r[0].Single() * hits + multiCap * r[0].Multi() * typeModifier) * criticalModifier;
+            
+            var total = 0;
+            total = singleCap * r[0].Single() * hits + multiCap * r[0].Multi() * typeModifier;
+            total = total * self.BaseWeaponDamage();
+            total = total * criticalModifier;
+            total = total * (1 + self.EnforcerModifier() + elementalModifier);
+            total = total * (self.AdditiveModifier() + skillModifier);
+            total = total * self.MultiplicativeModifier();
+            total = total * (parseInt(self.EliteDamage()) + 100) / 100;
+            return total;
         }
-        return 0;     
+        return 0;       
     }, this);
     
     self.ActiveSkill4Damage = ko.computed(function () {
@@ -406,6 +453,14 @@ function Stats(data) {
                 case 4: skillModifier = parseInt(self.ImpaleDamage()) / 100; break;
                 case 5: skillModifier = parseInt(self.ChakramDamage()) / 100; break;
             }
+
+            var elementalModifier = 0;
+            switch (r[0].Element()) {
+                case 1: elementalModifier = parseInt(self.ColdDamage()) / 100; break;
+                case 2: elementalModifier = parseInt(self.FireDamage()) / 100; break;
+                case 3: elementalModifier = parseInt(self.LightningDamage()) / 100; break;
+                case 4: elementalModifier = parseInt(self.PhysicalDamage()) / 100; break;
+            }            
             
             var typeModifier = 1;
             if (self.Ballistics() === true && r[0].Type() === 1) { typeModifier = 2; }
@@ -418,8 +473,16 @@ function Stats(data) {
 
             var hits = 1;
             if (r[0].Hits() === true) { hits = parseInt(self.NumberofHits()); }
-
-           return (singleCap * r[0].Single() * hits + multiCap * r[0].Multi() * typeModifier) * criticalModifier;
+            
+            var total = 0;
+            total = singleCap * r[0].Single() * hits + multiCap * r[0].Multi() * typeModifier;
+            total = total * self.BaseWeaponDamage();
+            total = total * criticalModifier;
+            total = total * (1 + self.EnforcerModifier() + elementalModifier);
+            total = total * (self.AdditiveModifier() + skillModifier);
+            total = total * self.MultiplicativeModifier();
+            total = total * (parseInt(self.EliteDamage()) + 100) / 100;
+            return total;
         }
         return 0;     
     }, this);
