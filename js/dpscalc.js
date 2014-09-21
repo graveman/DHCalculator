@@ -359,9 +359,9 @@ function Stats(data) {
         return Calculate(self.ActiveSkill4(), self.ActiveSkill4Rune());
     }, this);
 
-    function Calculate(skill, rune){
+    function Calculate(activeSkill, activeRune){
         var r = ko.utils.arrayFilter( self.Runes(), function (rune) {
-            return rune.Skill() === skill && rune.Value() === rune;
+            return rune.Skill() === activeSkill && rune.Value() === activeRune;
         });
 
         if (r.length > 0) {
@@ -372,6 +372,8 @@ function Stats(data) {
             else {
                 criticalModifier = (parseFloat(self.CHC()) * (parseInt(self.CHD()) + 100) / 10000) + (100 - parseFloat(self.CHC())) / 100;
             }
+
+            console.log(criticalModifier);
 
             var skillModifier = 0;
             switch (r[0].Skill()) {
@@ -402,23 +404,25 @@ function Stats(data) {
             var hits = 1;
             if (r[0].Hits() === true) { hits = parseInt(self.NumberofHits()); }
 
-            var castsArray = ko.utils.arrayFilter( this.Combos(), function (combo) {
+            var castsArray = ko.utils.arrayFilter(self.Combos(), function (combo) {
                 return combo.BP() === parseInt(self.BreakPoint()) && combo.Code() === parseInt(self.SpenderCombo());
             });
+
+
 
             if (castsArray.length > 0) {
                 var total = 0;
 
-                if (skill === 6){
+                if (activeSkill === 6){
                     var rockets = 0;
                     var bolts = 0;
-                    if (rune === 1) { rockets = castsArray[0].Total(); }
+                    if (activeRune === 1) { rockets = castsArray[0].Total(); }
                     bolts = castsArray[0].Bolts();
                     total = singleCap * r[0].Single() * hits * bolts + multiCap * r[0].Multi() * typeModifier * rockets;
                 }
                 else {
                     var casts = 0;
-                    switch (skill) {
+                    switch (activeSkill) {
                         case 1: casts = castsArray[0].CA(); break;
                         case 2: casts = castsArray[0].EA(); break;
                         case 3: casts = castsArray[0].MS(); break;
