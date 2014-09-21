@@ -231,6 +231,28 @@ function Stats(data) {
         new Element(4, "Physical")
     ]);
 
+    self.BreakPoint = ko.computed(function () {
+        var aps = parseFloat(self.AttackSpeed());
+
+        if (ttAPS >= 0.98182 && ttAPS <= 1.10204)
+            return 0;
+        if (ttAPS >= 1.10205 && ttAPS <= 1.25581)
+            return 1;
+        if (ttAPS >= 1.25582 && ttAPS <= 1.4545)
+            return 2;
+        if (ttAPS >= 1.45946 && ttAPS <= 1.74193)
+            return 3;
+        if (ttAPS >= 1.74194 && ttAPS <= 2.16)
+            return 4;
+        if (ttAPS >= 2.16001 && ttAPS <= 2.8421)
+            return 5;
+        if (ttAPS >= 2.84211 && ttAPS <= 4.15385)
+            return 6;
+        if (ttAPS >= 4.15386)
+            return 7;
+        return 0;
+    }, this);
+
     self.BaseWeaponDamage = ko.computed(function () {
         var r = 0;        
         r = (parseInt(self.WeaponDamage1()) + parseInt(self.JewelryDamage1()) + parseInt(self.WeaponDamage2()) + parseInt(self.JewelryDamage2())) / 2;       

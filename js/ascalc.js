@@ -5,7 +5,7 @@
 function Gear(data) {
     var self = this;
 
-    self.Weapon1BaseAS = ko.observable(1.1, { persist: 'AS-Weapon1BaseAS' });
+    self.Weapon        = ko.observable(1, { persist: 'AS-Weapon' });
     self.Weapon1IAS    = ko.observable(0, { persist: 'AS-Weapon1IAS' });
     self.Weapon1AS     = ko.observable(0);
     self.Amulet        = ko.observable(0, { persist: 'AS-Amulet' });
@@ -18,10 +18,17 @@ function Gear(data) {
     self.Ring2         = ko.observable(0, { persist: 'AS-Ring2' });
     self.Paragon       = ko.observable(0, { persist: 'AS-Paragon' });
     self.Weapons       = ko.observableArray([
-        { Value: 1.1, Text: "1.1 - Crossbow" },
-        { Value: 1.4, Text: "1.4 - Bow" },
-        { Value: 1.6, Text: "1.6 - Hand crossbow" }
+        { Value: 1, Text: "1.1 - Crossbow", AS: 1.1 },
+        { Value: 2, Text: "1.4 - Bow", AS: 1.4 },
+        { Value: 3, Text: "1.6 - Hand crossbow", AS: 1.6 }
     ]);
+
+    self.Weapon1BaseAS = ko.computed(function () {
+        var r = ko.utils.arrayFilter(self.Weapons(), function (weapon) {
+            return weapon.Value === self.Weapon();
+        });
+        return r[0].AS;
+    }, this);
 
     self.BreakPoints = ko.observableArray([
         { BP: 0, MinAPS: 0.98182, MaxAPS: 1.10204, SentryAPS: 1.1 },
