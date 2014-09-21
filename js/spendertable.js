@@ -1,3 +1,16 @@
+var Combo = function(total, ca, ea, ms, imp, chak, bolts, code, bp) {
+    var self = this;
+    self.Total       = ko.observable(total);
+    self.CA          = ko.observable(ca);
+    self.EA          = ko.observable(ea);
+    self.MS          = ko.observable(ms);
+    self.Imp         = ko.observable(imp);
+    self.Chak        = ko.observable(chak);
+    self.Bolts       = ko.observable(bolts);
+    self.Code        = ko.observable(code);
+    self.BP          = ko.observable(bp);
+};
+
 spenderdata =
 [
 new Combo(37,13,0,12,12,0,0,134,1),

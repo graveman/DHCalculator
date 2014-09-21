@@ -30,18 +30,7 @@ var Rune = function (value, text, skill, element, single, singlecap, multi, mult
     self.Slug       = ko.observable(slug);
 };
 
-var Combo = function(total, ca, ea, ms, imp, chak, bolts, code, bp) {
-    var self = this;
-    self.Total       = ko.observable(total);          
-    self.CA          = ko.observable(ca);            
-    self.EA          = ko.observable(ea);      
-    self.MS          = ko.observable(ms);          
-    self.Imp         = ko.observable(imp);           
-    self.Chak        = ko.observable(chak);           
-    self.Bolts       = ko.observable(bolts);             
-    self.Code        = ko.observable(code);
-    self.BP          = ko.observable(bp);
-};
+
 
 function Stats(data) {
     var self = this;
@@ -402,7 +391,7 @@ function Stats(data) {
             var hits = 1;
             if (r[0].Hits() === true) { hits = parseInt(self.NumberofHits()); }
 
-            var castsArray = ko.utils.arrayFilter(spenderdata.Combos(), function (combo) {
+            var castsArray = ko.utils.arrayFilter(spenderdata, function (combo) {
                 return combo.BP() === parseInt(self.BreakPoint()) && combo.Code() === parseInt(self.SpenderCombo());
             });
 
