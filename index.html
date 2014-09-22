@@ -694,7 +694,7 @@
                                type="text" class="form-control  input-sm" />
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group"  data-bind="visible: NumberofSpenders() >= 1">
                     <div class="col-xs-1 padding0">
                         <img style="height: 28px" data-bind="attr:{src: 'images/demonhunter_skill_'+ActiveSkill2()+'.png'}" />
                     </div>
@@ -704,7 +704,7 @@
                                type="text" class="form-control input-sm" />
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group"  data-bind="visible: NumberofSpenders() >= 2">
                     <div class="col-xs-1 padding0">
                         <img style="height: 28px" data-bind="attr:{src: 'images/demonhunter_skill_'+ActiveSkill3()+'.png'}" />
                     </div>
@@ -714,7 +714,7 @@
                                type="text" class="form-control input-sm" />
                     </div>
                 </div>           
-                <div class="form-group">
+                <div class="form-group"  data-bind="visible: NumberofSpenders() == 3">
                     <div class="col-xs-1 padding0">
                         <img style="height: 28px" data-bind="attr:{src: 'images/demonhunter_skill_'+ActiveSkill4()+'.png'}" />
                     </div>

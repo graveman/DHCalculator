@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="598331bb-d12f-427f-bd5a-06d580bf30c7" name="Default" comment="removed Total Attack Speed field from dps calc">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DHCalculator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,8 +28,8 @@
       <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.49778762" vertical-offset="6675" max-vertical-offset="13620">
-              <caret line="475" column="81" selection-start-line="475" selection-start-column="81" selection-end-line="475" selection-end-column="81" />
+            <state vertical-scroll-proportion="0.71349555" vertical-offset="10095" max-vertical-offset="13620">
+              <caret line="716" column="84" selection-start-line="716" selection-start-column="84" selection-end-line="716" selection-end-column="84" />
               <folding />
             </state>
           </provider>
@@ -575,8 +574,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49778762" vertical-offset="6675" max-vertical-offset="13620">
-          <caret line="475" column="81" selection-start-line="475" selection-start-column="81" selection-end-line="475" selection-end-column="81" />
+        <state vertical-scroll-proportion="0.71349555" vertical-offset="10095" max-vertical-offset="13620">
+          <caret line="716" column="84" selection-start-line="716" selection-start-column="84" selection-end-line="716" selection-end-column="84" />
           <folding />
         </state>
       </provider>
