@@ -34,7 +34,7 @@ function formatNumber(number) {
     var x = Math.round(number) + '';
     var rgx = /(\d+)(\d{3})/;
     while (rgx.test(x)) {
-        x = x.replace(rgx, '$1' + '.' + '$2');
+        x = x.replace(rgx, '$1' + ' ' + '$2');
     }
     return x;
 }
