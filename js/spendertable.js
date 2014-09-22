@@ -11,8 +11,7 @@ var Combo = function(total, ca, ea, ms, imp, chak, bolts, code, bp) {
     self.BP          = ko.observable(bp);
 };
 
-spenderdata =
-[
+SpenderData = [
 new Combo(37,13,0,12,12,0,0,134,1),
 new Combo(42,11,0,21,10,0,0,134,2),
 new Combo(49,13,0,24,12,0,0,134,3),
@@ -180,4 +179,4 @@ new Combo(49,0,49,0,0,0,0,2,3),
 new Combo(60,0,60,0,0,0,0,2,4),
 new Combo(74,0,74,0,0,0,0,2,5),
 new Combo(97,0,97,0,0,0,0,2,6),
-new Combo(150,0,150,0,0,0,0,2,7)]
+new Combo(150,0,150,0,0,0,0,2,7)];
