@@ -593,7 +593,7 @@
                     </div>
                     <div class="col-xs-4">
                         <input data-bind="value: EnforcerRank, valueUpdate: 'afterkeydown'"
-                               type="number" min="0" max="50" class="form-control input-sm" />
+                               type="number" min="0" max="50" class="form-control input-sm"   rel="txtTooltip" title="Enter Gem Rank" data-toggle="tooltip" data-placement="bottom"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -610,7 +610,7 @@
                     </div>
                     <div class="col-xs-4">
                         <input data-bind="value: BaneoftheTrappedRank, valueUpdate: 'afterkeydown'"
-                               type="number" min="0" max="50" class="form-control input-sm" />
+                               type="number" min="0" max="50" class="form-control input-sm"   rel="txtTooltip" title="Enter Gem Rank" data-toggle="tooltip" data-placement="bottom"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -627,7 +627,7 @@
                     </div>
                     <div class="col-xs-2 padding-right2">
                         <input data-bind="value: ZeisStoneofVengeanceRank, valueupdate: 'afterkeydown' "
-                               type="number" min="0" max="50" class="form-control input-sm" />
+                               type="number" min="0" max="50" class="form-control input-sm"   rel="txtTooltip" title="Enter Gem Rank" data-toggle="tooltip" data-placement="bottom"/>
                     </div>
                     <div class="col-xs-2 padding-left2">
                         <select data-bind="value: ZeisStoneofVengeanceDistance" class="form-control  input-sm">
@@ -903,6 +903,7 @@
         stats = new Stats();
         ko.applyBindings(gear, document.getElementById("ASCalculator"));
         ko.applyBindings(stats, document.getElementById("DPSCalculator"));
+        $('input[rel="txtTooltip"]').tooltip();
     });
 </script>
 
