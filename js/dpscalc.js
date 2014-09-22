@@ -61,7 +61,7 @@ function Stats(data) {
 
     self.NumberofTargets          = ko.observable(1, { persist: 'DC-NumberofTargets' });
     self.NumberofHits             = ko.observable(1, { persist: 'DC-NumberofHits' });
-    self.NumberofSpenders         = ko.observable(1, { persist: 'DC-NumberofSpenders' });
+    self.NumberofSpenders         = ko.observable(3, { persist: 'DC-NumberofSpenders' });
 
     self.SentryDamage             = ko.observable(0, { persist: 'DC-SentryDamage' });
     self.CADamage                 = ko.observable(0, { persist: 'DC-CADamage' });
@@ -104,6 +104,8 @@ function Stats(data) {
     self.MantraofConviction       = ko.observable(false, { persist: 'DC-MantraofConviction' });
     self.InnerSanctuary           = ko.observable(false, { persist: 'DC-InnerSanctuary' });
     self.CripplingWave            = ko.observable(false, { persist: 'DC-CripplingWave' });
+    
+    self.TotalDPS = ko.observable(0, { persist: 'DC-TotalDPS' });
 
     self.ActiveSkills = ko.observableArray([
         new Skill(1, "Cluster Arrow", "cluster-arrow"),
@@ -391,13 +393,34 @@ function Stats(data) {
         return 0 + ' %';     
     }, this);
 
+    if (self.NumberofSpenders() === 1) {
+        self.TotalDPS = ko.computed(function () {
+            var r = self.ActiveSkill1Damage() + self.ActiveSkill2Damage();
+            return r;    
+        }, this);
+    }
+
+    if (self.NumberofSpenders() === 2) {
+        self.TotalDPS = ko.computed(function () {
+            var r = self.ActiveSkill1Damage() + self.ActiveSkill2Damage() + self.ActiveSkill3Damage();
+            return r;    
+        }, this);
+    }
+
+    if (self.NumberofSpenders() === 3) {
+        self.TotalDPS = ko.computed(function () {
+            var r = self.ActiveSkill1Damage() + self.ActiveSkill2Damage() + self.ActiveSkill3Damage() + self.ActiveSkill4Damage();
+            return r;    
+        }, this);
+    }
+
     self.TotalDPSFormat = ko.computed(function () {
-        var r = self.ActiveSkill1Damage() + self.ActiveSkill2Damage() + self.ActiveSkill3Damage() + self.ActiveSkill4Damage();
+        var r = self.TotalDPS();
         return formatNumber(r);    
     }, this);
 
     self.TotalDPSEliteFormat = ko.computed(function () {
-        var r = (self.ActiveSkill1Damage() + self.ActiveSkill2Damage() + self.ActiveSkill3Damage() + self.ActiveSkill4Damage()) * (parseInt(self.EliteDamage()) + 100) / 100;
+        var r = self.TotalDPS() * (parseInt(self.EliteDamage()) + 100) / 100;        
         return formatNumber(r);    
     }, this);
 
