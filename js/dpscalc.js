@@ -61,6 +61,7 @@ function Stats(data) {
 
     self.NumberofTargets          = ko.observable(1, { persist: 'DC-NumberofTargets' });
     self.NumberofHits             = ko.observable(1, { persist: 'DC-NumberofHits' });
+    self.ShowHits                 = ko.observable(false, { persist: 'DC-ShowHits' });
     self.NumberofSpenders         = ko.observable(3, { persist: 'DC-NumberofSpenders' });
 
     self.SentryDamage             = ko.observable(0, { persist: 'DC-SentryDamage' });
@@ -228,6 +229,10 @@ function Stats(data) {
         });
         return r[0];
     }, this);
+
+    if (self.ActiveSkill2() === 2 && self.ActiveSkill2Rune() === 1 && self.NumberofSpenders() >= 1) { self.ShowHits(true); }
+    if (self.ActiveSkill3() === 2 && self.ActiveSkill3Rune() === 1 && self.NumberofSpenders() >= 2) { self.ShowHits(true); }
+    if (self.ActiveSkill4() === 2 && self.ActiveSkill4Rune() === 1 && self.NumberofSpenders() >= 3) { self.ShowHits(true); }
 
     self.SpenderCombo = ko.computed(function () {
         var r;
