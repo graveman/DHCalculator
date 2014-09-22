@@ -41,7 +41,6 @@ function formatNumber(number) {
 
 function Stats(data) {
     var self = this;
-//    self.Weapon                   = ko.observable(0, { persist: 'DC-Weapon' });
     self.AttackSpeed              = ko.observable(0, { persist: 'DC-AttackSpeed' });
     self.TTBuff                   = ko.observable(0, { persist: 'DC-TTBuff' });
 
@@ -239,12 +238,6 @@ function Stats(data) {
     self.AdditiveModifier         = ko.observable(0, { persist: 'DC-AdditiveModifier' });
     self.MultiplicativeModifier   = ko.observable(0, { persist: 'DC-MultiplicativeModifier' });
 
- /*   self.Weapons = ko.observableArray([
-        { Value: 1, Text: "Crossbow" },
-        { Value: 2, Text: "Bow" },
-        { Value: 3, Text: "Hand crossbow" }
-    ]);*/
-
     self.Elements = ko.observableArray([
         new Element(1, "Cold"),
         new Element(2, "Fire"),
@@ -357,31 +350,44 @@ function Stats(data) {
 
     self.TotalDPS = ko.computed(function () {
         var r = self.ActiveSkill1Damage() + self.ActiveSkill2Damage() + self.ActiveSkill3Damage() + self.ActiveSkill4Damage();
+        
         return r;    
     }, this);
     
     self.ActiveSkill1Percentage = ko.computed(function () {
         var r = self.ActiveSkill1Damage() /  self.TotalDPS();
-        r = (Math.round(r * 10000) / 100) + ' %';
-        return r;       
+        if (r > 0) {
+            r = (Math.round(r * 10000) / 100);
+            return r + ' %';
+        }
+        return 0 + ' %';
     }, this);
 
     self.ActiveSkill2Percentage = ko.computed(function () {
         var r = self.ActiveSkill2Damage() /  self.TotalDPS();
-        r = (Math.round(r * 10000) / 100) + ' %';
-        return r;       
+        if (r > 0) {
+            r = (Math.round(r * 10000) / 100);
+            return r + ' %';
+        }
+        return 0 + ' %';      
     }, this);
 
     self.ActiveSkill3Percentage = ko.computed(function () {
         var r = self.ActiveSkill3Damage() /  self.TotalDPS();
-        r = (Math.round(r * 10000) / 100) + ' %';
-        return r;       
+        if (r > 0) {
+            r = (Math.round(r * 10000) / 100);
+            return r + ' %';
+        }
+        return 0 + ' %';     
     }, this);
 
     self.ActiveSkill4Percentage = ko.computed(function () {
         var r = self.ActiveSkill4Damage() /  self.TotalDPS();
-        r = (Math.round(r * 10000) / 100) + ' %';
-        return r;       
+        if (r > 0) {
+            r = (Math.round(r * 10000) / 100);
+            return r + ' %';
+        }
+        return 0 + ' %';     
     }, this);
 
     self.TotalDPSFormat = ko.computed(function () {
@@ -440,8 +446,6 @@ function Stats(data) {
             var castsArray = ko.utils.arrayFilter(SpenderData, function (combo) {
                 return combo.BP() === parseInt(self.BreakPoint()) && combo.Code() === parseInt(self.SpenderCombo());
             });
-
-
 
             if (castsArray.length > 0) {
                 var total = 0;
