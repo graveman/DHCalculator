@@ -14,6 +14,9 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/site.css" rel="stylesheet">
 
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/knockout-3.2.0.js"></script>
@@ -23,20 +26,16 @@
     <script src="js/dpscalc.js"></script>
     <script src="js/tooltips.js"></script>
 
-
     <script>
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date(); a = s.createElement(o),
-                    m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-54779445-1', 'auto');
+        ga('create', 'UA-55068900-1', 'auto');
         ga('send', 'pageview');
 
     </script>
-
 
     <style>
         body {
@@ -51,8 +50,6 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -909,16 +906,6 @@
 
 
 <script>
-    function showASCalculator() {
-        $('#ASCalculator').modal('show');
-    }
-
-    function ApplyASToDpsCalc() {
-        stats.AttackSpeed(gear.TTAPS());
-        stats.Weapon(gear.Weapon());
-        $('#ASCalculator').modal('toggle');
-    }
-
     $(function () {
         gear = new Gear();
         stats = new Stats();
@@ -926,6 +913,15 @@
         ko.applyBindings(stats, document.getElementById("DPSCalculator"));
         $('input[rel="txtTooltip"]').tooltip();
     });
+
+    function showASCalculator() {
+        $('#ASCalculator').modal('show');
+    }
+
+    function ApplyASToDpsCalc() {
+        stats.AttackSpeed(gear.TTAPS());
+        $('#ASCalculator').modal('toggle');
+    }
 </script>
 
 </body>
