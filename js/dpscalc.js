@@ -30,6 +30,15 @@ var Rune = function (value, text, skill, element, single, singlecap, multi, mult
     self.Slug       = ko.observable(slug);
 };
 
+function formatNumber(number) {
+    var x = Math.round(number) + '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x)) {
+        x = x.replace(rgx, '$1' + '.' + '$2');
+    }
+    return x;
+}
+
 function Stats(data) {
     var self = this;
 //    self.Weapon                   = ko.observable(0, { persist: 'DC-Weapon' });
@@ -351,29 +360,38 @@ function Stats(data) {
         return r;    
     }, this);
     
-    self.TotalDPSElite = ko.computed(function () {
-        var r = self.TotalDPS() * (parseInt(self.EliteDamage()) + 100) / 100;
-        return r;    
-    }, this);
-
     self.ActiveSkill1Percentage = ko.computed(function () {
         var r = self.ActiveSkill1Damage() /  self.TotalDPS();
+        r = (Math.round(r * 10000) / 100) + ' %';
         return r;       
     }, this);
 
     self.ActiveSkill2Percentage = ko.computed(function () {
         var r = self.ActiveSkill2Damage() /  self.TotalDPS();
+        r = (Math.round(r * 10000) / 100) + ' %';
         return r;       
     }, this);
 
     self.ActiveSkill3Percentage = ko.computed(function () {
         var r = self.ActiveSkill3Damage() /  self.TotalDPS();
+        r = (Math.round(r * 10000) / 100) + ' %';
         return r;       
     }, this);
 
     self.ActiveSkill4Percentage = ko.computed(function () {
         var r = self.ActiveSkill4Damage() /  self.TotalDPS();
+        r = (Math.round(r * 10000) / 100) + ' %';
         return r;       
+    }, this);
+
+    self.TotalDPSFormat = ko.computed(function () {
+        var r = self.ActiveSkill1Damage() + self.ActiveSkill2Damage() + self.ActiveSkill3Damage() + self.ActiveSkill4Damage();
+        return formatNumber(r);    
+    }, this);
+
+    self.TotalDPSEliteFormat = ko.computed(function () {
+        var r = (self.ActiveSkill1Damage() + self.ActiveSkill2Damage() + self.ActiveSkill3Damage() + self.ActiveSkill4Damage()) * (parseInt(self.EliteDamage()) + 100) / 100;
+        return formatNumber(r);    
     }, this);
 
     function Calculate(activeSkill, activeRune){
@@ -452,7 +470,6 @@ function Stats(data) {
                 total = total * (1 + self.EnforcerModifier() + elementalModifier);
                 total = total * (self.AdditiveModifier() + skillModifier);
                 total = total * self.MultiplicativeModifier();
-                total = total * (parseInt(self.EliteDamage()) + 100) / 100;
                 return total;
             }
         }
