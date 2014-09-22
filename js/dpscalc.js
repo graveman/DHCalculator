@@ -34,7 +34,7 @@ var Rune = function (value, text, skill, element, single, singlecap, multi, mult
 
 function Stats(data) {
     var self = this;
-    self.Weapon                   = ko.observable(0, { persist: 'DC-Weapon' });
+//    self.Weapon                   = ko.observable(0, { persist: 'DC-Weapon' });
     self.AttackSpeed              = ko.observable(0, { persist: 'DC-AttackSpeed' });
     self.TTBuff                   = ko.observable(0, { persist: 'DC-TTBuff' });
 
@@ -158,20 +158,20 @@ function Stats(data) {
     }, this);
 
 
-    self.ActiveSkill2        = ko.observable(2, { persist: 'DC-ActiveSkill2' });
-    self.ActiveSkill2Data = ko.computed(function () {
+    self.ActiveSkill2           = ko.observable(2, { persist: 'DC-ActiveSkill2' });
+    self.ActiveSkill2Data       = ko.computed(function () {
         var r = ko.utils.arrayFilter(this.ActiveSkills(), function (skill) {
             return skill.Value() === self.ActiveSkill2();
         });
         return r[0];
     }, this);
-    self.ActiveSkill2Rune    = ko.observable(1, { persist: 'DC-ActiveSkill2Rune' });
-    self.ActiveSkill2Runes = ko.computed(function () {
+    self.ActiveSkill2Rune       = ko.observable(1, { persist: 'DC-ActiveSkill2Rune' });
+    self.ActiveSkill2Runes      = ko.computed(function () {
         return ko.utils.arrayFilter(this.Runes(), function (rune) {
             return rune.Skill() === self.ActiveSkill2();
         });
     }, this);
-    self.ActiveSkill2RuneData = ko.computed(function () {
+    self.ActiveSkill2RuneData   = ko.computed(function () {
         var r = ko.utils.arrayFilter( this.Runes(), function (rune) {
             return rune.Skill() === self.ActiveSkill2() && rune.Value() === self.ActiveSkill2Rune();
         });
@@ -227,16 +227,16 @@ function Stats(data) {
         return r;
     }, this);
 
-
     self.BaseWeaponDamage         = ko.observable(0, { persist: 'DC-BaseWeaponDamage' });
     self.AdditiveModifier         = ko.observable(0, { persist: 'DC-AdditiveModifier' });
     self.MultiplicativeModifier   = ko.observable(0, { persist: 'DC-MultiplicativeModifier' });
+    self.TotalDamage              = ko.observable(0, { persist: 'DC-TotalDamage' });
 
-    self.Weapons = ko.observableArray([
+ /*   self.Weapons = ko.observableArray([
         { Value: 1, Text: "Crossbow" },
         { Value: 2, Text: "Bow" },
         { Value: 3, Text: "Hand crossbow" }
-    ]);
+    ]);*/
 
     self.Elements = ko.observableArray([
         new Element(1, "Cold"),
@@ -348,6 +348,16 @@ function Stats(data) {
         return Calculate(self.ActiveSkill4(), self.ActiveSkill4Rune());
     }, this);
 
+    self.TotalDPS = ko.computed(function () {
+        var r = self.ActiveSkill1Damage() + self.ActiveSkill2Damage() + self.ActiveSkill3Damage() + self.ActiveSkill4Damage();
+        return r;    
+    }, this);
+    
+    self.TotalDPSElite = ko.computed(function () {
+        var r = self.TotalDPS() * (parseInt(self.EliteDamage()) + 100) / 100;
+        return r;    
+    }, this);
+   
     function Calculate(activeSkill, activeRune){
         var r = ko.utils.arrayFilter( self.Runes(), function (rune) {
             return rune.Skill() === activeSkill && rune.Value() === activeRune;
@@ -391,11 +401,9 @@ function Stats(data) {
             var hits = 1;
             if (r[0].Hits() === true) { hits = parseInt(self.NumberofHits()); }
 
-            var castsArray = ko.utils.arrayFilter(spenderdata, function (combo) {
+            var castsArray = ko.utils.arrayFilter(SpenderData, function (combo) {
                 return combo.BP() === parseInt(self.BreakPoint()) && combo.Code() === parseInt(self.SpenderCombo());
             });
-
-
 
             if (castsArray.length > 0) {
                 var total = 0;
@@ -424,12 +432,10 @@ function Stats(data) {
                 total = total * (1 + self.EnforcerModifier() + elementalModifier);
                 total = total * (self.AdditiveModifier() + skillModifier);
                 total = total * self.MultiplicativeModifier();
-                total = total * (parseInt(self.EliteDamage()) + 100) / 100;
                 return total;
             }
         }
 
         return 0;
     };
-
 }
