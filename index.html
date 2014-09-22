@@ -458,7 +458,7 @@
                         </div>
                     </a>    
                 </div>
-                <div class="form-group">
+                <div class="form-group" data-bind="visible: NumberofSpenders() >= 1">
                     <a style="display: block" data-bind="attr:{href: 'http://eu.battle.net/d3/en/class/demon-hunter/active/'+ActiveSkill2Data().Slug()+'#'+ActiveSkill2RuneData().Slug()+'+'}" onclick="return false;">
                         <div class="col-xs-1 padding0">
                             <img style="height: 28px" data-bind="attr:{src: 'images/demonhunter_skill_'+ActiveSkill2()+'.png'}" />
@@ -473,7 +473,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="form-group">
+                <div class="form-group"  data-bind="visible: NumberofSpenders() >= 2">
                     <a style="display: block" data-bind="attr:{href: 'http://eu.battle.net/d3/en/class/demon-hunter/active/'+ActiveSkill3Data().Slug()+'#'+ActiveSkill3RuneData().Slug()+'+'}" onclick="return false;">
                         <div class="col-xs-1 padding0">
                             <img style="height: 28px" data-bind="attr:{src: 'images/demonhunter_skill_'+ActiveSkill3()+'.png'}" />
@@ -488,7 +488,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="form-group">
+                <div class="form-group" data-bind="visible: NumberofSpenders() == 3">
                     <a style="display: block" data-bind="attr:{href: 'http://eu.battle.net/d3/en/class/demon-hunter/active/'+ActiveSkill4Data().Slug()+'#'+ActiveSkill4RuneData().Slug()+'+'}" onclick="return false;">
                         <div class="col-xs-1 padding0">
                             <img style="height: 28px" data-bind="attr:{src: 'images/demonhunter_skill_'+ActiveSkill4()+'.png'}" />
