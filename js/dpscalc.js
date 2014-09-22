@@ -230,9 +230,18 @@ function Stats(data) {
     }, this);
 
     self.SpenderCombo = ko.computed(function () {
-        var a = [self.ActiveSkill2(),self.ActiveSkill3(),self.ActiveSkill4()];
-        a.sort();
-        var r = a.join('');
+        var r;
+        if (parseInt(self.NumberofSpenders()) === 1) { r = self.ActiveSkill2(); }
+        if (parseInt(self.NumberofSpenders()) === 2) {
+            r = [self.ActiveSkill2(),self.ActiveSkill3()];
+            r.sort();
+            r = r.join('');
+        }
+        if (parseInt(self.NumberofSpenders()) === 3) {
+            r = [self.ActiveSkill2(),self.ActiveSkill3(),self.ActiveSkill4()];
+            r.sort();
+            r = r.join('');
+        }
         return r;
     }, this);
 
@@ -393,26 +402,14 @@ function Stats(data) {
         return 0 + ' %';     
     }, this);
 
-    if (self.NumberofSpenders() === 1) {
-        self.TotalDPS = ko.computed(function () {
-            var r = self.ActiveSkill1Damage() + self.ActiveSkill2Damage();
-            return r;    
-        }, this);
-    }
+    self.TotalDPS = ko.computed(function () {
+        var r;
+        if (parseInt(self.NumberofSpenders()) === 1) { r = self.ActiveSkill1Damage() + self.ActiveSkill2Damage(); }
+        if (parseInt(self.NumberofSpenders()) === 2) { r = self.ActiveSkill1Damage() + self.ActiveSkill2Damage() + self.ActiveSkill3Damage(); }
+        if (parseInt(self.NumberofSpenders()) === 3) { r = self.ActiveSkill1Damage() + self.ActiveSkill2Damage() + self.ActiveSkill3Damage() + self.ActiveSkill4Damage(); }
+        return r;    
+    }, this);
 
-    if (self.NumberofSpenders() === 2) {
-        self.TotalDPS = ko.computed(function () {
-            var r = self.ActiveSkill1Damage() + self.ActiveSkill2Damage() + self.ActiveSkill3Damage();
-            return r;    
-        }, this);
-    }
-
-    if (self.NumberofSpenders() === 3) {
-        self.TotalDPS = ko.computed(function () {
-            var r = self.ActiveSkill1Damage() + self.ActiveSkill2Damage() + self.ActiveSkill3Damage() + self.ActiveSkill4Damage();
-            return r;    
-        }, this);
-    }
 
     self.TotalDPSFormat = ko.computed(function () {
         var r = self.TotalDPS();
