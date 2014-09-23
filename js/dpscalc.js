@@ -15,6 +15,12 @@ var Skill = function (value, text, slug) {
     self.Slug  = ko.observable(slug);
 };
 
+var BreakPoint = function (value, text) {
+    var self = this;
+    self.Value = ko.observable(value);
+    self.Text  = ko.observable(text);
+}
+
 var Rune = function (value, text, skill, element, single, singlecap, multi, multicap, type, hits, slug) {
     var self = this;
     self.Value      = ko.observable(value);
@@ -41,13 +47,12 @@ function formatNumber(number) {
 
 function Stats(data) {
     var self = this;
-    self.AttackSpeed              = ko.observable(0, { persist: 'DC-AttackSpeed' });
-    self.TTBuff                   = ko.observable(0, { persist: 'DC-TTBuff' });
+    self.BreakPoint               = ko.observable(1, { persist: 'DC-BreakPoint' });
 
     self.WeaponDamage1            = ko.observable(0, { persist: 'DC-WeaponDamage1' });
     self.WeaponDamage2            = ko.observable(0, { persist: 'DC-WeaponDamage2' });
-    self.JewelryDamage1             = ko.observable(0, { persist: 'DC-JewelryDamage1' });
-    self.JewelryDamage2             = ko.observable(0, { persist: 'DC-JewelryDamage2' });
+    self.JewelryDamage1           = ko.observable(0, { persist: 'DC-JewelryDamage1' });
+    self.JewelryDamage2           = ko.observable(0, { persist: 'DC-JewelryDamage2' });
 
     self.Dexterity                = ko.observable(0, { persist: 'DC-Dexterity' });
     self.CHC                      = ko.observable(0, { persist: 'DC-CHC' });
@@ -107,6 +112,16 @@ function Stats(data) {
     self.CripplingWave            = ko.observable(false, { persist: 'DC-CripplingWave' });
     
     self.TotalDPS = ko.observable(0, { persist: 'DC-TotalDPS' });
+    
+    self.BreakPoints = ko.observableArray([
+        new BreakPoint(1, "1.102"),
+        new BreakPoint(2, "1.256"),
+        new BreakPoint(3, "1.459"),
+        new BreakPoint(4, "1.742"),
+        new BreakPoint(5, "2.160"),
+        new BreakPoint(6, "2.842"),
+        new BreakPoint(7, "4.154")
+    ]);
 
     self.ActiveSkills = ko.observableArray([
         new Skill(1, "Cluster Arrow", "cluster-arrow"),
@@ -265,26 +280,6 @@ function Stats(data) {
         new Element(4, "Physical")
     ]);
 
-    self.BreakPoint = ko.computed(function () {
-        var ttAPS = parseFloat(self.AttackSpeed());
-
-        if (ttAPS >= 1.10205 && ttAPS <= 1.25581)
-            return 1;
-        if (ttAPS >= 1.25582 && ttAPS <= 1.4545)
-            return 2;
-        if (ttAPS >= 1.45946 && ttAPS <= 1.74193)
-            return 3;
-        if (ttAPS >= 1.74194 && ttAPS <= 2.16)
-            return 4;
-        if (ttAPS >= 2.16001 && ttAPS <= 2.8421)
-            return 5;
-        if (ttAPS >= 2.84211 && ttAPS <= 4.15385)
-            return 6;
-        if (ttAPS >= 4.15386)
-            return 7;
-        return 0;
-    }, this);
-
     self.BaseWeaponDamage = ko.computed(function () {
         var r = 0;        
         r = (parseInt(self.WeaponDamage1()) + parseInt(self.JewelryDamage1()) + parseInt(self.WeaponDamage2()) + parseInt(self.JewelryDamage2())) / 2;       
@@ -345,7 +340,7 @@ function Stats(data) {
         r = r * self.BaneoftheTrappedModifier();
         r = r * self.ZeisStoneofVengeanceModifier();       
         r = r * (parseInt(self.SentryDamage()) + 100) / 100;
-        if (self.Ambush() === true) { r = r * 1.1; }
+        if (self.Ambush() === true) { r = r * 1.077; }
         if (self.CulltheWeak() === true) { r = r * 1.2; }
 
         console.log('r' + r); 
