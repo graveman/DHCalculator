@@ -138,8 +138,8 @@ function Stats(data) {
         new Rune(3, "Maelstrom",            1, 1, 5.5, 1, 4.5, 5, 1, false, "d"),
 //        new Rune(4, "Cluster Bombs",        1, 2, 0, 0, 0, 0),                // No idea how many grenades actually spawn
         new Rune(5, "Loaded for Bear",      1, 2, 7.7 , 1, 8.8, 1, 2, false, "a"),
-        new Rune(1, "Ball Lightning",       2, 3, 3, 1, 0, 0, 0, true, "b"),
-        new Rune(2, "Frost  Arrow",         2, 1, 0, 0, 3.3, 11, 0, false, "a"),
+        new Rune(1, "Frost  Arrow",         2, 1, 0, 0, 3.3, 11, 0, false, "a"),
+        new Rune(2, "Ball Lightning",       2, 3, 3, 1, 0, 0, 0, true, "b"),
         new Rune(3, "Immolation Arrow",     2, 2, 3, 1, 3.15, 1, 0, false, "c"),
         new Rune(4, "Lightning Bolts",      2, 3, 3, 1, 0, 0, 0, false,"e"),
         new Rune(5, "Nether Tentacles",     2, 4, 3, 1, 0, 0, 0, true, "d"),
@@ -244,9 +244,9 @@ function Stats(data) {
     }, this);
 
     self.ShowHits   = ko.computed(function () {
-        if (self.ActiveSkill2() === 2 && self.ActiveSkill2Rune() === 1 && self.NumberofSpenders() >= 1) { return true; }
-        if (self.ActiveSkill3() === 2 && self.ActiveSkill3Rune() === 1 && self.NumberofSpenders() >= 2) { return true; }
-        if (self.ActiveSkill4() === 2 && self.ActiveSkill4Rune() === 1 && self.NumberofSpenders() >= 3) { return true; }
+        if (self.ActiveSkill2() === 2 && self.ActiveSkill2Rune() === 2 && self.NumberofSpenders() >= 1) { return true; }
+        if (self.ActiveSkill3() === 2 && self.ActiveSkill3Rune() === 2 && self.NumberofSpenders() >= 2) { return true; }
+        if (self.ActiveSkill4() === 2 && self.ActiveSkill4Rune() === 2 && self.NumberofSpenders() >= 3) { return true; }
         if (self.ActiveSkill2() === 2 && self.ActiveSkill2Rune() === 5 && self.NumberofSpenders() >= 1) { return true; }
         if (self.ActiveSkill3() === 2 && self.ActiveSkill3Rune() === 5 && self.NumberofSpenders() >= 2) { return true; }
         if (self.ActiveSkill4() === 2 && self.ActiveSkill4Rune() === 5 && self.NumberofSpenders() >= 3) { return true; }
