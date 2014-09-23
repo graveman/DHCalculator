@@ -230,9 +230,15 @@ function Stats(data) {
         return r[0];
     }, this);
 
-    if (self.ActiveSkill2() === 2 && self.ActiveSkill2Rune() === 1 && self.NumberofSpenders() >= 1) { self.ShowHits(true); }
-    if (self.ActiveSkill3() === 2 && self.ActiveSkill3Rune() === 1 && self.NumberofSpenders() >= 2) { self.ShowHits(true); }
-    if (self.ActiveSkill4() === 2 && self.ActiveSkill4Rune() === 1 && self.NumberofSpenders() >= 3) { self.ShowHits(true); }
+    self.ShowHits   = ko.computed(function () {
+        if (self.ActiveSkill2() === 2 && self.ActiveSkill2Rune() === 1 && self.NumberofSpenders() >= 1) { return true; }
+        if (self.ActiveSkill3() === 2 && self.ActiveSkill3Rune() === 1 && self.NumberofSpenders() >= 2) { return true; }
+        if (self.ActiveSkill4() === 2 && self.ActiveSkill4Rune() === 1 && self.NumberofSpenders() >= 3) { return true; }
+        if (self.ActiveSkill2() === 2 && self.ActiveSkill2Rune() === 5 && self.NumberofSpenders() >= 1) { return true; }
+        if (self.ActiveSkill3() === 2 && self.ActiveSkill3Rune() === 5 && self.NumberofSpenders() >= 2) { return true; }
+        if (self.ActiveSkill4() === 2 && self.ActiveSkill4Rune() === 5 && self.NumberofSpenders() >= 3) { return true; }
+        return false;        
+    }, this);
 
     self.SpenderCombo = ko.computed(function () {
         var r;
