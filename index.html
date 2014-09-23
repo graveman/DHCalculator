@@ -114,6 +114,16 @@
                 </div>
                 <div class="form-group">
                     <label class="col-xs-6 control-label padding-left0">Breakpoint</label>
+                    <div class="col-xs-3 padding-right2">
+                        <select data-bind="options: BreakPoints, optionsText: 'Text', optionsValue: 'Value', value: BreakPoint"
+                                     class="form-control input-sm"></select>
+                    </div>
+                    <div class="col-xs-3 padding-left2">
+                         <button class="form-control input-sm" type="button" onclick="showASCalculator(); return 0;">Calc</button>
+                    </div>
+                </div><!--
+                <div class="form-group">
+                    <label class="col-xs-6 control-label padding-left0">Breakpoint</label>
                     <div class="col-xs-6">
                         <div class="input-group">
                             <select data-bind="options: BreakPoints, optionsText: 'Text', optionsValue: 'Value', value: BreakPoint"
@@ -123,7 +133,7 @@
                             </span>
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <div class="form-group">
                     <label class="col-xs-6 control-label padding-left0">Dexterity</label>
                     <div class="col-xs-6">
