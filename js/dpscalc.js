@@ -167,7 +167,6 @@ function Stats(data) {
         return r[0];
     }, this);
 
-
     self.ActiveSkill2           = ko.observable(2, { persist: 'DC-ActiveSkill2' });
     self.ActiveSkill2Data       = ko.computed(function () {
         var r = ko.utils.arrayFilter(this.ActiveSkills(), function (skill) {
@@ -187,7 +186,6 @@ function Stats(data) {
         });
         return r[0];
     }, this);
-
 
     self.ActiveSkill3           = ko.observable(3, { persist: 'DC-ActiveSkill3' });
     self.ActiveSkill3Rune       = ko.observable(1, { persist: 'DC-ActiveSkill3Rune' });
@@ -255,7 +253,6 @@ function Stats(data) {
         }
         return r;
     }, this);
-
 
     self.BaseWeaponDamage         = ko.observable(0, { persist: 'DC-BaseWeaponDamage' });
     self.AdditiveModifier         = ko.observable(0, { persist: 'DC-AdditiveModifier' });
@@ -420,7 +417,6 @@ function Stats(data) {
         if (parseInt(self.NumberofSpenders()) === 3) { r = self.ActiveSkill1Damage() + self.ActiveSkill2Damage() + self.ActiveSkill3Damage() + self.ActiveSkill4Damage(); }
         return r;    
     }, this);
-
 
     self.TotalDPSFormat = ko.computed(function () {
         var r = self.TotalDPS();
