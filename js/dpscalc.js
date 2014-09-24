@@ -222,6 +222,7 @@ function Stats(data) {
         return r[0];
     }, this);
 
+
     self.ActiveSkill4           = ko.observable(4, { persist: 'DC-ActiveSkill4' });
     self.ActiveSkill4Rune       = ko.observable(1, { persist: 'DC-ActiveSkill4Rune' });
     self.ActiveSkill4Runes      = ko.computed(function () {
@@ -241,48 +242,6 @@ function Stats(data) {
         });
         return r[0];
     }, this);
-
-    if (self.NumberofSpenders() === 1) {
-        self.GetActiveSkills2 = ko.computed(function() {
-            var r = ko.utils.arrayFilter(self.ActiveSkills(), function (skill) {
-                    return skill.Value() !== 6;});
-            return r;
-        }, this); 
-    }
-
-    if (self.NumberofSpenders() === 2) {
-        self.GetActiveSkills2 = ko.computed(function() {
-            var r = ko.utils.arrayFilter(self.ActiveSkills(), function (skill) {
-                    return skill.Value() !== 6 && skill.Value() !== self.ActiveSkill3();});
-            return r;
-        }, this); 
-
-        self.GetActiveSkills3 = ko.computed(function() {
-            var r = ko.utils.arrayFilter(self.ActiveSkills(), function (skill) {
-                    return skill.Value() !== 6 && skill.Value() !== self.ActiveSkill2();});
-            return r;
-        }, this); 
-    }
-    
-    if (self.NumberofSpenders() === 3) {
-        self.GetActiveSkills2 = ko.computed(function() {
-            var r = ko.utils.arrayFilter(self.ActiveSkills(), function (skill) {
-                    return skill.Value() !== 6 && skill.Value() !== self.ActiveSkill3() && skill.Value() !== self.ActiveSkill4();});
-            return r;
-        }, this); 
-
-        self.GetActiveSkills3 = ko.computed(function() {
-            var r = ko.utils.arrayFilter(self.ActiveSkills(), function (skill) {
-                    return skill.Value() !== 6 && skill.Value() !== self.ActiveSkill2() && skill.Value() !== self.ActiveSkill4();});
-            return r;
-        }, this); 
-
-        self.GetActiveSkills4 = ko.computed(function() {
-            var r = ko.utils.arrayFilter(self.ActiveSkills(), function (skill) {
-                    return skill.Value() !== 6 && skill.Value() !== self.ActiveSkill2() && skill.Value() !== self.ActiveSkill3();});
-            return r;
-        }, this); 
-    }
 
     self.ShowHits   = ko.computed(function () {
         if (self.ActiveSkill2() === 2 && self.ActiveSkill2Rune() === 2 && self.NumberofSpenders() >= 1) { return true; }
