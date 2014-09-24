@@ -78,6 +78,11 @@ hr {
     padding-right: 2px;
 }
 
+label.skill-label:hover {
+    color:#2a6496;
+    cursor:pointer;
+}
+
 /*
 .checkbox {
     margin-top: 0px !important;
