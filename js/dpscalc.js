@@ -6,7 +6,7 @@ var Element = function (value, text) {
     var self = this;
     self.Value = ko.observable(value);
     self.Text = ko.observable(text);    
-}
+};
 
 var Skill = function (value, text, slug) {
     var self = this;
@@ -19,7 +19,7 @@ var BreakPoint = function (value, text) {
     var self = this;
     self.Value = ko.observable(value);
     self.Text  = ko.observable(text);
-}
+};
 
 var Rune = function (value, text, skill, element, single, singlecap, multi, multicap, type, hits, slug) {
     var self = this;
@@ -43,7 +43,7 @@ function formatNumber(number) {
         x = x.replace(rgx, '$1' + ' ' + '$2');
     }
     return x;
-}
+};
 
 function Stats(data) {
     var self = this;
@@ -503,4 +503,4 @@ function Stats(data) {
 
         return 0;
     };
-}
+};
