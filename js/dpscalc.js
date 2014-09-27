@@ -478,7 +478,7 @@ function Stats(data) {
                     var bolts = 0;
                     if (activeRune === 1) { rockets = castsArray[0].Total(); }
                     bolts = castsArray[0].Bolts();
-                    total = singleCap * r[0].Single() * hits * bolts + multiCap * r[0].Multi() * typeModifier * rockets;
+                    total = singleCap * r[0].Single() * hits * bolts + multiCap * r[0].Multi() * typeModifier * rockets * (1 + elementalModifier);
                 }
                 else {
                     var casts = 0;
@@ -489,12 +489,11 @@ function Stats(data) {
                         case 4: casts = castsArray[0].Imp(); break;
                         case 5: casts = castsArray[0].Chak(); break;
                     }
-                    total = (singleCap * r[0].Single() * hits + multiCap * r[0].Multi() * typeModifier) * casts;
+                    total = (singleCap * r[0].Single() * hits + multiCap * r[0].Multi() * typeModifier) * casts * (1 + self.EnforcerModifier() + elementalModifier);
                 }
                 total = total / 30;
                 total = total * self.BaseWeaponDamage();
                 total = total * criticalModifier;
-                total = total * (1 + self.EnforcerModifier() + elementalModifier);
                 total = total * (self.AdditiveModifier() + skillModifier);
                 total = total * self.MultiplicativeModifier();
                 return total;
