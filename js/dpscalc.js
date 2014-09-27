@@ -57,8 +57,10 @@ function Stats(data) {
     self.Dexterity                = ko.observable(0, { persist: 'DC-Dexterity' });
     self.CHC                      = ko.observable(0, { persist: 'DC-CHC' });
     self.CHCBonus                 = ko.observable(0, { persist: 'DC-CHCBonus' });
+    self.CHCTotal                 = ko.observable(0, { persist: 'DC-CHCTotal' });
     self.CHD                      = ko.observable(0, { persist: 'DC-CHD' });
     self.CHDBonus                 = ko.observable(0, { persist: 'DC-CHDBonus' });
+    self.CHDTotal                 = ko.observable(0, { persist: 'DC-CHDTotal' });
     self.EliteDamage              = ko.observable(0, { persist: 'DC-EliteDamage' });
 
     self.ColdDamage               = ko.observable(0, { persist: 'DC-ColdDamage' });
@@ -87,6 +89,7 @@ function Stats(data) {
     self.Grenadier                = ko.observable(false, { persist: 'DC-Grenadier' });
     self.Ambush                   = ko.observable(false, { persist: 'DC-Ambush' });
     self.Archery                  = ko.observable(false, { persist: 'DC-Archery' });
+    self.SingleOut                = ko.observable(false, { persist: 'DC-SingleOut' });
     
     self.BaneofthePowerful              = ko.observable(false, { persist: 'DC-BaneofthePowerfulRank' });
     self.Enforcer                       = ko.observable(false, { persist: 'DC-Enforcer' });
