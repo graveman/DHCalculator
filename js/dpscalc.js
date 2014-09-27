@@ -187,10 +187,8 @@ function Stats(data) {
     ]);
     
     self.NumberofTargets.subscribe(function(newValue) {
-        var r = self.NumberofAoETargets();
         if (parseInt(self.NumberofAoETargets()) > parseInt(newValue)) {
-            self.NumberofAoETargets(self.NumberofTargets());
-
+            self.NumberofAoETargets(newValue);
         }
     });
 
