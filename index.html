@@ -220,13 +220,6 @@
                                type="number" min="1" max="3" class="form-control input-sm" />
                     </div>
                 </div>
-                <div class="form-group" data-bind="visible: ShowHits() === true">
-                    <label class="col-xs-6 control-label  padding-left0">Number of Hits per Target</label>
-                    <div class="col-xs-6">
-                        <input data-bind="value: NumberofHits, valueUpdate: 'afterkeydown'"
-                               type="number" min="1" max="20" class="form-control input-sm" rel="txtTooltip" title="Number of times Ball Lightning or Nether Tentacles can hit the same target" data-toggle="tooltip" data-placement="bottom" />
-                    </div>
-                </div>
             </div>
             <legend>Active Skills</legend>
             <div class="col-xs-12">
@@ -624,7 +617,24 @@
                             </label>
                         </div>
                     </div>
-                </div>
+                </div><!--
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="images/unique_quiver_001_p1_demonhunter_male.png" alt="Meticulous Bolts" />
+                    </div>
+                    <a class="col-xs-6 control-label d3-label" href="http://us.battle.net/d3/en/item/meticulous-bolts" onclick="return false">Meticulous Bolts</a>
+                    <div class="col-xs-1 padding-right0">
+                        <div class="checkbox">
+                            <label >
+                                <input data-bind="checked: MeticulousBolts" class="check"  type="checkbox">&nbsp;
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <input data-bind="value: MeticulousBoltsModifier, valueUpdate: 'afterkeydown'"
+                               type="number" min="30" max ="40" class="form-control input-sm" rel="txtTooltip" title="Enter percentage" data-toggle="tooltip" data-placement="bottom" />
+                    </div>
+                </div>-->
                 <div class="form-group">
                     <div class="col-xs-1 padding0">
                         <img style="height: 28px" src="images/unique_bracer_007_x1_demonhunter_male.png" alt="Strongarm Bracers" />
@@ -692,7 +702,24 @@
                         <input data-bind="value: BaneoftheTrappedRank, valueUpdate: 'afterkeydown'"
                                type="number" min="0" max="50" class="form-control input-sm" rel="txtTooltip" title="Enter Gem Rank" data-toggle="tooltip" data-placement="bottom" />
                     </div>
-                </div>
+                </div><!--
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="images/unique_gem_005_x1_demonhunter_male.png" alt="Gem of Efficacious Toxin" />
+                    </div>
+                    <a class="col-xs-6 control-label d3-label" href="http://eu.battle.net/d3/en/item/gem-of-efficacious-toxin" onclick="return false">Gem of Efficacious Toxin</a>
+                    <div class="col-xs-1 padding-right0">
+                        <div class="checkbox">
+                            <label >
+                                <input data-bind="checked: GemofEfficaciousToxin" class="check"  type="checkbox">&nbsp;
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <input data-bind="value: GemofEfficaciousToxinRank, valueUpdate: 'afterkeydown'"
+                               type="number" min="0" max="50" class="form-control input-sm" rel="txtTooltip" title="Enter Gem Rank" data-toggle="tooltip" data-placement="bottom" />
+                    </div>
+                </div>-->
                 <div class="form-group">
                     <div class="col-xs-1 padding0">
                         <img style="height: 28px" src="images/unique_gem_012_x1_demonhunter_male.png" alt="Zei's Stone of Vengeance" />

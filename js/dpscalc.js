@@ -71,7 +71,6 @@ function Stats(data) {
 
     self.NumberofTargets          = ko.observable(1, { persist: 'DC-NumberofTargets' });
     self.NumberofHits             = ko.observable(1, { persist: 'DC-NumberofHits' });
-    self.ShowHits                 = ko.observable(false, { persist: 'DC-ShowHits' });
     self.NumberofSpenders         = ko.observable(3, { persist: 'DC-NumberofSpenders' });
 
     self.SentryDamage             = ko.observable(0, { persist: 'DC-SentryDamage' });
@@ -103,6 +102,9 @@ function Stats(data) {
     self.ZeisStoneofVengeanceRank       = ko.observable(0, { persist: 'DC-ZeisStoneofVengeanceRank' });
     self.ZeisStoneofVengeanceModifier   = ko.observable(0, { persist: 'DC-ZeisStoneofVengeanceModifier' });
     self.ZeisStoneofVengeanceDistance   = ko.observable(1, { persist: 'DC-ZeisStoneofVengeanceDistance' });
+    self.GemofEfficaciousToxin          = ko.observable(false, { persist: 'DC-GemofEfficaciousToxin' });    
+    self.GemofEfficaciousToxinRank      = ko.observable(0, { persist: 'DC-GemofEfficaciousToxinRank' });
+    self.GemofEfficaciousToxinModifier  = ko.observable(0, { persist: 'DC-GemofEfficaciousToxinModifier' });
     
     self.HexingPantsofMrYan             = ko.observable(false, { persist: 'DC-HexingPantsofMrYan' });
     self.OverwhelmingDesire             = ko.observable(false, { persist: 'DC-OverwhelmingDesire' });
@@ -110,7 +112,9 @@ function Stats(data) {
     self.StrongarmBracers               = ko.observable(false, { persist: 'DC-StrongarmBracers' });
     self.StrongarmBracersModifier       = ko.observable(20, { persist: 'DC-StrongarmBracersModifier' }); 
     self.HarringtonsWaistguard          = ko.observable(false, { persist: 'DC-HarringtonsWaistguard' });  
-    self.HarringtonsWaistguardModifier  = ko.observable(100, { persist: 'DC-HarringtonsWaistguard' });   
+    self.HarringtonsWaistguardModifier  = ko.observable(100, { persist: 'DC-HarringtonsWaistguard' });  
+    self.MeticulousBolts                = ko.observable(false, { persist: 'DC-MeticulousBolts' });  
+    self.MeticulousBoltsModifier        = ko.observable(30, { persist: 'DC-MeticulousBoltsModifier' });   
 
     self.BigBadVoodoo             = ko.observable(false, { persist: 'DC-BigBadVoodoo' });
     self.MassConfusion            = ko.observable(false, { persist: 'DC-MassConfusion' });
@@ -124,7 +128,7 @@ function Stats(data) {
     self.Weapons = ko.observableArray([
         { Value: 1, Text: "Crossbow" },
         { Value: 2, Text: "Bow" },
-        { Value: 3, Text: "Hand crossbow" }
+        { Value: 3, Text: "Hand Crossbow" }
     ]);
 
     self.Elements = ko.observableArray([
@@ -163,7 +167,7 @@ function Stats(data) {
         new Rune(2, "Ball Lightning",       2, 3, 3, 1, 0, 0, 0, true, "b"),
         new Rune(3, "Immolation Arrow",     2, 2, 3, 1, 3.15, 1, 0, false, "c"),
         new Rune(4, "Lightning Bolts",      2, 3, 3, 1, 0, 0, 0, false,"e"),
-        new Rune(5, "Nether Tentacles",     2, 4, 3, 1, 0, 0, 0, true, "d"),
+//        new Rune(5, "Nether Tentacles",     2, 4, 3, 1, 0, 0, 0, true, "d"),       // Due to implementation of Meticulous Bolts
         new Rune(1, "Burst Fire",           3, 1, 3.6, 11, 2, 1, 0, false, "b"),     // Chose arrows as primary, cold burst as secondary
         new Rune(2, "Full Broadside",       3, 4, 4.6, 11, 0, 0, 0, false, "a"),     // Chose arrows as primary
         new Rune(3, "Arsenal",              3, 2, 3.6, 11, 3, 3, 1, false, "c"),     // Chose arrows as primary, rockets as secondary
@@ -177,10 +181,6 @@ function Stats(data) {
         new Rune(1, "Spitfire Turret",      6, 2, 2.8, 1, 1.2, 1, 1, false, "c"),    // Bolts as primary, rockets as secondary
         new Rune(2, "Polar Station",        6, 1, 2.8, 1, 0, 0, 1, false, "d")       // Bolts as primary
         //       new Rune(1, "Twin Chakrams",        5, 2, 0, 0, 0, 0, 0)              // I'll wait until I figure out how to properly implement this
-    ]);
-
-    self.Combos = ko.observableArray([
-        new Combo(150, 14, 100, 36, 0, 0, 0, 123, 7)        
     ]);
 
     self.ActiveSkill1           = ko.observable(6, { persist: 'DC-ActiveSkill1' });
@@ -262,16 +262,6 @@ function Stats(data) {
             return rune.Skill() === self.ActiveSkill4() && rune.Value() === self.ActiveSkill4Rune();
         });
         return r[0];
-    }, this);
-
-    self.ShowHits   = ko.computed(function () {
-        if (self.ActiveSkill2() === 2 && self.ActiveSkill2Rune() === 2 && self.NumberofSpenders() >= 1) { return true; }
-        if (self.ActiveSkill3() === 2 && self.ActiveSkill3Rune() === 2 && self.NumberofSpenders() >= 2) { return true; }
-        if (self.ActiveSkill4() === 2 && self.ActiveSkill4Rune() === 2 && self.NumberofSpenders() >= 3) { return true; }
-        if (self.ActiveSkill2() === 2 && self.ActiveSkill2Rune() === 5 && self.NumberofSpenders() >= 1) { return true; }
-        if (self.ActiveSkill3() === 2 && self.ActiveSkill3Rune() === 5 && self.NumberofSpenders() >= 2) { return true; }
-        if (self.ActiveSkill4() === 2 && self.ActiveSkill4Rune() === 5 && self.NumberofSpenders() >= 3) { return true; }
-        return false;        
     }, this);
 
     self.SpenderCombo = ko.computed(function () {
@@ -410,39 +400,19 @@ function Stats(data) {
     }, this);
     
     self.ActiveSkill1Percentage = ko.computed(function () {
-        var r = self.ActiveSkill1Damage() /  self.TotalDPS();
-        if (r > 0) {
-            r = (Math.round(r * 10000) / 100);
-            return r + ' %';
-        }
-        return 0 + ' %';
+        return Percentage(self.ActiveSkill1Damage(), self.TotalDPS());
     }, this);
 
     self.ActiveSkill2Percentage = ko.computed(function () {
-        var r = self.ActiveSkill2Damage() /  self.TotalDPS();
-        if (r > 0) {
-            r = (Math.round(r * 10000) / 100);
-            return r + ' %';
-        }
-        return 0 + ' %';      
+        return Percentage(self.ActiveSkill2Damage(), self.TotalDPS());
     }, this);
 
     self.ActiveSkill3Percentage = ko.computed(function () {
-        var r = self.ActiveSkill3Damage() /  self.TotalDPS();
-        if (r > 0) {
-            r = (Math.round(r * 10000) / 100);
-            return r + ' %';
-        }
-        return 0 + ' %';     
+        return Percentage(self.ActiveSkill3Damage(), self.TotalDPS());
     }, this);
 
     self.ActiveSkill4Percentage = ko.computed(function () {
-        var r = self.ActiveSkill4Damage() /  self.TotalDPS();
-        if (r > 0) {
-            r = (Math.round(r * 10000) / 100);
-            return r + ' %';
-        }
-        return 0 + ' %';     
+        return Percentage(self.ActiveSkill4Damage(), self.TotalDPS());     
     }, this);
 
     self.TotalDPS = ko.computed(function () {
@@ -462,6 +432,15 @@ function Stats(data) {
         var r = self.TotalDPS() * (parseInt(self.EliteDamage()) + 100) / 100;        
         return formatNumber(r);    
     }, this);
+
+    function Percentage(activeSkill,total) {
+        var r = activeSkill/total;
+        if (r > 0) {
+            r = (Math.round(r * 10000) / 100);
+            return r + ' %';
+        }
+        return 0 + ' %';   
+    };
 
     function Calculate(activeSkill, activeRune){
         var r = ko.utils.arrayFilter( self.Runes(), function (rune) {
