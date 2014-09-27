@@ -81,7 +81,7 @@ function Stats(data) {
     self.MultishotDamage          = ko.observable(0, { persist: 'DC-MultishotDamage' });
     self.EADamage                 = ko.observable(0, { persist: 'DC-EADamage' });
     self.ImpaleDamage             = ko.observable(0, { persist: 'DC-ImpaleDamage' });
-    self.ChakramDamage             = ko.observable(0, { persist: 'DC-ImpaleDamage' });
+    self.ChakramDamage            = ko.observable(0, { persist: 'DC-ImpaleDamage' });
     self.WolfCompanion            = ko.observable(false, { persist: 'DC-WolfCompanion' });
     self.MarkedforDeath           = ko.observable(false, { persist: 'DC-MarkedforDeath' });
     self.Caltrops                 = ko.observable(false, { persist: 'DC-Caltrops' });
@@ -186,13 +186,13 @@ function Stats(data) {
         //       new Rune(1, "Twin Chakrams",        5, 2, 0, 0, 0, 0, 0)                           // I'll wait until I figure out how to properly implement this
     ]);
     
-    self.NumberofAoETargets = ko.computed(function () {
+    self.NumberofTargets.subscribe(function(newValue) {
         var r = self.NumberofAoETargets();
-        if (parseInt(self.NumberofAoETargets()) > parseInt(self.NumberofTargets())) {
-            r = self.NumberofTargets();            
-        } 
-        return r;
-    }, this);
+        if (parseInt(self.NumberofAoETargets()) > parseInt(newValue)) {
+            self.NumberofAoETargets(self.NumberofTargets());
+
+        }
+    });
 
     self.ActiveSkill1           = ko.observable(6, { persist: 'DC-ActiveSkill1' });
     self.ActiveSkill1Data       = ko.computed(function () {
