@@ -77,6 +77,7 @@ function Stats(data) {
     self.ChakramDamage             = ko.observable(0, { persist: 'DC-ImpaleDamage' });
     self.WolfCompanion            = ko.observable(false, { persist: 'DC-WolfCompanion' });
     self.MarkedforDeath           = ko.observable(false, { persist: 'DC-MarkedforDeath' });
+    self.Calamity                 = ko.observable(false, { persist: 'DC-Calamity' });
 
     self.CulltheWeak              = ko.observable(false, { persist: 'DC-CulltheWeak' });
     self.SteadyAim                = ko.observable(false, { persist: 'DC-SteadyAim' });
@@ -316,6 +317,7 @@ function Stats(data) {
         if (self.SteadyAim() === true) { r = r + 20; }
         if (self.Archery() === true) { r = r + 8; }      
         if (self.MarkedforDeath() === true) { r = r + 20; }
+        if (self.Calamity() === true) { r = r + 20; }
         if (self.OverwhelmingDesire() === true) { r = r + 35; } 
         if (self.WolfCompanion() === true) { r = r + 30; } 
         if (self.HexingPantsofMrYan() === true) { r = r + 25; }
