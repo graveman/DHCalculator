@@ -402,8 +402,10 @@ function Stats(data) {
     }, this);
 
     self.TotalDPS = ko.computed(function () {
-        var r = self.ActiveSkill1Damage() + self.ActiveSkill2Damage() + self.ActiveSkill3Damage() + self.ActiveSkill4Damage();
-        
+        var r;
+        if (parseInt(self.NumberofSpenders()) === 1) { r = self.ActiveSkill1Damage() + self.ActiveSkill2Damage(); }
+        if (parseInt(self.NumberofSpenders()) === 2) { r = self.ActiveSkill1Damage() + self.ActiveSkill2Damage() + self.ActiveSkill3Damage(); }
+        if (parseInt(self.NumberofSpenders()) === 3) { r = self.ActiveSkill1Damage() + self.ActiveSkill2Damage() + self.ActiveSkill3Damage() + self.ActiveSkill4Damage(); }
         return r;    
     }, this);
     
@@ -421,14 +423,6 @@ function Stats(data) {
 
     self.ActiveSkill4Percentage = ko.computed(function () {
         return Percentage(self.ActiveSkill4Damage(), self.TotalDPS());     
-    }, this);
-
-    self.TotalDPS = ko.computed(function () {
-        var r;
-        if (parseInt(self.NumberofSpenders()) === 1) { r = self.ActiveSkill1Damage() + self.ActiveSkill2Damage(); }
-        if (parseInt(self.NumberofSpenders()) === 2) { r = self.ActiveSkill1Damage() + self.ActiveSkill2Damage() + self.ActiveSkill3Damage(); }
-        if (parseInt(self.NumberofSpenders()) === 3) { r = self.ActiveSkill1Damage() + self.ActiveSkill2Damage() + self.ActiveSkill3Damage() + self.ActiveSkill4Damage(); }
-        return r;    
     }, this);
 
     self.TotalDPSFormat = ko.computed(function () {
