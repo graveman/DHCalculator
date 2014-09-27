@@ -92,6 +92,13 @@
             <legend>General Damage Stats</legend>
             <div class="col-xs-12">
                 <div class="form-group">
+                    <label class="col-xs-6 control-label padding-left0">Weapon</label>
+                    <div class="col-xs-6">
+                        <select data-bind="options: Weapons, optionsText: 'Text', optionsValue: 'Value', value: Weapon"
+                                 class="form-control input-sm"></select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-xs-6 control-label padding-left0">Weapon Damage</label>
                     <div class="col-xs-3 padding-right2">
                         <input data-bind="value: WeaponDamage1, valueUpdate: 'afterkeydown'"
@@ -369,6 +376,19 @@
                         <div class="checkbox padding-top0">
                             <label>
                                 <input data-bind="checked: MarkedforDeath" class="check" style="margin-left: 29px;" type="checkbox">&nbsp;
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-1 padding0">
+                        <img style="height: 28px" src="images/demonhunter_caltrops.png" alt="Caltrops" />
+                    </div>
+                    <a style="display: block" class="col-xs-6 control-label d3-label" href="http://us.battle.net/d3/en/class/demon-hunter/active/caltrops#e+" onclick="return false">Caltrops</a>
+                    <div class="col-xs-5">
+                        <div class="checkbox padding-top0">
+                            <label>
+                                <input data-bind="checked: Caltrops" class="check" style="margin-left: 29px;" type="checkbox">&nbsp;
                             </label>
                         </div>
                     </div>

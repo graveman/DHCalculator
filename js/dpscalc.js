@@ -49,6 +49,7 @@ function Stats(data) {
     var self = this;
     self.BreakPoint               = ko.observable(1, { persist: 'DC-BreakPoint' });
 
+    self.Weapon                   = ko.observable(1, { persist: 'DC-Weapon' });
     self.WeaponDamage1            = ko.observable(0, { persist: 'DC-WeaponDamage1' });
     self.WeaponDamage2            = ko.observable(0, { persist: 'DC-WeaponDamage2' });
     self.JewelryDamage1           = ko.observable(0, { persist: 'DC-JewelryDamage1' });
@@ -81,7 +82,7 @@ function Stats(data) {
     self.ChakramDamage             = ko.observable(0, { persist: 'DC-ImpaleDamage' });
     self.WolfCompanion            = ko.observable(false, { persist: 'DC-WolfCompanion' });
     self.MarkedforDeath           = ko.observable(false, { persist: 'DC-MarkedforDeath' });
-    self.Calamity                 = ko.observable(false, { persist: 'DC-Calamity' });
+    self.Caltrops                 = ko.observable(false, { persist: 'DC-Caltrops' });
 
     self.CulltheWeak              = ko.observable(false, { persist: 'DC-CulltheWeak' });
     self.SteadyAim                = ko.observable(false, { persist: 'DC-SteadyAim' });
@@ -105,6 +106,7 @@ function Stats(data) {
     
     self.HexingPantsofMrYan             = ko.observable(false, { persist: 'DC-HexingPantsofMrYan' });
     self.OverwhelmingDesire             = ko.observable(false, { persist: 'DC-OverwhelmingDesire' });
+    self.Calamity                 = ko.observable(false, { persist: 'DC-Calamity' });
     self.StrongarmBracers               = ko.observable(false, { persist: 'DC-StrongarmBracers' });
     self.StrongarmBracersModifier       = ko.observable(20, { persist: 'DC-StrongarmBracersModifier' }); 
     self.HarringtonsWaistguard          = ko.observable(false, { persist: 'DC-HarringtonsWaistguard' });  
@@ -118,6 +120,19 @@ function Stats(data) {
     self.CripplingWave            = ko.observable(false, { persist: 'DC-CripplingWave' });
     
     self.TotalDPS = ko.observable(0, { persist: 'DC-TotalDPS' });
+
+    self.Weapons = ko.observableArray([
+        { Value: 1, Text: "Crossbow" },
+        { Value: 2, Text: "Bow" },
+        { Value: 3, Text: "Hand crossbow" }
+    ]);
+
+    self.Elements = ko.observableArray([
+        new Element(1, "Cold"),
+        new Element(2, "Fire"),
+        new Element(3, "Lightning"),
+        new Element(4, "Physical")
+    ]);
     
     self.BreakPoints = ko.observableArray([
         new BreakPoint(1, "1.102"),
@@ -279,12 +294,30 @@ function Stats(data) {
     self.AdditiveModifier         = ko.observable(0, { persist: 'DC-AdditiveModifier' });
     self.MultiplicativeModifier   = ko.observable(0, { persist: 'DC-MultiplicativeModifier' });
 
-    self.Elements = ko.observableArray([
-        new Element(1, "Cold"),
-        new Element(2, "Fire"),
-        new Element(3, "Lightning"),
-        new Element(4, "Physical")
-    ]);
+
+    self.CHCBonus = ko.computed(function () {
+        var r = 0;
+        if (self.SingleOut() === true) { r = r + 25; }
+        if (self.Archery() === true && self.Weapon() === 3) { r = r + 5; }
+        if (self.Caltrops() === true) { r = r + 10; }  
+        return r;
+    }, this);
+    
+    self.CHDBonus = ko.computed(function () {
+        var r = 0;
+        if (self.Archery() === true && self.Weapon() === 1) { r = r + 50; }   
+        return r;
+    }, this);
+    
+    self.CHCTotal = ko.computed(function () {
+        var r = parseInt(self.CHC()) + self.CHCBonus();
+        return r;
+    },this);
+
+    self.CHDTotal = ko.computed(function () {
+        var r = parseInt(self.CHD()) + self.CHDBonus();
+        return r;
+    },this);
 
     self.BaseWeaponDamage = ko.computed(function () {
         var r = 0;        
@@ -320,7 +353,7 @@ function Stats(data) {
     self.AdditiveModifier = ko.computed(function () {
         var r = 100;
         if (self.SteadyAim() === true) { r = r + 20; }
-        if (self.Archery() === true) { r = r + 8; }      
+        if (self.Archery() === true && self.Weapon() === 2) { r = r + 8; }      
         if (self.MarkedforDeath() === true) { r = r + 20; }
         if (self.Calamity() === true) { r = r + 20; }
         if (self.OverwhelmingDesire() === true) { r = r + 35; } 
@@ -438,10 +471,10 @@ function Stats(data) {
         if (r.length > 0) {
             var criticalModifier = 1;
             if (r[0].Value() === 3 && r[0].Skill() === 4) {
-                criticalModifier = (parseFloat(self.CHC()) * (parseInt(self.CHD()) + 100 + 330) / 10000) + (100 - parseFloat(self.CHC())) / 100;
+                criticalModifier = (parseFloat(self.CHCTotal()) * (parseInt(self.CHDTotal()) + 100 + 330) / 10000) + (100 - parseFloat(self.CHCTotal())) / 100;
             }
             else {
-                criticalModifier = (parseFloat(self.CHC()) * (parseInt(self.CHD()) + 100) / 10000) + (100 - parseFloat(self.CHC())) / 100;
+                criticalModifier = (parseFloat(self.CHCTotal()) * (parseInt(self.CHDTotal()) + 100) / 10000) + (100 - parseFloat(self.CHCTotal())) / 100;
             }
 
             var skillModifier = 0;
