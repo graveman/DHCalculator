@@ -34,6 +34,14 @@ input {
     font-size: 11px !important;
     height: 27px !important;
 }
+
+.readonly {
+    cursor: default !important;
+    box-shadow: none !important;
+    webkit-box-shadow: none !important;
+    background-color: #f3f3f3;
+}
+
 .btn-sm {
     font-size: 11px !important;
     height: 27px !important;
