@@ -21,7 +21,7 @@ var BreakPoint = function (value, text) {
     self.Text  = ko.observable(text);
 };
 
-var Rune = function (value, text, skill, element, single, singlecap, multi, multicap, type, hits, slug) {
+var Rune = function (value, text, skill, element, single, singlecap, singleaoe, multi, multicap, multiaoe, type, hits, slug) {
     var self = this;
     self.Value      = ko.observable(value);
     self.Text       = ko.observable(text);
@@ -29,8 +29,10 @@ var Rune = function (value, text, skill, element, single, singlecap, multi, mult
     self.Element    = ko.observable(element);             // Elemental type
     self.Single     = ko.observable(single);              // damage multiplier for primary strike
     self.SingleCap  = ko.observable(singlecap);           // max number of targets for primary strike
+    self.SingleAoE  = ko.observable(singleaoe);           // primary strike AoE, true or false
     self.Multi      = ko.observable(multi);               // damage multiplier for secondary strikes
     self.MultiCap   = ko.observable(multicap);            // max number of targets for secondary strikes
+    self.MultiAoE   = ko.observable(multiaoe);            // secondary strike AoE, true or false
     self.Type       = ko.observable(type);                // 1 for Rocket, 2 for Grenade, 0 for no specific type
     self.Hits       = ko.observable(hits);                // allow for multiple hits to same enemy, true or false
     self.Slug       = ko.observable(slug);
@@ -71,6 +73,7 @@ function Stats(data) {
 
     self.NumberofTargets          = ko.observable(1, { persist: 'DC-NumberofTargets' });
     self.NumberofHits             = ko.observable(1, { persist: 'DC-NumberofHits' });
+    self.NumberofAoETargets       = ko.observable(1, { persist: 'DC-NumberofAoETargets' });
     self.NumberofSpenders         = ko.observable(3, { persist: 'DC-NumberofSpenders' });
 
     self.SentryDamage             = ko.observable(0, { persist: 'DC-SentryDamage' });
@@ -158,29 +161,29 @@ function Stats(data) {
     ]);
 
     self.Runes = ko.observableArray([
-        new Rune(1, "Dazzling Arrow",       1, 3, 5.5, 1, 8.8, 1, 2, false, "e"),
-        new Rune(2, "Shooting Stars",       1, 4, 5.5, 1, 6, 3, 1, false, "b"),
-        new Rune(3, "Maelstrom",            1, 1, 5.5, 1, 4.5, 5, 1, false, "d"),
-//        new Rune(4, "Cluster Bombs",        1, 2, 0, 0, 0, 0),                // No idea how many grenades actually spawn
-        new Rune(5, "Loaded for Bear",      1, 2, 7.7 , 1, 8.8, 1, 2, false, "a"),
-        new Rune(1, "Frost  Arrow",         2, 1, 0, 0, 3.3, 11, 0, false, "a"),
-        new Rune(2, "Ball Lightning",       2, 3, 3, 1, 0, 0, 0, true, "b"),
-        new Rune(3, "Immolation Arrow",     2, 2, 3, 1, 3.15, 1, 0, false, "c"),
-        new Rune(4, "Lightning Bolts",      2, 3, 3, 1, 0, 0, 0, false,"e"),
-//        new Rune(5, "Nether Tentacles",     2, 4, 3, 1, 0, 0, 0, true, "d"),       // Due to implementation of Meticulous Bolts
-        new Rune(1, "Burst Fire",           3, 1, 3.6, 11, 2, 1, 0, false, "b"),     // Chose arrows as primary, cold burst as secondary
-        new Rune(2, "Full Broadside",       3, 4, 4.6, 11, 0, 0, 0, false, "a"),     // Chose arrows as primary
-        new Rune(3, "Arsenal",              3, 2, 3.6, 11, 3, 3, 1, false, "c"),     // Chose arrows as primary, rockets as secondary
-        new Rune(4, "Fire at Will",         3, 3, 3.6, 11, 0, 0, 0, false, "d"),     // Chose arrows as primary
-        new Rune(5, "Suppression Fire",     3, 4, 3.6, 11, 0, 0, 0, false, "e"),     // Chose arrows as primary
-        new Rune(1, "Impact",               4, 4, 7.5, 1, 0, 0, 0, false, "b"),
-        new Rune(2, "Chemical Burn",        4, 2, 7.5, 1, 5, 1, 0, false, "c"),
-        new Rune(3, "Grievous Wounds",      4, 4, 7.5, 1, 0, 0, 0, false, "e"),
-        new Rune(4, "Overpenetration",      4, 1, 7.5, 1, 0, 0, 0, false, "a"),
-        new Rune(5, "Ricochet",             4, 3, 7.5, 3, 0, 0, 0, false, "d"),
-        new Rune(1, "Spitfire Turret",      6, 2, 2.8, 1, 1.2, 1, 1, false, "c"),    // Bolts as primary, rockets as secondary
-        new Rune(2, "Polar Station",        6, 1, 2.8, 1, 0, 0, 1, false, "d")       // Bolts as primary
-        //       new Rune(1, "Twin Chakrams",        5, 2, 0, 0, 0, 0, 0)              // I'll wait until I figure out how to properly implement this
+        new Rune(1, "Dazzling Arrow",       1, 3, 5.5, 1, true, 8.8, 1, true, 2, false, "e"),
+        new Rune(2, "Shooting Stars",       1, 4, 5.5, 1, true, 6, 3, false, 1, false, "b"),
+        new Rune(3, "Maelstrom",            1, 1, 5.5, 1, true, 4.5, 5, false, 1, false, "d"),
+//        new Rune(4, "Cluster Bombs",        1, 2, 0, 0, 0, 0),                                    // No idea how many grenades actually spawn
+        new Rune(5, "Loaded for Bear",      1, 2, 7.7 , 1, true, 8.8, 1, true, 2, false, "a"),
+        new Rune(1, "Frost  Arrow",         2, 1, 0, 0, false, 3.3, 11, false, 0, false, "a"),
+        new Rune(2, "Ball Lightning",       2, 3, 3, 1, true, 0, 0, true, 0, "b"),
+        new Rune(3, "Immolation Arrow",     2, 2, 3, 1, false, 3.15, 1, true, 0, false, "c"),
+        new Rune(4, "Lightning Bolts",      2, 3, 3, 1, false, 0, 0, false, 0, false,"e"),
+//        new Rune(5, "Nether Tentacles",     2, 4, 3, 1, 0, 0, 0, true, "d"),                      // Due to implementation of Meticulous Bolts
+        new Rune(1, "Burst Fire",           3, 1, 3.6, 11, false, 2, 1, true, 0, false, "b"),       // Chose arrows as primary, cold burst as secondary
+        new Rune(2, "Full Broadside",       3, 4, 4.6, 11, false, 0, 0, false, 0, false, "a"),      // Chose arrows as primary
+        new Rune(3, "Arsenal",              3, 2, 3.6, 11, false, 3, 3, false, 1, false, "c"),      // Chose arrows as primary, rockets as secondary
+        new Rune(4, "Fire at Will",         3, 3, 3.6, 11, false, 0, 0, false, 0, false, "d"),      // Chose arrows as primary
+        new Rune(5, "Suppression Fire",     3, 4, 3.6, 11, false, 0, 0, false, 0, false, "e"),      // Chose arrows as primary
+        new Rune(1, "Impact",               4, 4, 7.5, 1, false, 0, 0, false, 0, false, "b"),
+        new Rune(2, "Chemical Burn",        4, 2, 7.5, 1, false, 5, 1, false, 0, false, "c"),
+        new Rune(3, "Grievous Wounds",      4, 4, 7.5, 1, false, 0, 0, false, 0, false, "e"),
+        new Rune(4, "Overpenetration",      4, 1, 7.5, 1, false, 0, 0, false, 0, false, "a"),
+        new Rune(5, "Ricochet",             4, 3, 7.5, 3, false, 0, 0, false, 0, false, "d"),
+        new Rune(1, "Spitfire Turret",      6, 2, 2.8, 1, false, 1.2, 1, false, 1, false, "c"),     // Bolts as primary, rockets as secondary
+        new Rune(2, "Polar Station",        6, 1, 2.8, 1, false, 0, 0, false, 1, false, "d")        // Bolts as primary
+        //       new Rune(1, "Twin Chakrams",        5, 2, 0, 0, 0, 0, 0)                           // I'll wait until I figure out how to properly implement this
     ]);
 
     self.ActiveSkill1           = ko.observable(6, { persist: 'DC-ActiveSkill1' });
@@ -472,6 +475,14 @@ function Stats(data) {
                 case 3: elementalModifier = parseInt(self.LightningDamage()) / 100; break;
                 case 4: elementalModifier = parseInt(self.PhysicalDamage()) / 100; break;
             }
+            
+            var singleAoEModifier = 1;
+            if (r[0].SingleAoE() === true) { singleAoEModifier = parseInt(self.NumberofAoETargets()); }
+            console.log('singleAoEModifier' + singleAoEModifier);
+            
+            var multiAoEModifier = 1;
+            if (r[0].MultiAoE() === true) { multiAoEModifier = parseInt(self.NumberofAoETargets()); }
+            console.log('multiAoEModifier' + multiAoEModifier);
 
             var typeModifier = 1;
             if (self.Ballistics() === true && r[0].Type() === 1) { typeModifier = 2; }
@@ -508,7 +519,7 @@ function Stats(data) {
                         case 4: casts = castsArray[0].Imp(); break;
                         case 5: casts = castsArray[0].Chak(); break;
                     }
-                    total = (singleCap * r[0].Single() * hits + multiCap * r[0].Multi() * typeModifier) * casts * (1 + self.EnforcerModifier() + elementalModifier);
+                    total = (singleCap * r[0].Single() * singleAoEModifier * hits + multiCap * r[0].Multi() * multiAoEModifier * typeModifier) * casts * (1 + self.EnforcerModifier() + elementalModifier);
                 }
                 total = total / 30;
                 total = total * self.BaseWeaponDamage();
