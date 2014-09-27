@@ -111,7 +111,7 @@ function Stats(data) {
     
     self.HexingPantsofMrYan             = ko.observable(false, { persist: 'DC-HexingPantsofMrYan' });
     self.OverwhelmingDesire             = ko.observable(false, { persist: 'DC-OverwhelmingDesire' });
-    self.Calamity                 = ko.observable(false, { persist: 'DC-Calamity' });
+    self.Calamity                       = ko.observable(false, { persist: 'DC-Calamity' });
     self.StrongarmBracers               = ko.observable(false, { persist: 'DC-StrongarmBracers' });
     self.StrongarmBracersModifier       = ko.observable(20, { persist: 'DC-StrongarmBracersModifier' }); 
     self.HarringtonsWaistguard          = ko.observable(false, { persist: 'DC-HarringtonsWaistguard' });  
@@ -185,6 +185,14 @@ function Stats(data) {
         new Rune(2, "Polar Station",        6, 1, 2.8, 1, false, 0, 0, false, 1, false, "d")        // Bolts as primary
         //       new Rune(1, "Twin Chakrams",        5, 2, 0, 0, 0, 0, 0)                           // I'll wait until I figure out how to properly implement this
     ]);
+    
+    self.NumberofAoETargets = ko.computed(function () {
+        var r = self.NumberofAoETargets();
+        if (parseInt(self.NumberofAoETargets()) > parseInt(self.NumberofTargets())) {
+            r = self.NumberofTargets();            
+        } 
+        return r;
+    }, this);
 
     self.ActiveSkill1           = ko.observable(6, { persist: 'DC-ActiveSkill1' });
     self.ActiveSkill1Data       = ko.computed(function () {
@@ -245,7 +253,6 @@ function Stats(data) {
         });
         return r[0];
     }, this);
-
 
     self.ActiveSkill4           = ko.observable(4, { persist: 'DC-ActiveSkill4' });
     self.ActiveSkill4Rune       = ko.observable(1, { persist: 'DC-ActiveSkill4Rune' });

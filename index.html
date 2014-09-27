@@ -216,8 +216,8 @@
                 <div class="form-group">
                     <label class="col-xs-6 control-label padding-left0">Number of AoE Targets</label>
                     <div class="col-xs-6">
-                        <input data-bind="value: NumberofAoETargets, valueUpdate: 'afterkeydown'"
-                               type="number" min="1" max="11" class="form-control input-sm" rel="txtTooltip" title="Number of targets AoE effects can hit" data-toggle="tooltip" data-placement="bottom" />
+                        <input data-bind="value: NumberofAoETargets, valueUpdate: 'afterkeydown', attr:{max:NumberofTargets()}"
+                               type="number" min="1" class="form-control input-sm" rel="txtTooltip" title="Number of targets AoE effects can hit" data-toggle="tooltip" data-placement="bottom" />
                     </div>
                 </div>
                 <div class="form-group">
