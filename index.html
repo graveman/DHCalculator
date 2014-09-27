@@ -144,16 +144,24 @@
                 </div>
                 <div class="form-group">
                     <label class="col-xs-6 control-label padding-left0">Critical Hit Chance</label>
-                    <div class="col-xs-6">
+                    <div class="col-xs-3 padding-right2">
                         <input data-bind="value: CHC, valueUpdate: 'afterkeydown'"
                                type="number" step="any" min="0" class="form-control input-sm" rel="txtTooltip" title="Enter percentage" data-toggle="tooltip" data-placement="bottom" />
+                    </div>
+                    <div class="col-xs-3 padding-left2">
+                        <input data-bind="value: CHCBonus"
+                               type="text" class="form-control input-sm" rel="txtTooltip" title="CHC bonus from Singled Out, Archery and/or Caltrops" data-toggle="tooltip" data-placement="bottom" readonly />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-xs-6 control-label padding-left0">Critical Hit Damage</label>
-                    <div class="col-xs-6">
+                    <div class="col-xs-3 padding-right2">
                         <input data-bind="value: CHD, valueUpdate: 'afterkeydown'"
-                               type="number" min="0" class="form-control input-sm" rel="txtTooltip" title="Enter percentage" data-toggle="tooltip" data-placement="bottom" />
+                               type="number" step="any" min="0" class="form-control input-sm" rel="txtTooltip" title="Enter percentage" data-toggle="tooltip" data-placement="bottom" />
+                    </div>
+                    <div class="col-xs-3 padding-left2">
+                        <input data-bind="value: CHDBonus"
+                               type="text" class="form-control input-sm" rel="txtTooltip" title="CHD bonus from Archery" data-toggle="tooltip" data-placement="bottom" readonly />
                     </div>
                 </div>
                 <div class="form-group">
@@ -554,19 +562,6 @@
                         <div class="checkbox">
                             <label >
                                 <input data-bind="checked: OverwhelmingDesire" class="check" style="margin-left: 30px;" type="checkbox">&nbsp;
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-xs-1 padding0">
-                        <img style="height: 28px" src="images/unique_handxbow_012_x1_demonhunter_male.png" alt="Bane of the Powerful" />
-                    </div>
-                    <a class="col-xs-6 control-label d3-label" href="http://eu.battle.net/d3/en/item/calamity" onclick="return false">Calamity</a>
-                    <div class="col-xs-5">
-                        <div class="checkbox">
-                            <label >
-                                <input data-bind="checked: Calamity" class="check" style="margin-left: 30px;" type="checkbox">&nbsp;
                             </label>
                         </div>
                     </div>

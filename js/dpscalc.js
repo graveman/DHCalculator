@@ -56,7 +56,9 @@ function Stats(data) {
 
     self.Dexterity                = ko.observable(0, { persist: 'DC-Dexterity' });
     self.CHC                      = ko.observable(0, { persist: 'DC-CHC' });
+    self.CHCBonus                 = ko.observable(0, { persist: 'DC-CHCBonus' });
     self.CHD                      = ko.observable(0, { persist: 'DC-CHD' });
+    self.CHDBonus                 = ko.observable(0, { persist: 'DC-CHDBonus' });
     self.EliteDamage              = ko.observable(0, { persist: 'DC-EliteDamage' });
 
     self.ColdDamage               = ko.observable(0, { persist: 'DC-ColdDamage' });
