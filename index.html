@@ -73,10 +73,10 @@
             <ul class="nav navbar-nav">
                 <li>
                     <a href="#" onclick="showASCalculator(); return 0;">AS</a>
-                </li>
+                </li><!--
                 <li>
                     <a href="#" onclick="showComparisonCalculator(); return 0;">Compare</a>
-                </li>
+                </li>-->
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#" onclick="localStorage.clear(); window.location.reload();">Clear</a></li>
@@ -230,6 +230,21 @@
                                type="number" min="1" max="3" class="form-control input-sm" />
                     </div>
                 </div>
+                
+                
+                <div class="form-group" data-bind="visible: ShowSize() === true">
+                    <label class="col-xs-6 control-label  padding-left0">Enemy Size</label>
+                    <div class="col-xs-6">
+                        <select data-bind="value: EnemySize" class="form-control input-sm">
+                            <option value=1>Small Enemy</option>
+                            <option value=2>Big Enemy</option>
+                            <option value=3>Huge Enemy</option>
+                        </select>
+                    </div>
+                </div>
+                
+                
+                
             </div>
             <legend>Active Skills</legend>
             <div class="col-xs-12">
@@ -627,7 +642,7 @@
                             </label>
                         </div>
                     </div>
-                </div><!--
+                </div>
                 <div class="form-group">
                     <div class="col-xs-1 padding0">
                         <img style="height: 28px" src="images/unique_quiver_001_p1_demonhunter_male.png" alt="Meticulous Bolts" />
@@ -644,7 +659,7 @@
                         <input data-bind="value: MeticulousBoltsModifier, valueUpdate: 'afterkeydown'"
                                type="number" min="30" max ="40" class="form-control input-sm" rel="txtTooltip" title="Enter percentage" data-toggle="tooltip" data-placement="bottom" />
                     </div>
-                </div>-->
+                </div>
                 <div class="form-group">
                     <div class="col-xs-1 padding0">
                         <img style="height: 28px" src="images/unique_bracer_007_x1_demonhunter_male.png" alt="Strongarm Bracers" />
@@ -1037,9 +1052,10 @@
     $(function () {
         gear = new Gear();
         stats = new Stats();
+
         ko.applyBindings(gear, document.getElementById("ASCalculator"));
         ko.applyBindings(stats, document.getElementById("DPSCalculator"));
-        ko.applyBindings(stats, document.getElementById("ComparisonCalculator"));
+//        Stats(compareStats(Stats(stats)));
         $('input[rel="txtTooltip"]').tooltip();
     });
 
@@ -1048,6 +1064,9 @@
     }
     
     function showComparisonCalculator() {
+        compareStats = new Stats();
+        ko.applyBindings(compareStats, document.getElementById("ComparisonCalculator"));
+        compareStats(document.getElementById("DPSCalculator"));
         $('#ComparisonCalculator').modal('show');
     }
 

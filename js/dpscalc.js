@@ -21,6 +21,12 @@ var BreakPoint = function (value, text) {
     self.Text  = ko.observable(text);
 };
 
+var LightningHit = function (value, text) {
+    var self = this;
+    self.Value = ko.observable(value);
+    self.Text  = ko.observable(text);
+};
+
 var Rune = function (value, text, skill, element, single, singlecap, singleaoe, multi, multicap, multiaoe, type, hits, slug) {
     var self = this;
     self.Value      = ko.observable(value);
@@ -50,6 +56,8 @@ function formatNumber(number) {
 function Stats(data) {
     var self = this;
     self.BreakPoint               = ko.observable(1, { persist: 'DC-BreakPoint' });
+    self.ShowSize                 = ko.observable(false, { persist: 'DC-ShowSize' });
+    self.EnemySize                = ko.observable(1, { persist: 'DC-EnemySize' });
 
     self.Weapon                   = ko.observable(1, { persist: 'DC-Weapon' });
     self.WeaponDamage1            = ko.observable(0, { persist: 'DC-WeaponDamage1' });
@@ -117,7 +125,7 @@ function Stats(data) {
     self.HarringtonsWaistguard          = ko.observable(false, { persist: 'DC-HarringtonsWaistguard' });  
     self.HarringtonsWaistguardModifier  = ko.observable(100, { persist: 'DC-HarringtonsWaistguard' });  
     self.MeticulousBolts                = ko.observable(false, { persist: 'DC-MeticulousBolts' });  
-    self.MeticulousBoltsModifier        = ko.observable(30, { persist: 'DC-MeticulousBoltsModifier' });   
+    self.MeticulousBoltsModifier        = ko.observable(40, { persist: 'DC-MeticulousBoltsModifier' });   
 
     self.BigBadVoodoo             = ko.observable(false, { persist: 'DC-BigBadVoodoo' });
     self.MassConfusion            = ko.observable(false, { persist: 'DC-MassConfusion' });
@@ -151,6 +159,20 @@ function Stats(data) {
         new BreakPoint(7, "4.154")
     ]);
 
+    self.LightningHits = ko.observableArray([
+        new LightningHit(30, "3.35"),
+        new LightningHit(31, "3.25"),
+        new LightningHit(32, "3.15"),
+        new LightningHit(33, "3.05"),
+        new LightningHit(34, "2.95"),
+        new LightningHit(35, "2.85"),
+        new LightningHit(36, "2.8"),
+        new LightningHit(37, "2.7"),
+        new LightningHit(38, "2.65"),
+        new LightningHit(39, "2.55"),
+        new LightningHit(40, "2.5")
+    ]);
+
     self.ActiveSkills = ko.observableArray([
         new Skill(1, "Cluster Arrow", "cluster-arrow"),
         new Skill(2, "Elemental Arrow", "elemental-arrow"),
@@ -167,7 +189,7 @@ function Stats(data) {
 //        new Rune(4, "Cluster Bombs",        1, 2, 0, 0, 0, 0),                                    // No idea how many grenades actually spawn
         new Rune(5, "Loaded for Bear",      1, 2, 7.7 , 1, true, 8.8, 1, true, 2, false, "a"),
         new Rune(1, "Frost  Arrow",         2, 1, 0, 0, false, 3.3, 11, false, 0, false, "a"),
-        new Rune(2, "Ball Lightning",       2, 3, 3, 1, true, 0, 0, true, 0, "b"),
+        new Rune(2, "Ball Lightning",       2, 3, 1.5, 1, true, 0, 0, true, 0, true, "b"),
         new Rune(3, "Immolation Arrow",     2, 2, 3, 1, false, 3.15, 1, true, 0, false, "c"),
         new Rune(4, "Lightning Bolts",      2, 3, 3, 1, false, 0, 0, false, 0, false,"e"),
 //        new Rune(5, "Nether Tentacles",     2, 4, 3, 1, 0, 0, 0, true, "d"),                      // Due to implementation of Meticulous Bolts
@@ -270,6 +292,13 @@ function Stats(data) {
             return rune.Skill() === self.ActiveSkill4() && rune.Value() === self.ActiveSkill4Rune();
         });
         return r[0];
+    }, this);
+
+    self.ShowSize   = ko.computed(function () {
+        if (self.ActiveSkill2() === 2 && self.ActiveSkill2Rune() === 2) { return true; }
+        if (self.ActiveSkill3() === 2 && self.ActiveSkill3Rune() === 2) { return true; }
+        if (self.ActiveSkill4() === 2 && self.ActiveSkill4Rune() === 2) { return true; }
+        return false;        
     }, this);
 
     self.SpenderCombo = ko.computed(function () {
@@ -475,6 +504,21 @@ function Stats(data) {
                 case 4: elementalModifier = parseInt(self.PhysicalDamage()) / 100; break;
             }
             
+            var sizeModifier = 1;
+            if (activeSkill === 2 && activeRune === 2) {
+                sizeModifier = parseInt(self.EnemySize()) + 1;
+                if (self.MeticulousBolts() === true) {
+                    var a = ko.utils.arrayFilter( self.LightningHits(), function (lightninghit) {
+                        return lightninghit.Value() === parseInt(self.MeticulousBoltsModifier());
+                    });
+                    if (a.length > 0) {
+                        sizeModifier = sizeModifier * a[0].Text();
+                    }
+                }            
+            }
+            console.log('sizeModifier' + sizeModifier);
+
+
             var singleAoEModifier = 1;
             if (r[0].SingleAoE() === true) { singleAoEModifier = parseInt(self.NumberofAoETargets()); }
             console.log('singleAoEModifier' + singleAoEModifier);
@@ -518,7 +562,7 @@ function Stats(data) {
                         case 4: casts = castsArray[0].Imp(); break;
                         case 5: casts = castsArray[0].Chak(); break;
                     }
-                    total = (singleCap * r[0].Single() * singleAoEModifier * hits + multiCap * r[0].Multi() * multiAoEModifier * typeModifier) * casts * (1 + self.EnforcerModifier() + elementalModifier);
+                    total = (singleCap * r[0].Single() * singleAoEModifier * hits * sizeModifier + multiCap * r[0].Multi() * multiAoEModifier * typeModifier) * casts * (1 + self.EnforcerModifier() + elementalModifier);
                 }
                 total = total / 30;
                 total = total * self.BaseWeaponDamage();
