@@ -368,7 +368,7 @@ function Stats(data) {
             r = parseInt(self.WeaponDamage1Compare()) + parseInt(self.WeaponDamage2Compare()); 
         }
         r = r + parseInt(self.JewelryDamage1()) + parseInt(self.JewelryDamage1Compare());
-        r = r + parseInt(self.JewelryDamage2()) + parseInt(self.JewelryDamage1Compare());     
+        r = r + parseInt(self.JewelryDamage2()) + parseInt(self.JewelryDamage2Compare());     
         r = r / 2;
         return r;
     }, this);
