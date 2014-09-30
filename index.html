@@ -73,10 +73,10 @@
             <ul class="nav navbar-nav">
                 <li>
                     <a href="#" onclick="showASCalculator(); return 0;">AS</a>
-                </li><!--
+                </li>
                 <li>
                     <a href="#" onclick="showComparisonCalculator(); return 0;">Compare</a>
-                </li>-->
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#" onclick="localStorage.clear(); window.location.reload();">Clear</a></li>
@@ -94,6 +94,12 @@
         <fieldset class="col-xs-4">
             <legend>General Damage Stats</legend>
             <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-xs-6 control-label padding-left0">Compare an Item</label>
+                    <div class="col-xs-6">
+                        <input class="form-control input-sm" type="button" onclick="showComparisonCalculator(); return 0;" value="Compare" />
+                    </div>
+                </div>
                 <div class="form-group">
                     <label class="col-xs-6 control-label padding-left0">Weapon</label>
                     <div class="col-xs-6">
@@ -130,7 +136,7 @@
                                      class="form-control input-sm"></select>
                     </div>
                     <div class="col-xs-3 padding-left2">
-                         <button class="form-control input-sm" type="button" onclick="showASCalculator(); return 0;">Calc</button>
+                         <button class="form-control input-sm" type="button" onclick="showASCalculator(); return 0;">Calculate</button>
                     </div>
                 </div><!--
                 <div class="form-group">
@@ -230,8 +236,6 @@
                                type="number" min="1" max="3" class="form-control input-sm" />
                     </div>
                 </div>
-                
-                
                 <div class="form-group" data-bind="visible: ShowSize() === true">
                     <label class="col-xs-6 control-label  padding-left0">Enemy Size</label>
                     <div class="col-xs-6">
@@ -242,9 +246,6 @@
                         </select>
                     </div>
                 </div>
-                
-                
-                
             </div>
             <legend>Active Skills</legend>
             <div class="col-xs-12">
@@ -656,7 +657,7 @@
                         </div>
                     </div>
                     <div class="col-xs-4">
-                        <input data-bind="value: MeticulousBoltsModifier, valueUpdate: 'afterkeydown'"
+                        <input data-bind="value: MeticulousBoltsPercentage, valueUpdate: 'afterkeydown'"
                                type="number" min="30" max ="40" class="form-control input-sm" rel="txtTooltip" title="Enter percentage" data-toggle="tooltip" data-placement="bottom" />
                     </div>
                 </div>
@@ -673,7 +674,7 @@
                         </div>
                     </div>
                     <div class="col-xs-4">
-                        <input data-bind="value: StrongarmBracersModifier, valueUpdate: 'afterkeydown'"
+                        <input data-bind="value: StrongarmBracersPercentage, valueUpdate: 'afterkeydown'"
                                type="number" min="20" class="form-control input-sm" rel="txtTooltip" title="Enter percentage" data-toggle="tooltip" data-placement="bottom" />
                     </div>
                 </div>
@@ -690,7 +691,7 @@
                         </div>
                     </div>
                     <div class="col-xs-4">
-                        <input data-bind="value: HarringtonsWaistguardModifier, valueUpdate: 'afterkeydown'"
+                        <input data-bind="value: HarringtonsWaistguardPercentage, valueUpdate: 'afterkeydown'"
                                type="number" min="100" max="135" class="form-control input-sm" rel="txtTooltip" title="Enter percentage" data-toggle="tooltip" data-placement="bottom" />
                     </div>
                 </div>
@@ -1039,7 +1040,207 @@
                 <h4 class="modal-title">Comparison Calculator</h4>
             </div>
             <div class="modal-body row">
+                <div class="col-xs-6">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-xs-6 control-label">Weapon</label>
+                            <div class="col-xs-6">
+                                <select data-bind="options: Weapons, optionsText: 'Text', optionsValue: 'Value', value: WeaponCompare"
+                                         class="form-control input-sm"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-6 control-label">Weapon Damage</label>
+                            <div class="col-xs-3 padding-right2">
+                                <input data-bind="value: WeaponDamage1Compare, valueUpdate: 'afterkeydown'"
+                                       type="number" class="form-control input-sm" />
+                            </div>
+                            <div class="col-xs-3 padding-left2">
+                                <input data-bind="value: WeaponDamage2Compare, valueUpdate: 'afterkeydown'"
+                                       type="number" class="form-control input-sm" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-6 control-label">Jewelry Damage</label>
+                            <div class="col-xs-3 padding-right2">
+                                <input data-bind="value: JewelryDamage1Compare, valueUpdate: 'afterkeydown'"
+                                       type="number" class="form-control input-sm" />
+                            </div>
+                            <div class="col-xs-3 padding-left2">
+                                <input data-bind="value: JewelryDamage2Compare, valueUpdate: 'afterkeydown'"
+                                       type="number" class="form-control input-sm" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-6 control-label">Dexterity</label>
+                            <div class="col-xs-3 padding-right2">
+                                <input data-bind="value: DexterityCompare, valueUpdate: 'afterkeydown'"
+                                       type="number" class="form-control input-sm" />
+                            </div>
+                            <div class="col-xs-3 padding-left2">
+                                <input data-bind="value: DexDifference, valueUpdate: 'afterkeydown'"
+                                       type="text" class="form-control input-sm text-center text-center readonly" readonly rel="txtTooltip" title="Difference as Dexterity" data-toggle="tooltip" data-placement="right" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-5 control-label">Critical Chance</label>
+                            <div class="col-xs-3 padding-right2">
+                                <input data-bind="value: CHCCompare, valueUpdate: 'afterkeydown'"
+                                       type="number" class="form-control input-sm" />
+                            </div>
+                            <div class="col-xs-2 padding-right2 padding-left2">
+                                <input data-bind="value: ArcheryCHC, valueUpdate: 'afterkeydown'"
+                                       type="text" class="form-control input-sm text-center text-center readonly" readonly rel="txtTooltip" title="Changed by Archery" data-toggle="tooltip" data-placement="right"/>
+                            </div>
+                            <div class="col-xs-2 padding-left2">
+                                <input data-bind="value: CHCDifference, valueUpdate: 'afterkeydown'"
+                                       type="text" class="form-control input-sm text-center text-center readonly" readonly rel="txtTooltip" title="Difference as Dexterity" data-toggle="tooltip" data-placement="right"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-5 control-label">Critical Damage</label>
+                            <div class="col-xs-3 padding-right2">
+                                <input data-bind="value: CHDCompare, valueUpdate: 'afterkeydown'"
+                                       type="number" class="form-control input-sm" />
+                            </div>
+                            <div class="col-xs-2 padding-left2 padding-right2">
+                                <input data-bind="value: ArcheryCDC, valueUpdate: 'afterkeydown'"
+                                       type="text" class="form-control input-sm text-center text-center readonly" readonly rel="txtTooltip" title="Changed by Archery" data-toggle="tooltip" data-placement="right"/>
+                            </div>
+                            <div class="col-xs-2 padding-left2">
+                                <input data-bind="value: CHDDifference, valueUpdate: 'afterkeydown'"
+                                       type="text" class="form-control input-sm text-center text-center readonly" readonly rel="txtTooltip" title="Difference as Dexterity" data-toggle="tooltip" data-placement="right"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-6 control-label">Elite Damage</label>
+                            <div class="col-xs-3 padding-right2">
+                                <input data-bind="value: EliteCompare, valueUpdate: 'afterkeydown'"
+                                       type="number" class="form-control input-sm" />
+                            </div>
+                            <div class="col-xs-3 padding-left2">
+                                <input data-bind="value: EliteDifference, valueUpdate: 'afterkeydown'"
+                                       type="text" class="form-control input-sm text-center text-center readonly" readonly rel="txtTooltip" title="Difference as Dexterity" data-toggle="tooltip" data-placement="right"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-6 control-label">Cold Damage</label>
+                            <div class="col-xs-3 padding-right2">
+                                <input data-bind="value: ColdCompare, valueUpdate: 'afterkeydown'"
+                                       type="number" class="form-control input-sm" />
+                            </div>
+                            <div class="col-xs-3 padding-left2">
+                                <input data-bind="value: ColdDifference, valueUpdate: 'afterkeydown'"
+                                       type="text" class="form-control input-sm text-center text-center readonly" readonly rel="txtTooltip" title="Difference as Dexterity" data-toggle="tooltip" data-placement="right"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-6 control-label">Fire Damage</label>
+                            <div class="col-xs-3 padding-right2">
+                                <input data-bind="value: FireCompare, valueUpdate: 'afterkeydown'"
+                                       type="number" class="form-control input-sm" />
+                            </div>
+                            <div class="col-xs-3 padding-left2">
+                                <input data-bind="value: FireDifference, valueUpdate: 'afterkeydown'"
+                                       type="text" class="form-control input-sm text-center text-center readonly" readonly rel="txtTooltip" title="Difference as Dexterity" data-toggle="tooltip" data-placement="right"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-6 control-label">Physical Damage</label>
+                            <div class="col-xs-3 padding-right2">
+                                <input data-bind="value: PhysicalCompare, valueUpdate: 'afterkeydown'"
+                                       type="number" class="form-control input-sm" />
+                            </div>
+                            <div class="col-xs-3 padding-left2">
+                                <input data-bind="value: PhysicalDifference, valueUpdate: 'afterkeydown'"
+                                       type="text" class="form-control input-sm text-center text-center readonly" readonly rel="txtTooltip" title="Difference as Dexterity" data-toggle="tooltip" data-placement="right"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-6 control-label">Lightning Damage</label>
+                            <div class="col-xs-3 padding-right2">
+                                <input data-bind="value: LightningCompare, valueUpdate: 'afterkeydown'"
+                                       type="number" class="form-control input-sm" />
+                            </div>
+                            <div class="col-xs-3 padding-left2">
+                                <input data-bind="value: LightningDifference, valueUpdate: 'afterkeydown'"
+                                       type="text" class="form-control input-sm text-center text-center readonly" readonly rel="txtTooltip" title="Difference as Dexterity" data-toggle="tooltip" data-placement="right"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
 
+                <div class="col-xs-6">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-xs-6 control-label">Sentry</label>
+                            <div class="col-xs-3 padding-right2">
+                                <input data-bind="value: SentryCompare, valueUpdate: 'afterkeydown'"
+                                       type="number" class="form-control input-sm" />
+                            </div>
+                            <div class="col-xs-3 padding-left2">
+                                <input data-bind="value: SentryDifference, valueUpdate: 'afterkeydown'"
+                                       type="text" class="form-control input-sm text-center text-center readonly" readonly rel="txtTooltip" title="Difference as Dexterity" data-toggle="tooltip" data-placement="right" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-6 control-label">Cluster Arrow</label>
+                            <div class="col-xs-3 padding-right2">
+                                <input data-bind="value: CACompare, valueUpdate: 'afterkeydown'"
+                                       type="number" class="form-control input-sm" />
+                            </div>
+                            <div class="col-xs-3 padding-left2">
+                                <input data-bind="value: CADifference, valueUpdate: 'afterkeydown'"
+                                       type="text" class="form-control input-sm text-center text-center readonly" readonly rel="txtTooltip" title="Difference as Dexterity" data-toggle="tooltip" data-placement="right" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-6 control-label">Elemental Arrow</label>
+                            <div class="col-xs-3 padding-right2">
+                                <input data-bind="value: EACompare, valueUpdate: 'afterkeydown'"
+                                       type="number" class="form-control input-sm" />
+                            </div>
+                            <div class="col-xs-3 padding-left2">
+                                <input data-bind="value: EADifference, valueUpdate: 'afterkeydown'"
+                                       type="text" class="form-control input-sm text-center text-center readonly" readonly rel="txtTooltip" title="Difference as Dexterity" data-toggle="tooltip" data-placement="right" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-6 control-label">Multishot</label>
+                            <div class="col-xs-3 padding-right2">
+                                <input data-bind="value: MultishotCompare, valueUpdate: 'afterkeydown'"
+                                       type="number" class="form-control input-sm" />
+                            </div>
+                            <div class="col-xs-3 padding-left2">
+                                <input data-bind="value: MultishotDifference, valueUpdate: 'afterkeydown'"
+                                       type="text" class="form-control input-sm text-center text-center readonly" readonly rel="txtTooltip" title="Difference as Dexterity" data-toggle="tooltip" data-placement="right" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-6 control-label">Impale</label>
+                            <div class="col-xs-3 padding-right2">
+                                <input data-bind="value: ImpaleCompare, valueUpdate: 'afterkeydown'"
+                                       type="number" class="form-control input-sm" />
+                            </div>
+                            <div class="col-xs-3 padding-left2">
+                                <input data-bind="value: ImpaleDifference, valueUpdate: 'afterkeydown'"
+                                       type="text" class="form-control input-sm text-center text-center readonly" readonly rel="txtTooltip" title="Difference as Dexterity" data-toggle="tooltip" data-placement="right" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-6 control-label">Trashmob Difference</label>
+                            <div class="col-xs-6">
+                                <input data-bind="value: TrashDPSDifference, valueUpdate: 'afterkeydown'" type="text" class="form-control input-sm text-center text-center">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-6 control-label">Elite Difference</label>
+                            <div class="col-xs-6">
+                                <input data-bind="value: EliteDPSDifference, valueUpdate: 'afterkeydown'" type="text" class="form-control input-sm text-center text-center">
+                            </div>
+                        </div>
+                    </form>
+                </div> 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
@@ -1052,10 +1253,9 @@
     $(function () {
         gear = new Gear();
         stats = new Stats();
-
         ko.applyBindings(gear, document.getElementById("ASCalculator"));
         ko.applyBindings(stats, document.getElementById("DPSCalculator"));
-//        Stats(compareStats(Stats(stats)));
+        ko.applyBindings(stats, document.getElementById("ComparisonCalculator"));
         $('input[rel="txtTooltip"]').tooltip();
     });
 
@@ -1064,9 +1264,6 @@
     }
     
     function showComparisonCalculator() {
-        compareStats = new Stats();
-        ko.applyBindings(compareStats, document.getElementById("ComparisonCalculator"));
-        compareStats(document.getElementById("DPSCalculator"));
         $('#ComparisonCalculator').modal('show');
     }
 
