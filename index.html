@@ -202,16 +202,16 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-xs-6 control-label padding-left0">Physical Damage</label>
+                    <label class="col-xs-6 control-label padding-left0">Lightning Damage</label>
                     <div class="col-xs-6">
-                        <input data-bind="value: PhysicalDamage, valueUpdate: 'afterkeydown'"
+                        <input data-bind="value: LightningDamage, valueUpdate: 'afterkeydown'"
                                type="number" min="0" class="form-control input-sm" rel="txtTooltip" title="Enter percentage" data-toggle="tooltip" data-placement="bottom" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-xs-6 control-label padding-left0">Lightning Damage</label>
+                    <label class="col-xs-6 control-label padding-left0">Physical Damage</label>
                     <div class="col-xs-6">
-                        <input data-bind="value: LightningDamage, valueUpdate: 'afterkeydown'"
+                        <input data-bind="value: PhysicalDamage, valueUpdate: 'afterkeydown'"
                                type="number" min="0" class="form-control input-sm" rel="txtTooltip" title="Enter percentage" data-toggle="tooltip" data-placement="bottom" />
                     </div>
                 </div>
@@ -1146,17 +1146,6 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-xs-6 control-label">Physical Damage</label>
-                            <div class="col-xs-3 padding-right2">
-                                <input data-bind="value: PhysicalCompare, valueUpdate: 'afterkeydown'"
-                                       type="number" class="form-control input-sm" />
-                            </div>
-                            <div class="col-xs-3 padding-left2">
-                                <input data-bind="value: PhysicalDifference, valueUpdate: 'afterkeydown'"
-                                       type="text" class="form-control input-sm text-center text-center readonly" readonly rel="txtTooltip" title="Difference as Dexterity" data-toggle="tooltip" data-placement="right"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label class="col-xs-6 control-label">Lightning Damage</label>
                             <div class="col-xs-3 padding-right2">
                                 <input data-bind="value: LightningCompare, valueUpdate: 'afterkeydown'"
@@ -1164,6 +1153,17 @@
                             </div>
                             <div class="col-xs-3 padding-left2">
                                 <input data-bind="value: LightningDifference, valueUpdate: 'afterkeydown'"
+                                       type="text" class="form-control input-sm text-center text-center readonly" readonly rel="txtTooltip" title="Difference as Dexterity" data-toggle="tooltip" data-placement="right"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-6 control-label">Physical Damage</label>
+                            <div class="col-xs-3 padding-right2">
+                                <input data-bind="value: PhysicalCompare, valueUpdate: 'afterkeydown'"
+                                       type="number" class="form-control input-sm" />
+                            </div>
+                            <div class="col-xs-3 padding-left2">
+                                <input data-bind="value: PhysicalDifference, valueUpdate: 'afterkeydown'"
                                        type="text" class="form-control input-sm text-center text-center readonly" readonly rel="txtTooltip" title="Difference as Dexterity" data-toggle="tooltip" data-placement="right"/>
                             </div>
                         </div>

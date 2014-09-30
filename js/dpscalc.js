@@ -570,20 +570,20 @@ function Stats(data) {
         return Math.round(r);
     }, this);
 
-    self.PhysicalDifference = ko.computed(function () {
+    self.LightningDifference = ko.computed(function () {
         var a = [0,0,0,0,0,1,0,0,0,0,0,0,0,0];
         var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
         if (isNaN(r)) { return 0; }
         return Math.round(r);
     }, this);
-
-    self.LightningDifference = ko.computed(function () {
+    
+    self.PhysicalDifference = ko.computed(function () {
         var a = [0,0,0,0,0,0,1,0,0,0,0,0,0,0];
         var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
         if (isNaN(r)) { return 0; }
         return Math.round(r);
     }, this);
-    
+   
     self.SentryDifference = ko.computed(function () {
         var a = [0,0,0,0,0,0,0,1,0,0,0,0,0,0];
         var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
