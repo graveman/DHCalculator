@@ -347,7 +347,7 @@ function Stats(data) {
     }, this);
     
     self.CHCTotal = ko.computed(function () {
-        var r = parseInt(self.CHC()) + self.CHCBonus();
+        var r = parseFloat(self.CHC()) + self.CHCBonus();
         return r;
     },this);
 
