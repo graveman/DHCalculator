@@ -46,7 +46,7 @@ function Gear(data) {
     }, this);
 
     self.TotalIAS = ko.computed(function () {
-        return parseFloat(self.Amulet()) + parseFloat(self.Gloves()) + parseFloat(self.Bracers()) + parseFloat(self.Rucksack()) + parseFloat(self.Belt()) + parseFloat(self.Ring1()) + parseFloat(self.Ring2()) + parseFloat(self.Paragon());
+        return parseFloat(self.Amulet()) + parseFloat(self.Gloves()) + parseFloat(self.Bracers()) + parseFloat(self.Rucksack()) + parseFloat(self.Belt()) + parseFloat(self.Ring1()) + parseFloat(self.Ring2()) + (parseFloat(self.Paragon()) / 5);
     }, this);
 
 

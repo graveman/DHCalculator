@@ -530,93 +530,132 @@ function Stats(data) {
 
     self.DexDifference = ko.computed(function () {
         var a = [1,0,0,0,0,0,0,0,0,0,0,0,0,0];
-        var r = (CalculateTotal( 0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
-        if (isNaN(r)) { return 0; }
-        return Math.round(r);
+        if (self.DexterityCompare() !== 0) {
+            var r = (CalculateTotal( 0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
+            if (isNaN(r)) { return 0; }
+            return Math.round(r);
+        }
+        return 0;
     }, this);
 
     self.CHCDifference = ko.computed(function () {
         var a = [0,1,0,0,0,0,0,0,0,0,0,0,0,0];
-        var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
-        if (isNaN(r)) { return 0; }
-        return Math.round(r);
+        if (self.CHCCompare() !== 0) {
+            var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
+            if (isNaN(r)) { return 0; }
+            return Math.round(r);
+        }
+        return 0;
     }, this);
 
     self.CHDDifference = ko.computed(function () {
         var a = [0,0,1,0,0,0,0,0,0,0,0,0,0,0];
-        var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
-        if (isNaN(r)) { return 0; }
-        return Math.round(r);
+        if (self.CHDCompare() !== 0) {
+            var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
+            if (isNaN(r)) { return 0; }
+            return Math.round(r);
+        }
+        return 0;
     }, this);
 
     self.EliteDifference = ko.computed(function () {
-        var r = (self.TotalDPS() * (parseInt(self.EliteDamage()) + parseInt(self.EliteCompare()) + 100) / 100) - self.TotalEliteDPS();
-        r = r / self.UnitEliteDifference();
-        if (isNaN(r)) { return 0; }
-        return Math.round(r);
+        if (self.EliteCompare() !== 0) {
+            var r = (self.TotalDPS() * (parseInt(self.EliteDamage()) + parseInt(self.EliteCompare()) + 100) / 100) - self.TotalEliteDPS();
+            r = r / self.UnitEliteDifference();
+            if (isNaN(r)) { return 0; }
+            return Math.round(r);
+        }
+        return 0;
     }, this);
 
     self.ColdDifference = ko.computed(function () {
         var a = [0,0,0,1,0,0,0,0,0,0,0,0,0,0];
-        var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
-        if (isNaN(r)) { return 0; }
-        return Math.round(r);
+        if (self.ColdCompare() !== 0) {
+            var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
+            if (isNaN(r)) { return 0; }
+            return Math.round(r);
+        }
+        return 0;
     }, this);
 
     self.FireDifference = ko.computed(function () {
         var a = [0,0,0,0,1,0,0,0,0,0,0,0,0,0];
-        var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
-        if (isNaN(r)) { return 0; }
-        return Math.round(r);
+        if (self.FireCompare() !== 0) {
+            var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
+            if (isNaN(r)) { return 0; }
+            return Math.round(r);
+        }
+        return 0;
     }, this);
 
     self.LightningDifference = ko.computed(function () {
         var a = [0,0,0,0,0,1,0,0,0,0,0,0,0,0];
-        var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
-        if (isNaN(r)) { return 0; }
-        return Math.round(r);
+        if (self.LightningCompare() !== 0) {
+            var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
+            if (isNaN(r)) { return 0; }
+            return Math.round(r);
+        }
+        return 0;
     }, this);
     
     self.PhysicalDifference = ko.computed(function () {
         var a = [0,0,0,0,0,0,1,0,0,0,0,0,0,0];
-        var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
-        if (isNaN(r)) { return 0; }
-        return Math.round(r);
+        if (self.PhysicalCompare() !== 0) {
+            var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
+            if (isNaN(r)) { return 0; }
+            return Math.round(r);
+        }
+        return 0;
     }, this);
    
     self.SentryDifference = ko.computed(function () {
         var a = [0,0,0,0,0,0,0,1,0,0,0,0,0,0];
-        var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
-        if (isNaN(r)) { return 0; }
-        return Math.round(r);
+        if (self.SentryCompare() !== 0) {
+            var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
+            if (isNaN(r)) { return 0; }
+            return Math.round(r);
+        }
+        return 0;
     }, this);
 
     self.CADifference = ko.computed(function () {
         var a = [0,0,0,0,0,0,0,0,1,0,0,0,0,0];
-        var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
-        if (isNaN(r)) { return 0; }
-        return Math.round(r);
+        if (self.CACompare() !== 0) {
+            var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
+            if (isNaN(r)) { return 0; }
+            return Math.round(r);
+        }
+        return 0;
     }, this);
 
     self.EADifference = ko.computed(function () {
         var a = [0,0,0,0,0,0,0,0,0,1,0,0,0,0];
-        var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
-        if (isNaN(r)) { return 0; }
-        return Math.round(r);
+        if (self.EACompare() !== 0) {
+            var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
+            if (isNaN(r)) { return 0; }
+            return Math.round(r);
+        }
+        return 0;
     }, this);
 
     self.MultishotDifference = ko.computed(function () {
         var a = [0,0,0,0,0,0,0,0,0,0,1,0,0,0];
-        var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
-        if (isNaN(r)) { return 0; }
-        return Math.round(r);
+        if (self.MultishotCompare() !== 0) {
+            var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
+            if (isNaN(r)) { return 0; }
+            return Math.round(r);
+        }
+        return 0;
     }, this);
-
+    
     self.ImpaleDifference = ko.computed(function () {
         var a = [0,0,0,0,0,0,0,0,0,0,0,1,0,0];
-        var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
-        if (isNaN(r)) { return 0; }
-        return Math.round(r);
+        if (self.ImpaleCompare() !== 0) {
+            var r = (CalculateTotal(0, a) - parseFloat(self.TotalDPS())) / self.UnitDifference();
+            if (isNaN(r)) { return 0; }
+            return Math.round(r);
+        }
+        return 0;
     }, this);
 
     self.ActiveSkill1Percentage = ko.computed(function () {
