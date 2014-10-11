@@ -924,13 +924,13 @@
                         <div class="form-group">
                             <label class="col-xs-4 control-label">Weapon IAS</label>
                             <div class="col-xs-8">
-                                <input data-bind="value: Weapon1IAS, valueUpdate: 'afterkeydown'" type="number" min="0" max="7" class="form-control input-sm text-center text-center">
+                                <input data-bind="value: WeaponIAS, valueUpdate: 'afterkeydown'" type="number" min="0" max="7" class="form-control input-sm text-center text-center">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-xs-4 control-label blue">Weapon AS</label>
                             <div class="col-xs-8">
-                                <input data-bind="value: Weapon1AS, valueUpdate: 'afterkeydown'" type="text" min="0" max="7"  class="form-control input-sm text-center">
+                                <input data-bind="value: WeaponAS, valueUpdate: 'afterkeydown'" type="text" min="0" max="7"  class="form-control input-sm text-center">
                             </div>
                         </div>
                         <div class="form-group">
@@ -952,9 +952,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-xs-4 control-label red">Base AS</label>
+                            <label class="col-xs-4 control-label red">Total APS</label>
                             <div class="col-xs-8">
-                                <input data-bind="value: BaseAPS"   type="text"  class="form-control input-sm text-center">
+                                <input data-bind="value: TTAPS"   type="text"  class="form-control input-sm text-center readonly" readonly>
                             </div>
                         </div>
                     </form>
@@ -968,9 +968,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-xs-4 control-label">Rucksack</label>
+                            <label class="col-xs-4 control-label">Quiver</label>
                             <div class="col-xs-8">
-                                <input data-bind="value: Rucksack, valueUpdate: 'afterkeydown'"   type="number" min="0" max="20"  class="form-control input-sm text-center">
+                                <input data-bind="value: Quiver, valueUpdate: 'afterkeydown'"   type="number" min="0" max="20"  class="form-control input-sm text-center">
                             </div>
                         </div>
                         <div class="form-group">
@@ -998,9 +998,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-xs-4 control-label red">T&amp;T AS</label>
+                            <label class="col-xs-4 control-label red">Next BP</label>
                             <div class="col-xs-8">
-                                <input data-bind="value: TTAPS"   type="text"  class="form-control input-sm text-center">
+                                <input data-bind="value: NextBreakPoint" type="text" class="form-control input-sm text-center readonly" readonly rel="txtTooltip" title="AS needed for next BP" data-toggle="tooltip" data-placement="bottom">
                             </div>
                         </div>
                     </form>
@@ -1017,8 +1017,8 @@
                         </tr>
                         </thead>
                         <tbody data-bind="foreach: BreakPoints">
-                        <tr data-bind="css: { 'selected-row': $root.BreakPoint() === $data.BP }">
-                            <td data-bind="text: BP" />
+                        <tr data-bind="css: { 'selected-row': $root.BreakPoint() === $data.Value() }">
+                            <td data-bind="text: Value" />
                             <td data-bind="text: MinAPS" />
                             <td data-bind="text: MaxAPS" />
                             <td data-bind="text: SentryAPS" />

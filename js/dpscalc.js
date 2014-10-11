@@ -2,10 +2,17 @@
  * Created by Nika on 19.09.2014.
  * 
  */
+var Weapon = function (value, text, as) {
+    var self = this;
+    self.Value = ko.observable(value);
+    self.Text  = ko.observable(text);  
+    self.AS    = ko.observable(as);  
+};
+
 var Element = function (value, text) {
     var self = this;
     self.Value = ko.observable(value);
-    self.Text = ko.observable(text);    
+    self.Text  = ko.observable(text);    
 };
 
 var Skill = function (value, text, slug) {
@@ -15,10 +22,13 @@ var Skill = function (value, text, slug) {
     self.Slug  = ko.observable(slug);
 };
 
-var BreakPoint = function (value, text) {
+var BreakPoint = function (value, text, minaps, maxaps, sentryaps) {
     var self = this;
-    self.Value = ko.observable(value);
-    self.Text  = ko.observable(text);
+    self.Value      = ko.observable(value);
+    self.Text       = ko.observable(text);
+    self.MinAPS     = ko.observable(minaps);
+    self.MaxAPS     = ko.observable(maxaps);
+    self.SentryAPS  = ko.observable(sentryaps);
 };
 
 var LightningHit = function (value, text) {
@@ -152,9 +162,9 @@ function Stats(data) {
     self.CripplingWave            = ko.observable(false, { persist: 'DC-CripplingWave' });
 
     self.Weapons = ko.observableArray([
-        { Value: 1, Text: "Crossbow" },
-        { Value: 2, Text: "Bow" },
-        { Value: 3, Text: "Hand Crossbow" }
+        new Weapon (1, "Crossbow", 1.1),
+        new Weapon (2, "Bow", 1.4),
+        new Weapon (3, "Hand Crossbow", 1.6)
     ]);
 
     self.Elements = ko.observableArray([
@@ -165,13 +175,13 @@ function Stats(data) {
     ]);
     
     self.BreakPoints = ko.observableArray([
-        new BreakPoint(1, "1.102"),
-        new BreakPoint(2, "1.256"),
-        new BreakPoint(3, "1.459"),
-        new BreakPoint(4, "1.742"),
-        new BreakPoint(5, "2.160"),
-        new BreakPoint(6, "2.842"),
-        new BreakPoint(7, "4.154")
+        new BreakPoint(1, "1.102", 1.10205, 1.25581, 1.25),
+        new BreakPoint(2, "1.256", 1.25582, 1.4545, 1.42857),
+        new BreakPoint(3, "1.459", 1.45946, 1.74193, 1.67),
+        new BreakPoint(4, "1.742", 1.74194, 2.16, 2),
+        new BreakPoint(5, "2.160", 2.16001, 2.8421, 2.5),
+        new BreakPoint(6, "2.842", 2.84211, 4.15385, 3.3),
+        new BreakPoint(7, "4.154", 4.15386, 10, 5)
     ]);
 
     self.LightningHits = ko.observableArray([
@@ -482,36 +492,28 @@ function Stats(data) {
         return CalculateTotal(0, a);  
     }, this);
 
-    self.UnitDPS = ko.computed(function () {
-        var a = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-        return CalculateTotal(1, a);  
+    self.TotalEliteDPS = ko.computed(function () {
+        return self.TotalDPS() * (parseInt(self.EliteDamage()) + 100) / 100;
     }, this);
 
     self.UnitDifference = ko.computed(function () {
-        var r = parseFloat(self.UnitDPS());
+        var a = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];        
+        var r = parseFloat(CalculateTotal(1, a));
         r = r - parseFloat(self.TotalDPS());
+        return r;       
+    }, this);
+
+     self.UnitEliteDifference = ko.computed(function () {
+        var a = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+         var r = parseFloat(CalculateTotal(1, a) * (parseInt(self.EliteDamage()) + 100) / 100) - parseFloat(self.TotalEliteDPS());
         return r;       
     }, this);
 
     self.ComparisonDPS = ko.computed(function () {
         var a = [1,1,1,1,1,1,1,1,1,1,1,1,1,1];
         return CalculateTotal(0, a);    
-    }, this);
+    }, this);  
     
-    self.TotalEliteDPS = ko.computed(function () {
-        return self.TotalDPS() * (parseInt(self.EliteDamage()) + 100) / 100;
-    }, this);
-    
-    self.UnitEliteDPS = ko.computed(function () {
-        var a = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-        return CalculateTotal(1, a) * (parseInt(self.EliteDamage()) + 100) / 100;
-    }, this);
- 
-     self.UnitEliteDifference = ko.computed(function () {
-        var r = parseFloat(self.UnitEliteDPS()) - parseFloat(self.TotalEliteDPS());
-        return r;       
-    }, this);
- 
     self.ComparisonEliteDPS = ko.computed(function () {
         return self.ComparisonDPS() * (parseInt(self.EliteDamage()) + 100 + parseInt(self.EliteCompare())) / 100;   
     }, this); 
