@@ -132,18 +132,20 @@ function Stats(data) {
     self.Archery                  = ko.observable(false, { persist: 'DC-Archery' });
     self.SingleOut                = ko.observable(false, { persist: 'DC-SingleOut' });
     
-    self.BaneofthePowerful              = ko.observable(false, { persist: 'DC-BaneofthePowerfulRank' });
-    self.Enforcer                       = ko.observable(false, { persist: 'DC-Enforcer' });
-    self.EnforcerRank                   = ko.observable(0, { persist: 'DC-EnforcerRank' });
-    self.EnforcerPercentage               = ko.observable(0, { persist: 'DC-EnforcerPercentage' });
-    self.BaneoftheTrapped               = ko.observable(false, { persist: 'DC-BaneoftheTrapped' });    
-    self.BaneoftheTrappedRank           = ko.observable(0, { persist: 'DC-BaneoftheTrappedRank' });
-    self.ZeisStoneofVengeance           = ko.observable(false, { persist: 'DC-ZeisStoneofVengeance' });
-    self.ZeisStoneofVengeanceRank       = ko.observable(0, { persist: 'DC-ZeisStoneofVengeanceRank' });
-    self.ZeisStoneofVengeanceDistance   = ko.observable(1, { persist: 'DC-ZeisStoneofVengeanceDistance' });
-    self.GemofEfficaciousToxin          = ko.observable(false, { persist: 'DC-GemofEfficaciousToxin' });    
-    self.GemofEfficaciousToxinRank      = ko.observable(0, { persist: 'DC-GemofEfficaciousToxinRank' });
-    
+    self.BaneofthePowerful                = ko.observable(false, { persist: 'DC-BaneofthePowerful' });
+    self.BaneofthePowerfulRank            = ko.observable(0, { persist: 'DC-BaneofthePowerfulRank' });
+    self.Enforcer                         = ko.observable(false, { persist: 'DC-Enforcer' });
+    self.EnforcerRank                     = ko.observable(0, { persist: 'DC-EnforcerRank' });
+    self.BaneoftheTrapped                 = ko.observable(false, { persist: 'DC-BaneoftheTrapped' });    
+    self.BaneoftheTrappedRank             = ko.observable(0, { persist: 'DC-BaneoftheTrappedRank' });
+    self.ZeisStoneofVengeance             = ko.observable(false, { persist: 'DC-ZeisStoneofVengeance' });
+    self.ZeisStoneofVengeanceRank         = ko.observable(0, { persist: 'DC-ZeisStoneofVengeanceRank' });
+    self.ZeisStoneofVengeanceDistance     = ko.observable(1, { persist: 'DC-ZeisStoneofVengeanceDistance' });
+    self.GemofEfficaciousToxin            = ko.observable(false, { persist: 'DC-GemofEfficaciousToxin' });    
+    self.GemofEfficaciousToxinRank        = ko.observable(0, { persist: 'DC-GemofEfficaciousToxinRank' });
+    self.PainEnhancer                     = ko.observable(false, { persist: 'DC-PainEnhancer' });    
+    self.PainEnhancerRank                 = ko.observable(0, { persist: 'DC-PainEnhancerRank' });
+ 
     self.HexingPantsofMrYan               = ko.observable(false, { persist: 'DC-HexingPantsofMrYan' });
     self.OverwhelmingDesire               = ko.observable(false, { persist: 'DC-OverwhelmingDesire' });
     self.Calamity                         = ko.observable(false, { persist: 'DC-Calamity' });
@@ -355,7 +357,13 @@ function Stats(data) {
         if (self.Archery() === true && self.Weapon() === 1) { r = r + 50; }   
         return r;
     }, this);
-    
+
+    self.EliteBonus = ko.computed(function () {
+        var r = 0;
+        if (self.BaneofthePowerful() === true && self.BaneofthePowerfulRank() >= 25) { r = 15; }
+        return r;
+    }, this);
+
     self.CHCTotal = ko.computed(function () {
         var r = parseFloat(self.CHC()) + self.CHCBonus();
         return r;
@@ -363,6 +371,11 @@ function Stats(data) {
 
     self.CHDTotal = ko.computed(function () {
         var r = parseInt(self.CHD()) + self.CHDBonus();
+        return r;
+    },this);
+
+    self.EliteTotal = ko.computed(function () {
+        var r = parseInt(self.EliteDamage()) + self.EliteBonus();
         return r;
     },this);
 
@@ -443,6 +456,7 @@ function Stats(data) {
         if (self.WolfCompanion() === true) { r = r + 30; } 
         if (self.HexingPantsofMrYan() === true) { r = r + 25; }
         if (self.BaneofthePowerful() === true) { r = r + 20; } 
+        if (self.GemofEfficaciousToxin() === true && self.GemofEfficaciousToxinRank() >= 25) { r = r + 10; }
         if (self.MassConfusion() === true) { r = r + 20; }      
         if (self.Piranhas() === true) { r = r + 15; }
         if (self.BigBadVoodoo() === true) { r = r + 30; } 
@@ -487,36 +501,72 @@ function Stats(data) {
         return Calculate(self.ActiveSkill4(), self.ActiveSkill4Rune(), 0, a);
     }, this);
 
+    self.GemofEfficaciousToxinDamage = ko.computed(function () {
+        var a = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        var r = CalculateGemofEfficaciousToxin(0, a);
+        return r;
+    }, this);
+
+    self.GemofEfficaciousToxinCompare = ko.computed(function () {
+        var a = [1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+        var r = CalculateGemofEfficaciousToxin(0, a);
+        return r;
+    }, this);
+ 
+     self.GemofEfficaciousToxinUnit = ko.computed(function () {
+        var a = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        var r = CalculateGemofEfficaciousToxin(1, a);
+        return r;
+    }, this);
+    
+    self.PainEnhancerDamage = ko.computed(function () {
+        var a = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        var r = CalculatePainEnhancer(0, a);
+        return r;
+    }, this);
+
+    self.PainEnhancerCompare = ko.computed(function () {
+        var a = [1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+        var r = CalculatePainEnhancer(0, a);
+        return r;
+    }, this);
+
+    self.PainEnhancerUnit = ko.computed(function () {
+        var a = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        var r = CalculatePainEnhancer(1, a);
+        return r;
+    }, this);
+
     self.TotalDPS = ko.computed(function () {
         var a = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-        return CalculateTotal(0, a);  
+        return CalculateTotal(0, a);
     }, this);
 
     self.TotalEliteDPS = ko.computed(function () {
-        return self.TotalDPS() * (parseInt(self.EliteDamage()) + 100) / 100;
+        return self.TotalDPS() * (parseInt(self.EliteTotal()) + 100) / 100;
     }, this);
 
     self.UnitDifference = ko.computed(function () {
-        var a = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];        
+        var a = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
         var r = parseFloat(CalculateTotal(1, a));
         r = r - parseFloat(self.TotalDPS());
-        return r;       
+        return r;
     }, this);
 
      self.UnitEliteDifference = ko.computed(function () {
         var a = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-         var r = parseFloat(CalculateTotal(1, a) * (parseInt(self.EliteDamage()) + 100) / 100) - parseFloat(self.TotalEliteDPS());
-        return r;       
+         var r = parseFloat(CalculateTotal(1, a) * (parseInt(self.EliteTotal()) + 100) / 100) - parseFloat(self.TotalEliteDPS());
+        return r;
     }, this);
 
     self.ComparisonDPS = ko.computed(function () {
         var a = [1,1,1,1,1,1,1,1,1,1,1,1,1,1];
-        return CalculateTotal(0, a);    
+        return CalculateTotal(0, a);
     }, this);  
     
     self.ComparisonEliteDPS = ko.computed(function () {
-        return self.ComparisonDPS() * (parseInt(self.EliteDamage()) + 100 + parseInt(self.EliteCompare())) / 100;   
-    }, this); 
+        return self.ComparisonDPS() * (parseInt(self.EliteTotal()) + 100 + parseInt(self.EliteCompare())) / 100;   
+    }, this);
 
     self.TrashDPSDifference = ko.computed(function () {
         var r = parseFloat(self.ComparisonDPS()) - parseFloat(self.TotalDPS());
@@ -562,7 +612,7 @@ function Stats(data) {
 
     self.EliteDifference = ko.computed(function () {
         if (self.EliteCompare() !== 0) {
-            var r = (self.TotalDPS() * (parseInt(self.EliteDamage()) + parseInt(self.EliteCompare()) + 100) / 100) - self.TotalEliteDPS();
+            var r = (self.TotalDPS() * (parseInt(self.EliteTotal()) + parseInt(self.EliteCompare()) + 100) / 100) - self.TotalEliteDPS();
             r = r / self.UnitEliteDifference();
             if (isNaN(r)) { return 0; }
             return Math.round(r);
@@ -675,6 +725,14 @@ function Stats(data) {
     self.ActiveSkill4Percentage = ko.computed(function () {
         return Percentage(self.ActiveSkill4Damage(), self.TotalDPS());     
     }, this);
+    
+    self.GemofEfficaciousToxinPercentage = ko.computed(function () {
+        return Percentage(self.GemofEfficaciousToxinDamage(), self.TotalDPS());
+    }, this);
+
+    self.PainEnhancerPercentage = ko.computed(function () {
+        return Percentage(self.PainEnhancerDamage(), self.TotalDPS());
+    }, this);
 
     self.TotalDPSFormat = ko.computed(function () {
         var r = self.TotalDPS();
@@ -688,26 +746,61 @@ function Stats(data) {
         return formatNumber(r);    
     }, this);
 
-    function CalculateTotal(compare, dex, set) {
+    function CalculatePainEnhancer(dex, set) {
+        var r = 0;
+        if (self.PainEnhancer() === true) { r = (1200 + parseInt(self.PainEnhancerRank()) * 30) / 300; }
+        r = r * self.BaseWeaponDamage();
+        r = r * (self.AdditiveModifier() * (1 - set[13]) + set[13] * self.AdditiveModifierCompare());
+        r = r * self.MultiplicativeModifier();
+        r = r * (parseInt(self.Dexterity()) + 100 + dex + set[0] * self.DexterityCompare()) / 100;
+        var criticalModifier = 1;
+        var critChance = parseFloat(self.CHCTotal()) + set[1] * parseFloat(self.CHCCompare()) + set[13] * self.ArcheryCHC();
+        var critDam = parseInt(self.CHDTotal()) + set[2] * parseFloat(self.CHDCompare()) + set[13] * self.ArcheryCDC();
+        criticalModifier = (critChance * (critDam + 100) / 10000) + (100 - critChance) / 100;
+        r = r * criticalModifier;
+        r = r * ((parseInt(self.PhysicalDamage()) + 100 + set[6] * parseInt(self.PhysicalCompare())) / 100);
+        r = r * self.NumberofTargets();
+        return r;
+    }
+
+    function CalculateGemofEfficaciousToxin(dex, set) {
+        var r = 0;
+        if (self.GemofEfficaciousToxin() === true) { r = (2000 + parseInt(self.GemofEfficaciousToxinRank()) * 50) / 1000; }
+        r = r * self.BaseWeaponDamage();
+        r = r * (self.AdditiveModifier() * (1 - set[13]) + set[13] * self.AdditiveModifierCompare());
+        r = r * self.MultiplicativeModifier();
+        r = r * (parseInt(self.Dexterity()) + 100 + dex + set[0] * self.DexterityCompare()) / 100;;
+        var criticalModifier = 1;
+        var critChance = parseFloat(self.CHCTotal()) + set[1] * parseFloat(self.CHCCompare()) + set[13] * self.ArcheryCHC();
+        var critDam = parseInt(self.CHDTotal()) + set[2] * parseFloat(self.CHDCompare()) + set[13] * self.ArcheryCDC();
+        criticalModifier = (critChance * (critDam + 100) / 10000) + (100 - critChance) / 100;
+        r = r * criticalModifier;
+        r = r * self.NumberofTargets();
+        return r;
+    }
+
+    function CalculateTotal(dex, set) {
         var r;
         if (parseInt(self.NumberofSpenders()) === 1) {
-            r = Calculate(self.ActiveSkill1(), self.ActiveSkill1Rune(), compare, dex, set);
-            r = r + Calculate(self.ActiveSkill2(), self.ActiveSkill2Rune(), compare, dex, set);
+            r = Calculate(self.ActiveSkill1(), self.ActiveSkill1Rune(), dex, set);
+            r = r + Calculate(self.ActiveSkill2(), self.ActiveSkill2Rune(), dex, set);
         }
         if (parseInt(self.NumberofSpenders()) === 2) {
-            r = Calculate(self.ActiveSkill1(), self.ActiveSkill1Rune(), compare, dex, set);
-            r = r + Calculate(self.ActiveSkill2(), self.ActiveSkill2Rune(), compare, dex, set);
-            r = r + Calculate(self.ActiveSkill3(), self.ActiveSkill3Rune(), compare, dex, set);
+            r = Calculate(self.ActiveSkill1(), self.ActiveSkill1Rune(), dex, set);
+            r = r + Calculate(self.ActiveSkill2(), self.ActiveSkill2Rune(), dex, set);
+            r = r + Calculate(self.ActiveSkill3(), self.ActiveSkill3Rune(), dex, set);
         }
         if (parseInt(self.NumberofSpenders()) === 3) {
-            r = Calculate(self.ActiveSkill1(), self.ActiveSkill1Rune(), compare, dex, set);
-            r = r + Calculate(self.ActiveSkill2(), self.ActiveSkill2Rune(), compare, dex, set);
-            r = r + Calculate(self.ActiveSkill3(), self.ActiveSkill3Rune(), compare, dex, set);
-            r = r + Calculate(self.ActiveSkill4(), self.ActiveSkill4Rune(), compare, dex, set);
+            r = Calculate(self.ActiveSkill1(), self.ActiveSkill1Rune(), dex, set);
+            r = r + Calculate(self.ActiveSkill2(), self.ActiveSkill2Rune(), dex, set);
+            r = r + Calculate(self.ActiveSkill3(), self.ActiveSkill3Rune(), dex, set);
+            r = r + Calculate(self.ActiveSkill4(), self.ActiveSkill4Rune(), dex, set);
         }
+        r = r + CalculatePainEnhancer(dex, set);
+        r = r + CalculateGemofEfficaciousToxin(dex, set);
         return r;   
-    }
-    
+    }     
+
     function Percentage(activeSkill,total) {
         var r = activeSkill/total;
         if (r > 0) {
