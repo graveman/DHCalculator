@@ -93,6 +93,7 @@ function Stats(data) {
     self.NumberofHits             = ko.observable(1, { persist: 'DC-NumberofHits' });
     self.NumberofAoETargets       = ko.observable(1, { persist: 'DC-NumberofAoETargets' });
     self.NumberofSpenders         = ko.observable(3, { persist: 'DC-NumberofSpenders' });
+    self.NumberofSentries         = ko.observable(1, { persist: 'DC-NumberofSentries' });
 
     self.SentryDamage             = ko.observable(0, { persist: 'DC-SentryDamage' });
     self.CADamage                 = ko.observable(0, { persist: 'DC-CADamage' });
@@ -506,34 +507,10 @@ function Stats(data) {
         var r = CalculateGemofEfficaciousToxin(0, a);
         return r;
     }, this);
-
-    self.GemofEfficaciousToxinCompare = ko.computed(function () {
-        var a = [1,1,1,1,1,1,1,1,1,1,1,1,1,1];
-        var r = CalculateGemofEfficaciousToxin(0, a);
-        return r;
-    }, this);
- 
-     self.GemofEfficaciousToxinUnit = ko.computed(function () {
-        var a = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-        var r = CalculateGemofEfficaciousToxin(1, a);
-        return r;
-    }, this);
     
     self.PainEnhancerDamage = ko.computed(function () {
         var a = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
         var r = CalculatePainEnhancer(0, a);
-        return r;
-    }, this);
-
-    self.PainEnhancerCompare = ko.computed(function () {
-        var a = [1,1,1,1,1,1,1,1,1,1,1,1,1,1];
-        var r = CalculatePainEnhancer(0, a);
-        return r;
-    }, this);
-
-    self.PainEnhancerUnit = ko.computed(function () {
-        var a = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-        var r = CalculatePainEnhancer(1, a);
         return r;
     }, this);
 
@@ -711,19 +688,19 @@ function Stats(data) {
     }, this);
 
     self.ActiveSkill1Percentage = ko.computed(function () {
-        return Percentage(self.ActiveSkill1Damage(), self.TotalDPS());
+        return Percentage((self.ActiveSkill1Damage() * self.NumberofSentries()), self.TotalDPS());
     }, this);
 
     self.ActiveSkill2Percentage = ko.computed(function () {
-        return Percentage(self.ActiveSkill2Damage(), self.TotalDPS());
+        return Percentage((self.ActiveSkill2Damage() * self.NumberofSentries()), self.TotalDPS());
     }, this);
 
     self.ActiveSkill3Percentage = ko.computed(function () {
-        return Percentage(self.ActiveSkill3Damage(), self.TotalDPS());
+        return Percentage((self.ActiveSkill3Damage() * self.NumberofSentries()), self.TotalDPS());
     }, this);
 
     self.ActiveSkill4Percentage = ko.computed(function () {
-        return Percentage(self.ActiveSkill4Damage(), self.TotalDPS());     
+        return Percentage((self.ActiveSkill4Damage() * self.NumberofSentries()), self.TotalDPS());     
     }, this);
     
     self.GemofEfficaciousToxinPercentage = ko.computed(function () {
@@ -749,24 +726,20 @@ function Stats(data) {
     function CalculatePainEnhancer(dex, set) {
         var r = 0;
         if (self.PainEnhancer() === true) { r = (1200 + parseInt(self.PainEnhancerRank()) * 30) / 300; }
-        r = r * self.BaseWeaponDamage();
-        r = r * (self.AdditiveModifier() * (1 - set[13]) + set[13] * self.AdditiveModifierCompare());
-        r = r * self.MultiplicativeModifier();
-        r = r * (parseInt(self.Dexterity()) + 100 + dex + set[0] * self.DexterityCompare()) / 100;
-        var criticalModifier = 1;
-        var critChance = parseFloat(self.CHCTotal()) + set[1] * parseFloat(self.CHCCompare()) + set[13] * self.ArcheryCHC();
-        var critDam = parseInt(self.CHDTotal()) + set[2] * parseFloat(self.CHDCompare()) + set[13] * self.ArcheryCDC();
-        criticalModifier = (critChance * (critDam + 100) / 10000) + (100 - critChance) / 100;
-        r = r * criticalModifier;
+        r = r * CalculateBaseTotal(dex, set);
         r = r * ((parseInt(self.PhysicalDamage()) + 100 + set[6] * parseInt(self.PhysicalCompare())) / 100);
-        r = r * self.NumberofTargets();
         return r;
     }
 
     function CalculateGemofEfficaciousToxin(dex, set) {
         var r = 0;
         if (self.GemofEfficaciousToxin() === true) { r = (2000 + parseInt(self.GemofEfficaciousToxinRank()) * 50) / 1000; }
-        r = r * self.BaseWeaponDamage();
+        r = r * CalculateBaseTotal(dex, set);
+        return r;
+    }
+    
+    function CalculateBaseTotal(dex, set) {
+        var r = self.BaseWeaponDamage();
         r = r * (self.AdditiveModifier() * (1 - set[13]) + set[13] * self.AdditiveModifierCompare());
         r = r * self.MultiplicativeModifier();
         r = r * (parseInt(self.Dexterity()) + 100 + dex + set[0] * self.DexterityCompare()) / 100;;
@@ -796,6 +769,7 @@ function Stats(data) {
             r = r + Calculate(self.ActiveSkill3(), self.ActiveSkill3Rune(), dex, set);
             r = r + Calculate(self.ActiveSkill4(), self.ActiveSkill4Rune(), dex, set);
         }
+        r = r * self.NumberofSentries();
         r = r + CalculatePainEnhancer(dex, set);
         r = r + CalculateGemofEfficaciousToxin(dex, set);
         return r;   
