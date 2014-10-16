@@ -963,6 +963,12 @@
                                 <input data-bind="value: TTAPS"   type="text"  class="form-control input-sm text-center readonly" readonly>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label red">Next BP</label>
+                            <div class="col-xs-8">
+                                <input data-bind="value: NextBreakPoint" type="text" class="form-control input-sm text-center readonly" readonly rel="txtTooltip" title="AS needed for next BP" data-toggle="tooltip" data-placement="bottom">
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="col-xs-6">
@@ -1004,9 +1010,13 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-xs-4 control-label red">Next BP</label>
+                            <label class="col-xs-4 control-label">Enchantress</label>
                             <div class="col-xs-8">
-                                <input data-bind="value: NextBreakPoint" type="text" class="form-control input-sm text-center readonly" readonly rel="txtTooltip" title="AS needed for next BP" data-toggle="tooltip" data-placement="bottom">
+                                <div class="checkbox">
+                                    <label >
+                                        <input data-bind="checked: Enchantress" class="check" style="margin-left: 52px;" type="checkbox">&nbsp;
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </form>

@@ -16,6 +16,7 @@ function Gear(data) {
     self.Ring1         = ko.observable(0, { persist: 'AS-Ring1' });
     self.Ring2         = ko.observable(0, { persist: 'AS-Ring2' });
     self.Paragon       = ko.observable(0, { persist: 'AS-Paragon' });
+    self.Enchantress   = ko.observable(false, { persist: 'AS-Enchantress' });
     
     self.Weapons = ko.observableArray([
         new Weapon (1, "Crossbow", 1.1),
@@ -45,7 +46,9 @@ function Gear(data) {
     }, this);
 
     self.TotalIAS = ko.computed(function () {
-        return parseFloat(self.Amulet()) + parseFloat(self.Gloves()) + parseFloat(self.Bracers()) + parseFloat(self.Quiver()) + parseFloat(self.Belt()) + parseFloat(self.Ring1()) + parseFloat(self.Ring2()) + (parseFloat(self.Paragon()) / 5);
+        var r = 0;
+        if (self.Enchantress() === true) { r = 3; }
+        return parseFloat(self.Amulet()) + parseFloat(self.Gloves()) + parseFloat(self.Bracers()) + parseFloat(self.Quiver()) + parseFloat(self.Belt()) + parseFloat(self.Ring1()) + parseFloat(self.Ring2()) + (parseFloat(self.Paragon()) / 5) + r;
     }, this);
 
 
