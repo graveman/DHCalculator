@@ -13,6 +13,7 @@ function Gear(data) {
     self.Bracers       = ko.observable(0, { persist: 'AS-Bracers' });
     self.Quiver        = ko.observable(0, { persist: 'AS-Quiver' });
     self.Belt          = ko.observable(0, { persist: 'AS-Belt' });
+    self.Pants         = ko.observable(0, { persist: 'AS-Pants' });
     self.Ring1         = ko.observable(0, { persist: 'AS-Ring1' });
     self.Ring2         = ko.observable(0, { persist: 'AS-Ring2' });
     self.Paragon       = ko.observable(0, { persist: 'AS-Paragon' });
@@ -48,7 +49,7 @@ function Gear(data) {
     self.TotalIAS = ko.computed(function () {
         var r = 0;
         if (self.Enchantress() === true) { r = 3; }
-        return parseFloat(self.Amulet()) + parseFloat(self.Gloves()) + parseFloat(self.Bracers()) + parseFloat(self.Quiver()) + parseFloat(self.Belt()) + parseFloat(self.Ring1()) + parseFloat(self.Ring2()) + (parseFloat(self.Paragon()) / 5) + r;
+        return parseFloat(self.Amulet()) + parseFloat(self.Gloves()) + parseFloat(self.Bracers()) + parseFloat(self.Quiver()) + parseFloat(self.Belt()) + parseFloat(self.Ring1()) + parseFloat(self.Ring2()) + (parseFloat(self.Paragon()) / 5) + r + parseFloat(self.Pants());
     }, this);
 
 
